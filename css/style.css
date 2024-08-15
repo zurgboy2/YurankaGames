@@ -94,9 +94,13 @@ header {
   display: block;
 }
 
-.sidebar-toggle {
+.sidebar, .sidebar-toggle {
   display: none;
 }
+.main-nav {
+  display: block;
+}
+
 
 /* Mobile styles */
 @media (max-width: 768px) {
@@ -156,4 +160,5 @@ header {
   .sidebar .dropdown-content a {
     padding-left: 2rem;
   }
+
 }
