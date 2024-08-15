@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Get the base URL of the current page
-    const baseUrl = document.location.href.split('/').slice(0, -1).join('/');
-    
-    fetch(`${baseUrl}/components/header.html`)
+    const path = window.location.pathname;
+    const isEventPage = path.includes('/event/');
+    const headerPath = isEventPage ? '../components/header.html' : 'components/header.html';
+
+    fetch(headerPath)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
