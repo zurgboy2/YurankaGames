@@ -1,98 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Header</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Additional styles for proper visibility */
-        @media (min-width: 769px) {
-            .sidebar, .sidebar-toggle {
-                display: none;
-            }
-            .main-nav {
-                display: block;
-            }
-        }
-        @media (max-width: 768px) {
-            .main-nav {
-                display: none;
-            }
-            .sidebar-toggle {
-                display: block;
-            }
-            .sidebar {
-                display: block;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container header-content">
-            <button class="sidebar-toggle" id="sidebarToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="logo-container">
-                <div class="logo">
-                    <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
-                </div>
-                <span class="logo-text">YURANKA GAMES</span>
-            </div>
-            <nav class="main-nav" id="mainNav">
-                <ul>
-                    <li><a href="/YurankaGames/home.html">Home</a></li>
-                    <li><a href="/YurankaGames/about.html">About</a></li>
-                    <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropbtn">Events</a>
-                        <div class="dropdown-content">
-                            <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
-                            <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
-                        </div>
-                    </li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+<div class="header-content">
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="logo-container">
+        <div class="logo">
+            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
         </div>
-    </header>
-
-    <div class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="/YurankaGames/home.html">Home</a></li>
-                <li><a href="/YurankaGames/about.html">About</a></li>
-                <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Events</a>
-                    <div class="dropdown-content">
-                        <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
-                        <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
-                    </div>
-                </li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <span class="logo-text">YURANKA GAMES</span>
     </div>
+    <nav class="main-nav" id="mainNav">
+        <ul>
+            <li><a href="/YurankaGames/home.html">Home</a></li>
+            <li><a href="/YurankaGames/about.html">About</a></li>
+            <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Events</a>
+                <div class="dropdown-content">
+                    <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
+                    <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
+                </div>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-            });
-
-            // Close sidebar when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
-                    sidebar.classList.remove('open');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+<div class="sidebar" id="sidebar">
+    <nav class="sidebar-nav">
+        <ul>
+            <li><a href="/YurankaGames/home.html">Home</a></li>
+            <li><a href="/YurankaGames/about.html">About</a></li>
+            <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Events</a>
+                <div class="dropdown-content">
+                    <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
+                    <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
+                </div>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+</div>
