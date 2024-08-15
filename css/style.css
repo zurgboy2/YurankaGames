@@ -138,6 +138,7 @@ header {
 
   .sidebar.open {
     right: 0;
+    display: block;
   }
 
   .sidebar .main-nav {
