@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuranka Games: Event Registration</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/loadHeader.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(26, 26, 26, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            background-color: #2a2a2a;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #4a4a4a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #5a5a5a;
+        }
+
+        .reader-info {
+            background-color: #333;
+            color: #fff;
+            font-size: 0.875rem;
+            line-height: 1.2;
+            height: 20vh;
+            overflow-y: auto;
+            margin: 5% 0;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+
+        .additional-info {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-message {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .video-sidebar {
+            width: 300px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="main-content">
+            <div id="header-placeholder"></div>
+            
+            <div class="container">
+                <h2>Tournament Registration</h2>
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="nameInput">Name</label>
+                        <input type="text" id="nameInput" placeholder="Enter name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailInput">Email address</label>
+                        <input type="email" id="emailInput" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tournamentSelect">Select Tournament</label>
+                        <select id="tournamentSelect" required onchange="handleTournamentChange(this)">
+                        </select>
+                    </div>
+                    <div id="message" class="reader-info"></div>
+                    <button type="submit" class="btn-primary">Register</button>
+                </form>
+            </div>
+            
+            <div class="additional-info">
+                <p>Your personal information is collected solely for the purpose of tournament organization and communication. All data will be securely stored and deleted within 30 days after the tournament's conclusion.</p>
+                <p>For your convenience, secure online payment options are available. Follow the provided checkout link to pay by card, or choose to pay in person at our store by cash.</p>
+                <p><strong>Ticket Purchase Policy:</strong> Tickets are non-refundable. If you cannot attend the registered tournament, your ticket will be valid for the next event in the series. Should you miss all events, collect your boosters the following business day at our store.</p>
+            </div>
+        </div>
+        
+        <aside class="video-sidebar">
+            <div class="video-container">
+                <video autoplay muted loop playsinline>
+                    <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </aside>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display:none;">
+        <div class="loading-message">Please wait...</div>
+    </div>
+
+    <script>
+        function handleTournamentChange(selectElement) {
+          changeBackground(selectElement);
+          updateMessage(selectElement);
+        }
+      
+        function changeBackground(selectElement) {
+          const url = selectElement.options[selectElement.selectedIndex].dataset.posterUrl;
+          document.body.style.backgroundImage = `url('${url}')`;
+        }
+      
+        function updateMessage(selectElement) {
+          const messageDiv = document.getElementById('message');
+          const selectedOption = selectElement.options[selectElement.selectedIndex];
+          const readerInfo = selectedOption.dataset.readerInfo;
+          
+          // Set dark grey background color
+          messageDiv.style.backgroundColor = '#333'; // Dark grey background
+          messageDiv.style.color = '#fff'; // White text color for better contrast
+          messageDiv.style.fontSize = '0.875rem'; // Reduced font size
+          messageDiv.style.lineHeight = '1.2'; // Reduced line height
+          messageDiv.style.height = '20vh'; // Set height to 20% of the viewport height
+          messageDiv.style.overflowY = 'auto'; // Enable vertical scrolling for overflow content
+          messageDiv.style.margin = '5% 0';
+      
+          // Convert text into HTML paragraphs
+          if (readerInfo) {
+            const paragraphs = readerInfo.split('\n').map(line => `<p>${line.trim()}</p>`).join('');
+            messageDiv.innerHTML = paragraphs;
+          } else {
+            messageDiv.innerHTML = '';
+          }
+        }
+      
+        function loadStylesheet(cssContent) {
+          var style = document.createElement('style');
+          style.type = 'text/css';
+          style.innerHTML = cssContent;
+          document.head.appendChild(style);
+          document.documentElement.classList.add('loaded'); // Add class to overwrite initial styles
+        }
+      
+        function loadAppropriateStylesheet() {
+          fetch('https://ancient-journey-71811-3440b372ab80.herokuapp.com/proxy?action=getCssContent', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(cssContents => {
+            const width = window.innerWidth;
+            if (width >= 769) {
+              loadStylesheet(cssContents.desktop);
+            } else if (width >= 481) {
+              loadStylesheet(cssContents.tablet);
+            } else {
+              loadStylesheet(cssContents.mobile);
+            }
+            document.getElementById('initialLoadingScreen').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+            document.querySelector('.additional-info').style.display = 'block';
+          });
+        }
+      
+        function loadTournaments() {
+          fetch('https://ancient-journey-71811-3440b372ab80.herokuapp.com/proxy?action=getActiveTournaments', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => response.json())
+          .then(tournaments => {
+            const tournamentSelect = document.getElementById('tournamentSelect');
+            
+            // Add the default "Pick a tournament" option
+            const defaultOption = new Option("Pick a tournament", "");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            tournamentSelect.add(defaultOption);
+      
+            // Add the actual tournament options
+            tournaments.forEach(tournament => {
+              const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
+              option.dataset.posterUrl = tournament.posterUrl; // Assuming each tournament has a poster URL
+              option.dataset.readerInfo = tournament.readerInfo;
+              tournamentSelect.add(option);
+            });
+            
+            document.getElementById('loadingOverlay').style.display = 'none'; // Hide the overlay
+          });
+        }
+      
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Retrieve form data
+          var name = document.getElementById('nameInput').value;
+          var email = document.getElementById('emailInput').value;
+          var tournamentSelect = document.getElementById('tournamentSelect');
+          var eventId = tournamentSelect.options[tournamentSelect.selectedIndex].value;
+          var selectedOption = tournamentSelect.options[tournamentSelect.selectedIndex];
+          var posterUrl = selectedOption.getAttribute("data-poster-url");
+          var loadingOverlay = document.getElementById('loadingOverlay');
+          loadingOverlay.style.display = 'flex'; // Show the overlay
+      
+          fetch('https://ancient-journey-71811-3440b372ab80.herokuapp.com/proxy', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              eventId: eventId,
+              name: name,
+              email: email
+            })
+          })
+          .then(response => response.json())
+          .then(result => {
+            const checkoutUrl = result.checkoutUrl;
+            const organizerMessage = result.message.replace(/\n/g, '<br>');
+            loadingOverlay.style.display = 'none';
+      
+            const confirmationMessage = checkoutUrl ? 
+              'Your registration is confirmed. Please proceed to checkout. If you cannot pay via PayPal, you can pay at the store. Please note that your place is only confirmed once payment is received.' : 
+              'Your registration is confirmed and no payment is required. Enjoy the event!';
+      
+            const checkoutButton = checkoutUrl ? 
+              `<a href="${checkoutUrl}" class="btn btn-primary" style="margin-bottom: 20px; display: block;" target="_blank">Proceed to Checkout</a>` : 
+              '';
+      
+            const popup = document.createElement('div');
+            popup.id = 'confirmationPopup';
+            popup.innerHTML = `
+              <div style="background-color: #121212; padding: 20px; border-radius: 10px; color: #fff; text-align: center; max-width: 80%; margin: 20px auto; max-height: 40vh; overflow-y: auto;">
+                <h2>Registration Confirmed</h2>
+                <p style="margin-bottom: 20px;">${confirmationMessage}</p>
+                <div style="background-color: #2c2c2c; padding: 10px; text-align: left; border-radius: 5px; margin-bottom: 20px;">
+                  <strong>Message from the organizer:</strong><br>${organizerMessage}
+                </div>
+                ${checkoutButton}
+                <button onclick="document.getElementById('confirmationPopup').remove()" class="btn btn-primary" style="margin-top: 10px;">Close</button>
+              </div>
+            `;
+            popup.style.position = 'fixed';
+            popup.style.left = '50%';
+            popup.style.top = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.zIndex = '1000'; // Ensure it's above other content
+            
+            // Add responsive styles
+            const style = document.createElement('style');
+            style.innerHTML = `
+              #confirmationPopup div {
+                max-width: 90%;
+                padding: 10px;
+              }
+              @media (min-width: 768px) {
+                #confirmationPopup div {
+                  max-width: 60%;
+                  padding: 20px;
+                }
+              }
+              @media (min-width: 1024px) {
+                #confirmationPopup div {
+                  max-width: 40%;
+                  padding: 20px;
+                }
+              }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(popup);
+      
+          })
+          .catch(error => {
+            console.error("Error processing registration: " + error);
+            loadingOverlay.style.display = 'none'; // Optionally, hide overlay on error
+          });
+        });
+      
+        function initialize() {
+          document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
+          loadAppropriateStylesheet();
+          loadTournaments();
+        }
+      
+        window.onload = initialize;
+      </script>
+</body>
+</html>

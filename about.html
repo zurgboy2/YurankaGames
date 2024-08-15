@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuranka Games: About Us</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/loadHeader.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <style>
+
+        .about-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #ecf0f1;
+        }
+        .custom-font {
+            font-family: 'Architects Daughter', cursive;
+        }
+        .policies-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .policy-item {
+            margin-bottom: 10px;
+        }
+        .policy-header {
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .policy-header:hover {
+            background-color: #2c3e50;
+        }
+        .policy-content {
+            display: none;
+            padding: 10px;
+            border: 1px solid #34495e;
+            border-radius: 0 0 5px 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="about-section"  style =color:white;>
+        <h1>About Yuranka Games</h1>
+        
+        <section id="store-description" style =color:white;>
+            <h2>Our Store</h2>
+            <p class="custom-font">Yuranka Games is more than just a store; it's a passion project born from our love for Trading Card Games (TCGs) and a deep-rooted nostalgia for the days when children had "third places" to engage in non-sports related activities. What began as a haven for TCG enthusiasts has blossomed into a diverse gaming paradise. Today, we proudly offer a wide array of entertainment options, including board games, video games, and tabletop gaming, along with exciting events for all ages. At Yuranka Games, we're not just selling games; we're cultivating a community and keeping the spirit of play alive for generations to come.</p>
+        </section>
+
+        <section id="vision" style =color:white;>
+                <h2>Our Vision</h2>
+                <p class="custom-font">At Yuranka Games, we envision a future where gaming brings people together, fostering connections and creating lasting memories. We see ourselves as pioneers in the Latvian gaming landscape, expanding beyond our current location to bring the joy of TCGs and other gaming experiences to communities across multiple counties. Our vision is to establish Yuranka Games as the premier destination for gaming enthusiasts of all kinds, creating a network of welcoming spaces where passion for games is celebrated and new friendships are forged.</p>
+        </section>
+
+        <section id="mission" style =color:white;>
+            <h2>Our Mission</h2>
+            <p class="custom-font">Our mission at Yuranka Games is threefold:</p>
+            <ol>
+                <li class="custom-font">To provide a diverse and inclusive gaming environment that caters to enthusiasts of all ages and interests, from TCG aficionados to board game lovers and video game players.</li>
+                <li class="custom-font">To expand our reach across Latvia, bringing the excitement of TCGs and other gaming experiences to new communities and helping to establish gaming as a mainstream hobby.</li>
+                <li class="custom-font">To foster a sense of community and belonging, creating a "third place" where people can come together, share their passions, and create lasting memories through the power of play.</li>
+            </ol>
+        </section>
+
+        <section id="policies">
+            <h2  style =color:white;>Our Policies</h2>
+            <ul class="policies-list">
+                <li class="policy-item">
+                    <div class="policy-header">Return Policy</div>
+                    <div class="policy-content">[Place your return policy here]</div>
+                </li>
+                <li class="policy-item">
+                    <div class="policy-header">Shipping Policy</div>
+                    <div class="policy-content">[Place your shipping policy here]</div>
+                </li>
+                <li class="policy-item">
+                    <div class="policy-header">Privacy Policy</div>
+                    <div class="policy-content">[Place your privacy policy here]</div>
+                </li>
+                <!-- Add more policy items as needed -->
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const policyHeaders = document.querySelectorAll('.policy-header');
+            policyHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

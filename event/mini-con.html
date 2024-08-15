@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuranka Games - Mini-Cons</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/loadHeader.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Orbitron', sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y:auto;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+        }
+
+        .bigLogo {
+            max-width: 80%;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .main-title {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .tab-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 40%;
+        }
+
+        .tab {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .tab:hover {
+            transform: scale(1.1);
+        }
+
+        .tab-logo {
+            max-width: 80px;
+            margin-top: 10px;
+        }
+
+
+        .content-page-wrapper {
+            position: fixed;
+            top: 0;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            transition: left 0.5s ease;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .content-page {
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            padding: 60px 20px 40px;
+            box-sizing: border-box;
+            align-items: center;
+        }
+
+
+        .content-page-wrapper.active {
+            left: 0;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(128, 128, 128, 0.5);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .back-btn::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            border-left: 2px solid white;
+            border-bottom: 2px solid white;
+            transform: rotate(45deg);
+            margin-left: 5px;
+        }
+
+        .main-back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: rgba(128, 128, 128, 0.5);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .event-bubble {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .event-bubble h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+        }
+
+        .event-bubble p {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+        .sponsor-spaces {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .sponsor-space {
+            background-color: rgba(128, 128, 128, 0.3); /* Greyish background */
+            border: 2px dashed rgba(255, 255, 255, 0.5); /* Dashed white border */
+            border-radius: 10px;
+            padding: 20px;
+            width: 200px; /* Fixed width */
+            height: 100px; /* Fixed height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .sponsor-space p {
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0;
+        }
+        .schedule-bubble {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: left;
+            max-width: 80%;
+            margin: 20px auto;
+        }
+
+        .schedule-bubble h3 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .schedule-bubble ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .schedule-bubble li {
+            margin-bottom: 10px;
+        }
+
+        .schedule-bubble p {
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        .main-events {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+
+        .event-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            width: calc(33.33% - 20px);
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ccc;
+            margin-bottom: 10px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .side-events-carousel {
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .carousel-container {
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            display: none;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .prev { left: -20px; }
+        .next { right: -20px; }
+        /* Placeholder backgrounds for event images */
+        #treasure-hunt-img { background-image: url('https://ik.imagekit.io/mcgszbooe/devil%20fruit%20hunt.jpg?updatedAt=1723581581103'); }
+        #trivia-img { background-image: url('https://ik.imagekit.io/mcgszbooe/trivia%20one%20piece.jpg?updatedAt=1723581580997'); }
+        #cosplay-img { background-image: url('path_to_cosplay_image.jpg'); }
+        #artist-alley-img { background-image: url('path_to_artist_alley_image.jpg'); }
+        #photo-booth-img { background-image: url('path_to_photo_booth_image.jpg'); }
+        #video-games-img { background-image: url('path_to_video_games_image.jpg'); }
+        #tcg-img { background-image: url('path_to_tcg_image.jpg'); }
+        #crafting-img { background-image: url('path_to_crafting_image.jpg'); }
+        @media (min-width: 768px) {
+            .container {
+                padding: 40px;
+            }
+
+            .bigLogo {
+                max-width: 300px;
+            }
+
+            .subtitle {
+                font-size: 1.8em;
+            }
+
+            .main-title {
+                font-size: 4em;
+            }
+
+            .tab-container {
+                width: auto;
+            }
+
+            .tab {
+                width: 100px;
+                height: 100px;
+            }
+
+            .tab-logo {
+                max-width: 100px;
+            }
+
+            .back-btn {
+                width: 50px;
+                height: 50px;
+            }
+
+            .back-btn::before {
+                width: 15px;
+                height: 15px;
+            }
+            .event-bubble {
+                padding: 30px;
+            }
+
+            .event-bubble h2 {
+                font-size: 2em;
+            }
+
+            .event-bubble p {
+                font-size: 1.5em;
+            }
+            .sponsor-spaces {
+                margin-top: 50px;
+            }
+
+            .sponsor-space {
+                height: 150px;
+            }
+
+            .sponsor-space p {
+                font-size: 1em;
+            }
+            .schedule-bubble {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="header-placeholder"></div>
+        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="bigLogo">
+        <h2 class="subtitle">Yuranka Games proudly presents:</h2>
+        <h1 class="main-title">Mini-Cons</h1>
+        <div class="tabs">
+            <div class="tab-container">
+                <div class="tab" data-tab="1" data-name="One Piece" style="background-image: url('https://ik.imagekit.io/mcgszbooe/OnePIece.jpg?updatedAt=1723494235003');"></div>
+                <img src="https://ik.imagekit.io/mcgszbooe/one-piece-logo-67.png?updatedAt=1723494804613" alt="One Piece Logo" class="tab-logo">
+            </div>
+            <div class="tab-container">
+                <div class="tab" data-tab="2" data-name="Genshin" style="background-image: url('https://ik.imagekit.io/mcgszbooe/genshin-honkai-logo.png');"></div>
+                <img src="https://ik.imagekit.io/mcgszbooe/Genshin%20Impact%20Logo%20PNG%20-%201500x1500.png?updatedAt=1723539150184" alt="Genshin Logo" class="tab-logo">
+            </div>
+            <div class="tab-container">
+                <div class="tab" data-tab="3" data-name="Star Wars" style="background-image: url('https://ik.imagekit.io/mcgszbooe/star-wars-logo.png');"></div>
+                <img src="https://ik.imagekit.io/mcgszbooe/star-wars-logo-975.png?updatedAt=1723538862880" alt="Star Wars Logo" class="tab-logo">
+            </div>
+            <div class="tab-container">
+                <div class="tab" data-tab="4" data-name="Disney" style="background-image: url('https://ik.imagekit.io/mcgszbooe/disney-logo.png');"></div>
+                <img src="https://ik.imagekit.io/mcgszbooe/Disney.png?updatedAt=1723539119358" alt="Disney Logo" class="tab-logo">
+            </div>
+        </div>
+    </div>
+    <div class = "content-page-wrapper">
+    <div class="content-page">
+        <button class="back-btn"></button>
+    </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab');
+            const contentPage = document.querySelector('.content-page');
+            const contentPageWrapper = document.querySelector('.content-page-wrapper');
+            const backBtn = document.querySelector('.back-btn');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.body.style.overflowY = 'hidden';
+                    contentPageWrapper.classList.add('active');
+                    const tabName = tab.dataset.name;
+
+                    if (tabName === "One Piece") {
+                        contentPageWrapper.style.backgroundImage = "url('https://ik.imagekit.io/mcgszbooe/OnePIece.jpg?updatedAt=1723494235003')";
+                        contentPage.innerHTML = `
+                            <button class="back-btn"></button>
+                            <div class="event-bubble">
+                                <h2>One Piece Mini Con</h2>
+                                <p>September 7th</p>
+                                <p>More information coming up!</p>
+                            </div>
+                            <div class="main-events">
+                                <div class="event-card">
+                                    <div class="event-image" id="treasure-hunt-img"></div>
+                                    <h3>11:00 AM</h3>
+                                    <p>Find the Devil Fruit Treasure Hunt</p>
+                                </div>
+                                <div class="event-card">
+                                    <div class="event-image" id="trivia-img"></div>
+                                    <h3>3:00 PM</h3>
+                                    <p>Trivia Time</p>
+                                </div>
+                                <div class="event-card">
+                                    <div class="event-image" id="cosplay-img"></div>
+                                    <h3>6:00 PM</h3>
+                                    <p>Cosplay Competition</p>
+                                </div>
+                            </div>
+                            <div class="side-events-carousel">
+                                <h3>All Day Events</h3>
+                                <div class="carousel-container">
+                                    <div class="carousel-slide">
+                                        <div class="event-image" id="artist-alley-img"></div>
+                                        <p>Artist Alley</p>
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <div class="event-image" id="photo-booth-img"></div>
+                                        <p>Photo Booth</p>
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <div class="event-image" id="video-games-img"></div>
+                                        <p>Video Games</p>
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <div class="event-image" id="tcg-img"></div>
+                                        <p>Trading Card Games</p>
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <div class="event-image" id="crafting-img"></div>
+                                        <p>Crafting Table</p>
+                                    </div>
+                                </div>
+                                <button class="carousel-btn prev">&#10094;</button>
+                                <button class="carousel-btn next">&#10095;</button>
+                            </div>
+                            <div class="sponsor-spaces">
+                                <div class="sponsor-space">
+                                    <p>Space for Future Sponsors/Partners</p>
+                                </div>
+                                <div class="sponsor-space">
+                                    <p>Space for Future Sponsors/Partners</p>
+                                </div>
+                            </div>
+                        `;
+
+                        // Carousel functionality
+                        let currentSlide = 0;
+                        const slides = document.querySelectorAll('.carousel-slide');
+                        const prevBtn = document.querySelector('.prev');
+                        const nextBtn = document.querySelector('.next');
+
+                        function showSlide(n) {
+                            slides[currentSlide].style.display = 'none';
+                            currentSlide = (n + slides.length) % slides.length;
+                            slides[currentSlide].style.display = 'block';
+                        }
+
+                        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+                        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+
+                        // Initialize carousel
+                        showSlide(0);
+                    } else if (tabName === "Genshin") {
+                        contentPage.style.backgroundImage = "none";
+                        contentPage.style.backgroundColor = "black";
+                        contentPage.innerHTML = `
+                            <button class="back-btn"></button>
+                            <div class="event-bubble">
+                                <h2>Genshin & Honkai Mini Con</h2>
+                                <p>September 30th</p>
+                                <p>Coming Soon!</p>
+                            </div>
+                        `;
+                    } else if (tabName === "Star Wars") {
+                        contentPage.style.backgroundImage = "none";
+                        contentPage.style.backgroundColor = "black";
+                        contentPage.innerHTML = `
+                            <button class="back-btn"></button>
+                            <div class="event-bubble">
+                                <h2>Star Wars Mini Con</h2>
+                                <p>October 31st</p>
+                                <p>Coming Soon!</p>
+                            </div>
+                        `;
+                    } else if (tabName === "Disney") {
+                        contentPage.style.backgroundImage = "none";
+                        contentPage.style.backgroundColor = "black";
+                        contentPage.innerHTML = `
+                            <button class="back-btn"></button>
+                            <div class="event-bubble">
+                                <h2>Disney Mini Con</h2>
+                                <p>November 30th</p>
+                                <p>Coming Soon!</p>
+                            </div>
+                        `;
+                    }
+
+                    const newBackBtn = contentPage.querySelector('.back-btn');
+                    newBackBtn.addEventListener('click', () => {
+                        contentPageWrapper.classList.remove('active');
+                        document.body.style.overflowY = 'auto';
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

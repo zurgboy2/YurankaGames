@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuranka Games</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/loadHeader.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: black;
+            line-height: 1.6;
+        }
+
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        header {
+            background-color: black;
+            color: white;
+            padding: 0.5rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .main-nav {
+            z-index: 10; /* Ensure the navigation is above other elements */
+        }
+
+        .main-nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 1;
+        }
+
+        .video-sidebar {
+            width: 300px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero {
+            position: relative;
+            background-color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-title {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .hero-text {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .background-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .title {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .description {
+            font-size: 0.9rem;
+        }
+
+        .nav-section {
+            background-color: black;
+            padding: 2rem 0;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .nav-item {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .nav-item-content {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .nav-item h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="main-content">
+            <div id="header-placeholder"></div>
+            <main>
+                <section class="hero">
+                    <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="background-logo">
+                    <div class="container hero-content">
+                        <div class="hero-title">
+                            <h1 class="title">Yuranka Games</h1>
+                        </div>
+                        <div class="hero-text">
+                            <h2 class="subtitle">Discover Yuranka Games</h2>
+                            <div class="description">
+                                <p>Your Ultimate Gaming Destination in Riga, Latvia! As the Official Tournament Store for Flesh and Blood, Digimon, and One Piece, we're your go-to spot for thrilling competitive events.</p>
+                                <p>Dive into endless adventure with our diverse range of tabletop games, including Dungeons and Dragons and Warhammer.</p>
+                                <p>Explore our treasure trove of rentable board games and video games, featuring cherished retro classics.</p>
+                                <p><strong>Join us and become part of our vibrant gaming community!</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="nav-section">
+                    <div class="container">
+                        <div class="nav-grid">
+                            <div class="nav-item">
+                                <a href="tournament/tournament-registration.html">
+                                    <img src="https://ik.imagekit.io/mcgszbooe/Yu-Gi-Oh_Streets_of_Battle_City_Speed_Duel_Beginner-Friendly_Tournament__20_07__2FKTD9_Rd?updatedAt=1720883480704" alt="Tournament">
+                                    <div class="nav-item-content">
+                                        <h3>Tournament</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#reservations">
+                                    <img src="https://ik.imagekit.io/mcgszbooe/Yuranka%20Stock/WhatsApp%20Image%202024-06-05%20at%2000.07.27_d2a4e763.jpg?updatedAt=1717698634030" alt="Reservations">
+                                    <div class="nav-item-content">
+                                        <h3>Table Reservations</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#on-demand-orders">
+                                    <img src="https://ik.imagekit.io/mcgszbooe/On_Demand.png?updatedAt=1717326082687" alt="On-Demand Orders">
+                                    <div class="nav-item-content">
+                                        <h3>On-Demand Orders</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#video-games">
+                                    <img src="https://ik.imagekit.io/mcgszbooe/VideoGames.jpg?updatedAt=1717326083983" alt="Video Games">
+                                    <div class="nav-item-content">
+                                        <h3>Video Games</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#board-games">
+                                    <img src="https://ik.imagekit.io/mcgszbooe/BoardGames.jpg?updatedAt=1717326076450" alt="Board Games">
+                                    <div class="nav-item-content">
+                                        <h3>Board Games</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a href="#store">
+                                    <img src="/api/placeholder/300/150" alt="Store">
+                                    <div class="nav-item-content">
+                                        <h3>Store</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <aside class="video-sidebar">
+            <div class="video-container">
+                <video autoplay muted loop playsinline>
+                    <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </aside>
+    </div>
+    <script>
+        // You can add JavaScript here if needed
+    </script>
+    <script src="js/dropdown.js"></script>
+</body>
+</html>
