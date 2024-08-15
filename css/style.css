@@ -125,6 +125,7 @@ header {
   }
 
   .sidebar {
+    display: block;
     position: fixed;
     top: 0;
     right: 100%;
@@ -138,7 +139,6 @@ header {
 
   .sidebar.open {
     right: 0;
-    display: block;
   }
 
   .sidebar .main-nav {
