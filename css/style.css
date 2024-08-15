@@ -125,7 +125,7 @@ header {
   .sidebar {
     position: fixed;
     top: 0;
-    left: 100%;
+    right: 100%;
     width: var(--sidebar-width);
     height: 100vh;
     background-color: var(--secondary-bg);
@@ -135,7 +135,7 @@ header {
   }
 
   .sidebar.open {
-    left: 0;
+    right: 0;
   }
 
   .sidebar .main-nav {
