@@ -6,6 +6,28 @@
     <title>Responsive Header</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for proper visibility */
+        @media (min-width: 769px) {
+            .sidebar, .sidebar-toggle {
+                display: none;
+            }
+            .main-nav {
+                display: block;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            .sidebar-toggle {
+                display: block;
+            }
+            .sidebar {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
