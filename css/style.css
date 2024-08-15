@@ -30,13 +30,15 @@ body {
 
 header {
   background-color: var(--primary-bg);
-  padding: 3rem 0;
+  padding: 3rem 2rem; /* Increased top/bottom padding, added left/right padding */
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1200px; /* Optional: limits the width of the content */
+  margin: 0 auto; /* Optional: centers the content if max-width is used */
 }
 
 .logo-container {
@@ -46,13 +48,13 @@ header {
 }
 
 .logo img {
-  width: 40px;
-  height: 40px;
+  width: 60px; /* Increased from 40px */
+  height: 60px; /* Increased from 40px */
   object-fit: contain;
 }
 
 .logo-text {
-  font-size: 1.2rem;
+  font-size: 1.5rem; /* Increased from 1.2rem */
   font-weight: 700;
 }
 
