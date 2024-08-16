@@ -231,6 +231,42 @@
     </div>
 
     <script>
+        const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+        async function getProxyToken(action) {
+            const requestBody = { script_id: 'boardgames_script', action };
+            const response = await fetch(`${API_URL}/get_token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+            }
+            const data = await response.json();
+            if (data.token) return data.token;
+            throw new Error('Failed to get token: ' + JSON.stringify(data));
+        }
+        
+        async function makeRequest(action, additionalData = {}) {
+            try {
+                const token = await getProxyToken(action);
+                const requestBody = { token, action, script_id: 'boardgames_script', ...additionalData };
+                const response = await fetch(`${API_URL}/proxy`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                return response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', (event) => {
 
             // Dropdown functionality
@@ -301,101 +337,80 @@
         }
       
         function loadStylesheet(cssContent) {
-          var style = document.createElement('style');
-          style.type = 'text/css';
-          style.innerHTML = cssContent;
-          document.head.appendChild(style);
-          document.documentElement.classList.add('loaded'); // Add class to overwrite initial styles
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = cssContent;
+            document.head.appendChild(style);
+            document.documentElement.classList.add('loaded');
+        }
+        
+        async function loadAppropriateStylesheet() {
+            try {
+                const cssContents = await makeRequest('getCssContent');
+                const width = window.innerWidth;
+                if (width >= 769) {
+                    loadStylesheet(cssContents.desktop);
+                } else if (width >= 481) {
+                    loadStylesheet(cssContents.tablet);
+                } else {
+                    loadStylesheet(cssContents.mobile);
+                }
+                document.getElementById('initialLoadingScreen').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                document.querySelector('.additional-info').style.display = 'block';
+            } catch (error) {
+                console.error("Error loading stylesheet:", error);
+            }
+        }
+        
+        async function loadTournaments() {
+            try {
+                const tournaments = await makeRequest('getActiveTournaments');
+                const tournamentSelect = document.getElementById('tournamentSelect');
+                
+                // Add the default "Pick a tournament" option
+                const defaultOption = new Option("Pick a tournament", "");
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                tournamentSelect.add(defaultOption);
+        
+                // Add the actual tournament options
+                tournaments.forEach(tournament => {
+                    const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
+                    option.dataset.posterUrl = tournament.posterUrl;
+                    option.dataset.readerInfo = tournament.readerInfo;
+                    tournamentSelect.add(option);
+                });
+                
+                document.getElementById('loadingOverlay').style.display = 'none';
+            } catch (error) {
+                console.error("Error loading tournaments:", error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }
         }
       
-        function loadAppropriateStylesheet() {
-          fetch('https://ancient-journey-71811-3440b372ab80.herokuapp.com/proxy?action=getCssContent', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-          .then(response => response.json())
-          .then(cssContents => {
-            const width = window.innerWidth;
-            if (width >= 769) {
-              loadStylesheet(cssContents.desktop);
-            } else if (width >= 481) {
-              loadStylesheet(cssContents.tablet);
-            } else {
-              loadStylesheet(cssContents.mobile);
-            }
-            document.getElementById('initialLoadingScreen').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
-            document.querySelector('.additional-info').style.display = 'block';
-          });
-        }
-      
-        function loadTournaments() {
-          fetch('https://ancient-journey-71811-3440b372ab80.herokuapp.com/proxy?action=getActiveTournaments', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-          .then(response => response.json())
-          .then(tournaments => {
-            const tournamentSelect = document.getElementById('tournamentSelect');
-            
-            // Add the default "Pick a tournament" option
-            const defaultOption = new Option("Pick a tournament", "");
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            tournamentSelect.add(defaultOption);
-      
-            // Add the actual tournament options
-            tournaments.forEach(tournament => {
-              const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
-              option.dataset.posterUrl = tournament.posterUrl; // Assuming each tournament has a poster URL
-              option.dataset.readerInfo = tournament.readerInfo;
-              tournamentSelect.add(option);
-            });
-            
-            document.getElementById('loadingOverlay').style.display = 'none'; // Hide the overlay
-          });
-        }
-      
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-          e.preventDefault();
-          // Retrieve form data
-          var name = document.getElementById('nameInput').value;
-          var email = document.getElementById('emailInput').value;
-          var tournamentSelect = document.getElementById('tournamentSelect');
-          var eventId = tournamentSelect.options[tournamentSelect.selectedIndex].value;
-          var selectedOption = tournamentSelect.options[tournamentSelect.selectedIndex];
-          var posterUrl = selectedOption.getAttribute("data-poster-url");
-          var loadingOverlay = document.getElementById('loadingOverlay');
-          loadingOverlay.style.display = 'flex'; // Show the overlay
-      
-          fetch('https://ancient-journey-71811-3440b372ab80.herokuapp.com/proxy', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              eventId: eventId,
-              name: name,
-              email: email
-            })
-          })
-          .then(response => response.json())
-          .then(result => {
+    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var name = document.getElementById('nameInput').value;
+        var email = document.getElementById('emailInput').value;
+        var tournamentSelect = document.getElementById('tournamentSelect');
+        var eventId = tournamentSelect.options[tournamentSelect.selectedIndex].value;
+        var loadingOverlay = document.getElementById('loadingOverlay');
+        loadingOverlay.style.display = 'flex';
+    
+        try {
+            const result = await makeRequest('registerForEvent', { eventId, name, email });
             const checkoutUrl = result.checkoutUrl;
             const organizerMessage = result.message.replace(/\n/g, '<br>');
             loadingOverlay.style.display = 'none';
-      
+    
             const confirmationMessage = checkoutUrl ? 
-              'Your registration is confirmed. Please proceed to checkout. If you cannot pay via PayPal, you can pay at the store. Please note that your place is only confirmed once payment is received.' : 
-              'Your registration is confirmed and no payment is required. Enjoy the event!';
-      
+                'Your registration is confirmed. Please proceed to checkout. If you cannot pay via PayPal, you can pay at the store. Please note that your place is only confirmed once payment is received.' : 
+                'Your registration is confirmed and no payment is required. Enjoy the event!';
+    
             const checkoutButton = checkoutUrl ? 
-              `<a href="${checkoutUrl}" class="btn btn-primary" style="margin-bottom: 20px; display: block;" target="_blank">Proceed to Checkout</a>` : 
-              '';
+                `<a href="${checkoutUrl}" class="btn btn-primary" style="margin-bottom: 20px; display: block;" target="_blank">Proceed to Checkout</a>` : 
+                '';
       
             const popup = document.createElement('div');
             popup.id = 'confirmationPopup';
@@ -447,12 +462,11 @@
           });
         });
       
-        function initialize() {
-          document.getElementById('loadingOverlay').style.display = 'flex'; // Show the overlay
-          loadAppropriateStylesheet();
-          loadTournaments();
+        async function initialize() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            await loadAppropriateStylesheet();
+            await loadTournaments();
         }
-      
         window.onload = initialize;
       </script>
 </body>
