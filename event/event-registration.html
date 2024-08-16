@@ -340,6 +340,7 @@
             try {
                 const tournaments = await makeRequest('getActiveTournaments');
                 const tournamentSelect = document.getElementById('tournamentSelect');
+                console.log(tournaments);
                 
                 // Clear existing options
                 tournamentSelect.innerHTML = '';
