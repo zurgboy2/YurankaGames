@@ -364,7 +364,7 @@
       
         async function loadTournaments() {
             try {
-                const tournaments = await makeRequest('tournament_script', 'getActiveTournaments');
+                const tournaments = await makeRequest('getActiveTournaments');
                 const tournamentSelect = document.getElementById('tournamentSelect');
                 
                 // Clear existing options
