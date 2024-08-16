@@ -234,9 +234,7 @@
     const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
     
     async function getProxyToken(action) {
-        console.log(`Requesting token for action: ${action}`);
         const requestBody = { script_id: 'tournament_script', action };
-        console.log('Token request body:', requestBody);
         
         try {
             const response = await fetch(`${API_URL}/get_token`, {
@@ -245,7 +243,6 @@
                 body: JSON.stringify(requestBody)
             });
             
-            console.log('Token response status:', response.status);
             
             if (!response.ok) {
                 const errorText = await response.text();
@@ -254,10 +251,8 @@
             }
             
             const data = await response.json();
-            console.log('Token response data:', data);
             
             if (data.token) {
-                console.log('Token received successfully');
                 return data.token;
             }
             
@@ -270,23 +265,17 @@
     }
     
     async function makeRequest(action, additionalData = {}) {
-        console.log(`Making request for action: ${action}`);
-        console.log('Additional data:', additionalData);
         
         try {
             const token = await getProxyToken(action);
-            console.log('Token received, proceeding with request');
             
             const requestBody = { token, action, script_id: 'tournament_script', ...additionalData };
-            console.log('Request body:', requestBody);
-            
             const response = await fetch(`${API_URL}/proxy`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestBody)
             });
             
-            console.log('Proxy response status:', response.status);
             
             if (!response.ok) {
                 const errorText = await response.text();
@@ -295,7 +284,6 @@
             }
             
             const responseData = await response.json();
-            console.log('Proxy response data:', responseData);
             
             return responseData;
         } catch (error) {
@@ -377,7 +365,6 @@
             try {
                 const response = await makeRequest('getActiveTournaments');
                 const tournamentSelect = document.getElementById('tournamentSelect');
-                console.log("Response from server:", response);
                 
                 // Clear existing options
                 tournamentSelect.innerHTML = '';
