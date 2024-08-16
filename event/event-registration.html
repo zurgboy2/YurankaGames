@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuranka Games: Event Registration</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/loadHeader.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
@@ -136,7 +135,55 @@
 <body>
     <div class="page-wrapper">
         <div class="main-content">
-            <div id="header-placeholder"></div>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                    </div>
+                    <span class="logo-text">YURANKA GAMES</span>
+                </div>
+                <nav class="main-nav" id="mainNav">
+                    <ul>
+                        <li><a href="/YurankaGames/home.html">Home</a></li>
+                        <li><a href="/YurankaGames/about.html">About</a></li>
+                        <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Events</a>
+                            <div class="dropdown-content">
+                                <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
+                                <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
+                            </div>
+                        </li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/YurankaGames/home.html">Home</a></li>
+                <li><a href="/YurankaGames/about.html">About</a></li>
+                <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Events</a>
+                    <div class="dropdown-content">
+                        <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
+                        <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
+                    </div>
+                </li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
             
             <div class="container">
                 <h2>Tournament Registration</h2>
