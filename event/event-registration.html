@@ -233,7 +233,7 @@
     <script>
         const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
         async function getProxyToken(action) {
-            const requestBody = { script_id: 'boardgames_script', action };
+            const requestBody = { script_id: 'tournament_script', action };
             const response = await fetch(`${API_URL}/get_token`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
