@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Under Construction - Yuranka Games</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <style>
+        .construction-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .construction-logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+        .construction-message {
+            font-family: 'Architects Daughter', cursive;
+            color: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                    </div>
+                    <span class="logo-text">YURANKA GAMES</span>
+                </div>
+                <nav class="main-nav" id="mainNav">
+                    <ul>
+                        <li><a href="/YurankaGames/home.html">Home</a></li>
+                        <li><a href="https://store.yuranka.com">Store</a></li>            
+                        <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Events</a>
+                            <div class="dropdown-content">
+                                <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
+                                <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
+                            </div>
+                        </li>
+                        <li><a href="/YurankaGames/about.html">About</a></li>
+                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/YurankaGames/home.html">Home</a></li>
+                <li><a href="https://store.yuranka.com">Store</a></li>  
+                <li><a href="/YurankaGames/boardgame.html">Board Games</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Events</a>
+                    <div class="dropdown-content">
+                        <a href="/YurankaGames/event/event-registration.html">Events Registration</a>
+                        <a href="/YurankaGames/event/mini-con.html">Mini - Cons</a>
+                    </div>
+                </li>
+                <li><a href="/YurankaGames/about.html">About</a></li>
+                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main class="construction-container">
+        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="construction-logo">
+        <h1 class="construction-message">Page Under Construction</h1>
+        <p class="construction-message">We're working hard to bring you an awesome experience!</p>
+        <p class="construction-message">This page is currently being updated and will be available soon.</p>
+        <p class="construction-message">Thank you for your patience.</p>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dropdown functionality
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                const dropbtn = dropdown.querySelector('.dropbtn');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                dropbtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+
+            // Sidebar functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            } 
+
+            // Close dropdowns and sidebar when clicking outside
+            window.addEventListener('click', (e) => {
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(e.target)) {
+                        dropdown.querySelector('.dropdown-content').style.display = 'none';
+                    }
+                });
+
+                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
