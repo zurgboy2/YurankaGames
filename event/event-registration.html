@@ -251,7 +251,7 @@
         async function makeRequest(action, additionalData = {}) {
             try {
                 const token = await getProxyToken(action);
-                const requestBody = { token, action, script_id: 'boardgames_script', ...additionalData };
+                const requestBody = { token, action, script_id: 'tournament_script', ...additionalData };
                 const response = await fetch(`${API_URL}/proxy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
