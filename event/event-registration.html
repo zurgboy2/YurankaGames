@@ -341,32 +341,6 @@
                 const tournaments = await makeRequest('getActiveTournaments');
                 const tournamentSelect = document.getElementById('tournamentSelect');
                 
-                // Add the default "Pick a tournament" option
-                const defaultOption = new Option("Pick a tournament", "");
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                tournamentSelect.add(defaultOption);
-        
-                // Add the actual tournament options
-                tournaments.forEach(tournament => {
-                    const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
-                    option.dataset.posterUrl = tournament.posterUrl;
-                    option.dataset.readerInfo = tournament.readerInfo;
-                    tournamentSelect.add(option);
-                });
-                
-                document.getElementById('loadingOverlay').style.display = 'none';
-            } catch (error) {
-                console.error("Error loading tournaments:", error);
-                document.getElementById('loadingOverlay').style.display = 'none';
-            }
-        }
-      
-        async function loadTournaments() {
-            try {
-                const tournaments = await makeRequest('getActiveTournaments');
-                const tournamentSelect = document.getElementById('tournamentSelect');
-                
                 // Clear existing options
                 tournamentSelect.innerHTML = '';
         
