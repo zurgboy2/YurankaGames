@@ -105,6 +105,34 @@
         .document-link:hover {
             background-color: #cc0000;
         }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        #search-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #search-button:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 <body>
@@ -112,6 +140,10 @@
 
     <main>
         <h1>Board Games</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search board games...">
+            <button id="search-button">Search</button>
+        </div>
         <div id="board-games-container" class="board-games-container"></div>
     </main>
 
@@ -126,6 +158,7 @@
 
     <script>
     const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+    let allGames = [];
 
     async function getProxyToken(action) {
         const requestBody = { script_id: 'boardgames_script', action };
@@ -163,32 +196,52 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-    makeRequest('getBoardGames')
-        .then(data => {
-            if (Array.isArray(data) && data.length > 0) {
-                displayBoardGames(data);
-            } else {
-                document.getElementById('board-games-container').innerHTML = '<p>No board games data available.</p>';
+        makeRequest('getBoardGames')
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    allGames = data;
+                    displayBoardGames(data);
+                } else {
+                    document.getElementById('board-games-container').innerHTML = '<p>No board games data available.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching board games:', error);
+                document.getElementById('board-games-container').innerHTML = '<p>Error loading board games. Please try again later.</p>';
+            });
+
+        // Add event listener for the search button
+        document.getElementById('search-button').addEventListener('click', performSearch);
+        
+        // Add event listener for the Enter key in the search input
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
             }
-        })
-        .catch(error => {
-            console.error('Error fetching board games:', error);
-            document.getElementById('board-games-container').innerHTML = '<p>Error loading board games. Please try again later.</p>';
         });
     })
+
+    function performSearch() {
+        const searchTerm = document.getElementById('search-input').value.toLowerCase();
+        const filteredGames = allGames.filter(game => 
+            game.name.toLowerCase().includes(searchTerm) ||
+            game.difficulty.toLowerCase().includes(searchTerm) ||
+            game.mainLanguage.toLowerCase().includes(searchTerm) ||
+            game.languageLevel.toLowerCase().includes(searchTerm)
+        );
+        displayBoardGames(filteredGames);
+    }
 
     function displayBoardGames(games) {
         const container = document.getElementById('board-games-container');
         container.innerHTML = '';
 
-        const section = document.createElement('section');
-        section.innerHTML = '<h2>Board Games</h2>';
-
-        const cardsContainer = document.createElement('div');
-        cardsContainer.className = 'cards-container';
+        if (games.length === 0) {
+            container.innerHTML = '<p>No matching board games found.</p>';
+            return;
+        }
 
         games.forEach(game => {
-            console.log(game)
             const gameElement = document.createElement('div');
             gameElement.className = 'board-game-card';
             gameElement.innerHTML = `
@@ -221,12 +274,10 @@
                 gameElement.appendChild(documentLinksContainer);
             }
 
-            cardsContainer.appendChild(gameElement);
+            container.appendChild(gameElement);
         });
-
-        section.appendChild(cardsContainer);
-        container.appendChild(section);
     }
+
     function showDocument(url) {
         const modal = document.getElementById('modal');
         const iframe = document.getElementById('doc-frame');
