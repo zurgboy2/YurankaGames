@@ -375,9 +375,9 @@
         
         async function loadTournaments() {
             try {
-                const tournaments = await makeRequest('getActiveTournaments');
+                const response = await makeRequest('getActiveTournaments');
                 const tournamentSelect = document.getElementById('tournamentSelect');
-                console.log(tournaments);
+                console.log("Response from server:", response);
                 
                 // Clear existing options
                 tournamentSelect.innerHTML = '';
@@ -387,6 +387,9 @@
                 defaultOption.disabled = true;
                 defaultOption.selected = true;
                 tournamentSelect.add(defaultOption);
+        
+                // Convert response to an array if it's not already one
+                let tournaments = Array.isArray(response) ? response : [response].filter(Boolean);
         
                 if (tournaments.length === 0) {
                     const noTournamentsOption = new Option("No tournaments available", "");
