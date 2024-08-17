@@ -142,7 +142,7 @@
         const gamesContainer = document.getElementById('video-games-container');
 
         async function getProxyToken(action) {
-            const requestBody = { script_id: 'videogames_script', action };
+            const requestBody = { script_id: 'games_script', action };
             const response = await fetch(`${API_URL}/get_token`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -160,7 +160,7 @@
         async function makeRequest(action, additionalData = {}) {
             try {
                 const token = await getProxyToken(action);
-                const requestBody = { token, action, script_id: 'videogames_script', ...additionalData };
+                const requestBody = { token, action, script_id: 'games_script', ...additionalData };
                 const response = await fetch(`${API_URL}/proxy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
