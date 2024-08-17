@@ -198,15 +198,15 @@
         async function fetchGames() {
             const query = searchInput.value;
             if (query.length < 3) {
+                gamesContainer.innerHTML = '';
                 gamesContainer.innerHTML = '<p>Please enter at least 3 characters to search.</p>';
                 return;
             }
         
             try {
                 const response = await makeRequest('search_games', { query });
-                
-                // Log the raw response
-                console.log('Raw server response:', response);
+                gamesContainer.innerHTML = '';
+                gamesContainer.innerHTML = '<p>Please wait while the search takes place.</p>';
         
                 if (response.success && response.games) {
                     displayGames(response.games);
@@ -236,7 +236,7 @@
                     gameCard.innerHTML = `
                         <div class="video-game-info">
                             <h3 class="video-game-name">${game.name}</h3>
-                            <p class="video-game-name">${game.error}</h3>
+                            <p class="video-game-data">${game.error}</h3>
                             <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
                         </div>
                     `;
