@@ -200,6 +200,7 @@
                     throw new Error('Failed to fetch games: ' + JSON.stringify(result));
                 }
             } catch (error) {
+                console.log(result)
                 console.error('Error fetching game suggestions:', error);
                 gamesContainer.innerHTML = '<p>Error fetching game suggestions. Please try again later.</p>';
             }
