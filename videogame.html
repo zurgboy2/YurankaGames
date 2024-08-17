@@ -211,17 +211,33 @@
                 gamesContainer.innerHTML = '<p>No games found matching your search.</p>';
                 return;
             }
-
+        
             games.forEach(game => {
                 const gameCard = document.createElement('div');
                 gameCard.className = 'video-game-card';
-                gameCard.innerHTML = `
-                    <img src="${game.image || '/api/placeholder/300/200'}" alt="${game.name}" class="video-game-image">
-                    <div class="video-game-info">
-                        <h3 class="video-game-name">${game.name}</h3>
-                        <p class="video-game-data">${game.platform || 'Platform not specified'}</p>
-                    </div>
-                `;
+        
+                if (game.error) {
+                    // Handle games with errors
+                    gameCard.innerHTML = `
+                        <div class="video-game-info">
+                            <h3 class="video-game-name">${game.error}</h3>
+                            <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
+                        </div>
+                    `;
+                } else {
+                    // Handle games with full information
+                    gameCard.innerHTML = `
+                        <img src="${game.artwork || '/api/placeholder/300/200'}" alt="${game.name}" class="video-game-image">
+                        <div class="video-game-info">
+                            <h3 class="video-game-name">${game.name}</h3>
+                            <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
+                            ${game.rating ? `<p class="video-game-data">Rating: ${Math.round(game.rating)}/100</p>` : ''}
+                            ${game.releaseDate ? `<p class="video-game-data">Release Date: ${new Date(game.releaseDate).toLocaleDateString()}</p>` : ''}
+                            ${game.franchise ? `<p class="video-game-data">Franchise: ${game.franchise.name}</p>` : ''}
+                        </div>
+                    `;
+                }
+        
                 gamesContainer.appendChild(gameCard);
             });
         }
