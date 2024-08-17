@@ -191,16 +191,21 @@
                 gamesContainer.innerHTML = '<p>Please enter at least 3 characters to search.</p>';
                 return;
             }
-
+        
             try {
-                const result = await makeRequest('search_games', { query });
-                if (result.success && result.games) {
-                    displayGames(result.games);
+                const response = await makeRequest('search_games', { query });
+                
+                // Log the raw response
+                console.log('Raw server response:', response);
+        
+                if (response.success && response.games) {
+                    displayGames(response.games);
                 } else {
-                    throw new Error('Failed to fetch games: ' + JSON.stringify(result));
+                    throw new Error('Failed to fetch games: ' + JSON.stringify(response));
                 }
             } catch (error) {
                 console.error('Error fetching game suggestions:', error);
+                console.error('Error details:', error.message);
                 gamesContainer.innerHTML = '<p>Error fetching game suggestions. Please try again later.</p>';
             }
         }
