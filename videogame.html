@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuranka Games: Video Games</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .video-games-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            color: white;
+        }
+        .video-game-card {
+            background-color: grey;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            justify-content: center;
+        }
+        .video-game-card:hover {
+            transform: scale(1.05);
+        }
+        .video-game-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .video-game-info {
+            padding: 15px;
+        }
+        .video-game-name {
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .video-game-data {
+            font-size: 0.9em;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #search-input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+            margin-right: 10px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #search-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Header content remains the same -->
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar content remains the same -->
+    </div>
+
+    <main>
+        <h1>Video Games</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search video games...">
+            <button id="search-button">Search</button>
+        </div>
+        <div id="video-games-container" class="video-games-container"></div>
+    </main>
+
+    <script>
+        const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+        let allGames = [];
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const gamesContainer = document.getElementById('video-games-container');
+
+        async function getProxyToken(action) {
+            const requestBody = { script_id: 'videogames_script', action };
+            const response = await fetch(`${API_URL}/get_token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+            }
+            const data = await response.json();
+            if (data.token) return data.token;
+            throw new Error('Failed to get token: ' + JSON.stringify(data));
+        }
+
+        async function makeRequest(action, additionalData = {}) {
+            try {
+                const token = await getProxyToken(action);
+                const requestBody = { token, action, script_id: 'videogames_script', ...additionalData };
+                const response = await fetch(`${API_URL}/proxy`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                return response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        let debounceTimer;
+
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(fetchGames, 300);
+        });
+
+        searchButton.addEventListener('click', fetchGames);
+
+        async function fetchGames() {
+            const query = searchInput.value;
+            if (query.length < 3) {
+                gamesContainer.innerHTML = '<p>Please enter at least 3 characters to search.</p>';
+                return;
+            }
+
+            try {
+                const result = await makeRequest('search_games', { query });
+                if (result.success && result.games) {
+                    displayGames(result.games);
+                } else {
+                    throw new Error('Failed to fetch games: ' + JSON.stringify(result));
+                }
+            } catch (error) {
+                console.error('Error fetching game suggestions:', error);
+                gamesContainer.innerHTML = '<p>Error fetching game suggestions. Please try again later.</p>';
+            }
+        }
+
+        function displayGames(games) {
+            gamesContainer.innerHTML = '';
+            if (games.length === 0) {
+                gamesContainer.innerHTML = '<p>No games found matching your search.</p>';
+                return;
+            }
+
+            games.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.className = 'video-game-card';
+                gameCard.innerHTML = `
+                    <img src="${game.image || '/api/placeholder/300/200'}" alt="${game.name}" class="video-game-image">
+                    <div class="video-game-info">
+                        <h3 class="video-game-name">${game.name}</h3>
+                        <p class="video-game-data">${game.platform || 'Platform not specified'}</p>
+                    </div>
+                `;
+                gamesContainer.appendChild(gameCard);
+            });
+        }
+
+        // Initial load of games
+        fetchGames();
+    </script>
+</body>
+</html>
