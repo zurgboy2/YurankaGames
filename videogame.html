@@ -235,7 +235,8 @@
                     // Handle games with errors
                     gameCard.innerHTML = `
                         <div class="video-game-info">
-                            <h3 class="video-game-name">${game.error}</h3>
+                            <h3 class="video-game-name">${game.name}</h3>
+                            <p class="video-game-name">${game.error}</h3>
                             <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
                         </div>
                     `;
