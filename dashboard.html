@@ -48,8 +48,59 @@
 </head>
 <body>
     <header>
-        <!-- Include your existing header content here -->
+        <div class="container">
+            <div class="header-content">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                    </div>
+                    <span class="logo-text">YURANKA GAMES</span>
+                </div>
+                <nav class="main-nav" id="mainNav">
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="https://store.yuranka.com">Store</a></li>            
+                        <li><a href="/boardgame.html">Board Games</a></li>
+                        <li><a href="/videogame.html">Video Games</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Events</a>
+                            <div class="dropdown-content">
+                                <a href="/event/event-registration.html">Events Registration</a>
+                                <a href="/event/mini-con.html">Mini - Cons</a>
+                            </div>
+                        </li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div id="userProfileContainer"></div>
+            </div>
+        </div>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="https://store.yuranka.com">Store</a></li>  
+                <li><a href="/boardgame.html">Board Games</a></li>
+                <li><a href="/videogame.html">Video Games</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Events</a>
+                    <div class="dropdown-content">
+                        <a href="event/event-registration.html">Events Registration</a>
+                        <a href="/event/mini-con.html">Mini - Cons</a>
+                    </div>
+                </li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="sidebarUserProfileContainer"></div>
+    </div>
 
     <div class="page-wrapper">
         <div class="main-content">
