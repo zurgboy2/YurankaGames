@@ -290,7 +290,7 @@
                 const signupData = Object.fromEntries(formData.entries());
                 
                 try {
-                    const data = await makeRequest('signup', signupData);
+                    const data = await makeRequest('signUp', signupData);
                     if (data.success) {
                         alert('Sign up successful! Please log in.');
                         signupForm.style.display = 'none';
@@ -311,7 +311,7 @@
                 const loginData = Object.fromEntries(formData.entries());
                 
                 try {
-                    const data = await makeRequest('login', loginData);
+                    const data = await makeRequest('customerLogin', loginData);
                     if (data.success) {
                         alert('Login successful!');
                         sessionStorage.setItem('username', loginData.username);
