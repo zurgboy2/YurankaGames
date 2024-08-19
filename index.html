@@ -160,8 +160,8 @@
                 if (username) {
                     const profileHTML = `
                         <div class="user-profile">
-                            <img src=avatarurl alt="User Avatar">
-                            <span>${username}</span>
+                            <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                            <a href="/dashboard.html" class="username-link">${username}</a>
                         </div>
                     `;
                     userProfileContainer.innerHTML = profileHTML;
@@ -172,7 +172,7 @@
                     sidebarUserProfileContainer.innerHTML = loginHTML;
                 }
             }
-
+            
             updateUserProfile();
 
             // Dropdown functionality
