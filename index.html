@@ -174,15 +174,6 @@
 
             updateUserProfile();
 
-            // Sidebar functionality
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            if (sidebarToggle && sidebar) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('open');
-                });
-            } 
-
             // Dropdown functionality
             const dropdowns = document.querySelectorAll('.dropdown');
             dropdowns.forEach(dropdown => {
