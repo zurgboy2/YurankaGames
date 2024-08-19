@@ -76,6 +76,7 @@
                         <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
                     </ul>
                 </nav>
+                <div id="userProfileContainer"></div>
             </div>
         </div>
     </header>
@@ -98,6 +99,7 @@
                 <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
             </ul>
         </nav>
+        <div id="sidebarUserProfileContainer"></div>
     </div>
 
     <main class="about-section"  style =color:white;>
@@ -145,6 +147,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            function updateUserProfile() {
+                const username = sessionStorage.getItem('username');
+                const avatarurl = sessionStorage.getItem('avatarurl');
+                const userProfileContainer = document.getElementById('userProfileContainer');
+                const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+                
+                if (username) {
+                    const profileHTML = `
+                        <div class="user-profile">
+                            <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                            <a href="/dashboard.html" class="username-link">${username}</a>
+                        </div>
+                    `;
+                    userProfileContainer.innerHTML = profileHTML;
+                    sidebarUserProfileContainer.innerHTML = profileHTML;
+                } else {
+                    const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+                    userProfileContainer.innerHTML = loginHTML;
+                    sidebarUserProfileContainer.innerHTML = loginHTML;
+                }
+            }
+            
+            updateUserProfile();
+            
             const policyHeaders = document.querySelectorAll('.policy-header');
             policyHeaders.forEach(header => {
                 header.addEventListener('click', function() {
