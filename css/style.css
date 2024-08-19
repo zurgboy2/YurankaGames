@@ -400,7 +400,7 @@ iframe {
     margin-right: 10px;
 }
 .user-profile span {
-    color: var(--primary-text);
+    color: white;
     font-size: 0.9em;
 }
 .login-link {
