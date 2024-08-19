@@ -137,47 +137,42 @@
                 <div class="auth-container">
                     <div class="auth-form" id="loginForm">
                         <h2>Login</h2>
-                        <form id="loginFormElement">
-                            <div class="form-group">
-                                <label for="loginUsername">Username</label>
-                                <input type="text" id="loginUsername" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="loginPassword">Password</label>
-                                <input type="password" id="loginPassword" required>
-                            </div>
-                            <button type="submit" class="auth-btn">Login</button>
-                        </form>
-                        <div class="auth-switch">
-                            <a href="#" id="showSignup">Don't have an account? Sign up</a>
-                        </div>
-                    </div>
-                    <div class="auth-form" id="signupForm" style="display: none;">
-                        <h2>Sign Up</h2>
-                        <form id="signupFormElement">
-                            <div class="form-group">
-                                <label for="signupName">Name</label>
-                                <input type="text" id="signupName" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="signupUsername">Username</label>
-                                <input type="text" id="signupUsername" required>
-                                <div id="usernameFeedback" class="username-feedback"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="signupEmail">Email</label>
-                                <input type="email" id="signupEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="signupPassword">Password</label>
-                                <input type="password" id="signupPassword" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="signupConfirmPassword">Confirm Password</label>
-                                <input type="password" id="signupConfirmPassword" required>
-                            </div>
-                            <button type="submit" class="auth-btn">Sign Up</button>
-                        </form>
+                            <form id="loginFormElement">
+                                <div class="form-group">
+                                    <label for="loginUsername">Username</label>
+                                    <input type="text" id="loginUsername" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="loginPassword">Password</label>
+                                    <input type="password" id="loginPassword" required>
+                                </div>
+                                <button type="submit" class="auth-btn">Login</button>
+                            </form>
+                            
+                            <form id="signupFormElement">
+                                <div class="form-group">
+                                    <label for="signupName">Name</label>
+                                    <input type="text" id="signupName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupUsername">Username</label>
+                                    <input type="text" id="signupUsername" required>
+                                    <div id="usernameFeedback" class="username-feedback"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupEmail">Email</label>
+                                    <input type="email" id="signupEmail" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupPassword">Password</label>
+                                    <input type="password" id="signupPassword" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="signupConfirmPassword">Confirm Password</label>
+                                    <input type="password" id="signupConfirmPassword" required>
+                                </div>
+                                <button type="submit" class="auth-btn">Sign Up</button>
+                            </form>
                         <div class="auth-switch">
                             <a href="#" id="showLogin">Already have an account? Login</a>
                         </div>
@@ -188,8 +183,17 @@
     </div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
         const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
-
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const showSignup = document.getElementById('showSignup');
+        const showLogin = document.getElementById('showLogin');
+        const signupUsername = document.getElementById('signupUsername');
+        const usernameFeedback = document.getElementById('usernameFeedback');
+        const signupFormElement = document.getElementById('signupFormElement');
+        const loginFormElement = document.getElementById('loginFormElement');
+    
         async function getProxyToken(action) {
             const requestBody = { script_id: 'auth_script', action };
             const response = await fetch(`${API_URL}/get_token`, {
@@ -205,24 +209,24 @@
             if (data.token) return data.token;
             throw new Error('Failed to get token: ' + JSON.stringify(data));
         }
-
-        async function makeRequest(action, additionalData = {}) {
+    
+        async function makeRequest(action, formData = {}) {
             try {
                 const token = await getProxyToken(action);
-                const requestBody = { token, action, script_id: 'auth_script', ...additionalData };
-                console.log(requestBody);
+                const requestBody = { token, action, script_id: 'auth_script', form_data: formData };
+                console.log('Request body:', requestBody);
                 const response = await fetch(`${API_URL}/proxy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
                 });
-
+    
                 const responseText = await response.text();
-
+    
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
                 }
-
+    
                 try {
                     return JSON.parse(responseText);
                 } catch (e) {
@@ -234,116 +238,113 @@
                 throw error;
             }
         }
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-            const showSignup = document.getElementById('showSignup');
-            const showLogin = document.getElementById('showLogin');
-            const signupUsername = document.getElementById('signupUsername');
-            const usernameFeedback = document.getElementById('usernameFeedback');
-            const signupFormElement = document.getElementById('signupFormElement');
-            const loginFormElement = document.getElementById('loginFormElement');
-
-            showSignup.addEventListener('click', (e) => {
-                e.preventDefault();
-                loginForm.style.display = 'none';
-                signupForm.style.display = 'block';
-            });
-
-            showLogin.addEventListener('click', (e) => {
-                e.preventDefault();
-                signupForm.style.display = 'none';
-                loginForm.style.display = 'block';
-            });
-
-            // Username availability check
-            let usernameTimeout;
-            signupUsername.addEventListener('input', function() {
-                clearTimeout(usernameTimeout);
-                usernameTimeout = setTimeout(async () => {
-                    const username = this.value;
-                    if (username.length > 2) {
-                        try {
-                            const data = await makeRequest('check_username', { username });
-                            if (data.available) {
-                                usernameFeedback.textContent = 'Username is available';
-                                usernameFeedback.className = 'username-feedback username-available';
-                            } else {
-                                usernameFeedback.textContent = 'Username is already taken';
-                                usernameFeedback.className = 'username-feedback username-unavailable';
-                            }
-                        } catch (error) {
-                            console.error('Error:', error);
-                            usernameFeedback.textContent = 'Error checking username';
-                            usernameFeedback.className = 'username-feedback';
-                        }
-                    } else {
-                        usernameFeedback.textContent = '';
-                    }
-                }, 500);
-            });
-
-            // Sign-up form submission
-            signupFormElement.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-                const signupData = Object.fromEntries(formData.entries());
-                console.log(signupData);
-                
-                try {
-                    const data = await makeRequest('signUp', signupData);
-                    if (data.success) {
-                        alert('Sign up successful! Please log in.');
-                        signupForm.style.display = 'none';
-                        loginForm.style.display = 'block';
-                    } else {
-                        alert('Sign up failed: ' + data.message);
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred during sign up');
-                }
-            });
-
-            // Login form submission
-            loginFormElement.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const formData = new FormData(this);
-                const loginData = Object.fromEntries(formData.entries());
-                console.log(signupData);
-                
-                try {
-                    const data = await makeRequest('customerLogin', loginData);
-                    if (data.success) {
-                        alert('Login successful!');
-                        sessionStorage.setItem('username', loginData.username);
-                        window.location.href = '/index.html'; // Redirect to home page
-                    } else {
-                        alert('Login failed: ' + data.message);
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred during login');
-                }
-            });
-
-            // Sidebar functionality
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            if (sidebarToggle && sidebar) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('open');
-                });
-            }
-
-            // Close sidebar when clicking outside
-            window.addEventListener('click', (e) => {
-                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                    sidebar.classList.remove('open');
-                }
-            });
+    
+        showSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            signupForm.style.display = 'block';
         });
+    
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+    
+        // Username availability check
+        let usernameTimeout;
+        signupUsername.addEventListener('input', function() {
+            clearTimeout(usernameTimeout);
+            usernameTimeout = setTimeout(async () => {
+                const username = this.value;
+                if (username.length > 2) {
+                    try {
+                        const data = await makeRequest('check_username', { username });
+                        if (data.available) {
+                            usernameFeedback.textContent = 'Username is available';
+                            usernameFeedback.className = 'username-feedback username-available';
+                        } else {
+                            usernameFeedback.textContent = 'Username is already taken';
+                            usernameFeedback.className = 'username-feedback username-unavailable';
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        usernameFeedback.textContent = 'Error checking username';
+                        usernameFeedback.className = 'username-feedback';
+                    }
+                } else {
+                    usernameFeedback.textContent = '';
+                }
+            }, 500);
+        });
+    
+        // Sign-up form submission
+        signupFormElement.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const signupData = {
+                name: document.getElementById('signupName').value,
+                username: document.getElementById('signupUsername').value,
+                email: document.getElementById('signupEmail').value,
+                password: document.getElementById('signupPassword').value,
+                confirmPassword: document.getElementById('signupConfirmPassword').value
+            };
+            console.log('Signup data:', signupData);
+            
+            try {
+                const data = await makeRequest('signUp', signupData);
+                if (data.success) {
+                    alert('Sign up successful! Please log in.');
+                    signupForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                } else {
+                    alert('Sign up failed: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during sign up');
+            }
+        });
+    
+        // Login form submission
+        loginFormElement.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const loginData = {
+                username: document.getElementById('loginUsername').value,
+                password: document.getElementById('loginPassword').value
+            };
+            console.log('Login data:', loginData);
+            
+            try {
+                const data = await makeRequest('customerLogin', loginData);
+                if (data.success) {
+                    alert('Login successful!');
+                    sessionStorage.setItem('username', loginData.username);
+                    window.location.href = '/index.html'; // Redirect to home page
+                } else {
+                    alert('Login failed: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during login');
+            }
+        });
+    
+        // Sidebar functionality
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+        }
+    
+        // Close sidebar when clicking outside
+        window.addEventListener('click', (e) => {
+            if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    });
     </script>
 </body>
 </html>
