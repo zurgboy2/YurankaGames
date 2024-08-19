@@ -289,6 +289,7 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 const signupData = Object.fromEntries(formData.entries());
+                console.log(signupData);
                 
                 try {
                     const data = await makeRequest('signUp', signupData);
@@ -310,6 +311,7 @@
                 e.preventDefault();
                 const formData = new FormData(this);
                 const loginData = Object.fromEntries(formData.entries());
+                console.log(signupData);
                 
                 try {
                     const data = await makeRequest('customerLogin', loginData);
