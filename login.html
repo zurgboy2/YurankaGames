@@ -210,6 +210,7 @@
             try {
                 const token = await getProxyToken(action);
                 const requestBody = { token, action, script_id: 'auth_script', ...additionalData };
+                console.log(requestBody);
                 const response = await fetch(`${API_URL}/proxy`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
