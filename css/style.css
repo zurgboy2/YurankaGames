@@ -387,6 +387,32 @@ iframe {
     background-color: #cc0000;
 }
 
+.user-profile {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0 15px;
+}
+.user-profile img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user-profile span {
+    color: var(--primary-text);
+    font-size: 0.9em;
+}
+.login-link {
+    margin-left: auto;
+    color: var(--primary-text);
+    text-decoration: none;
+    font-size: 0.9em;
+}
+.login-link:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .header-content {
         justify-content: flex-start;
@@ -404,7 +430,13 @@ iframe {
     .sidebar {
         display: block;
     }
-
+    .user-profile, .login-link {
+        display: none;
+    }
+    .sidebar .user-profile, .sidebar .login-link {
+        display: flex;
+        margin: 15px;
+    }
     .video-sidebar {
         width: 100%;
         height: auto;
