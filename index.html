@@ -37,6 +37,7 @@
                         <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
                     </ul>
                 </nav>
+                <div id="userProfileContainer"></div>
             </div>
         </div>
     </header>
@@ -59,6 +60,7 @@
                 <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
             </ul>
         </nav>
+        <div id="sidebarUserProfileContainer"></div>
     </div>
 
     <div class="page-wrapper">
@@ -148,6 +150,38 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
+
+            function updateUserProfile() {
+                const username = sessionStorage.getItem('username');
+                const userProfileContainer = document.getElementById('userProfileContainer');
+                const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+                
+                if (username) {
+                    const profileHTML = `
+                        <div class="user-profile">
+                            <img src="https://ik.imagekit.io/mcgszbooe/default-avatar.png" alt="User Avatar">
+                            <span>${username}</span>
+                        </div>
+                    `;
+                    userProfileContainer.innerHTML = profileHTML;
+                    sidebarUserProfileContainer.innerHTML = profileHTML;
+                } else {
+                    const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+                    userProfileContainer.innerHTML = loginHTML;
+                    sidebarUserProfileContainer.innerHTML = loginHTML;
+                }
+            }
+
+            updateUserProfile();
+
+            // Sidebar functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            } 
 
             // Dropdown functionality
             const dropdowns = document.querySelectorAll('.dropdown');
