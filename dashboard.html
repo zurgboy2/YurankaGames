@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Yuranka Games</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .user-info {
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .avatar-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .avatar-options {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .avatar-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .avatar-option:hover, .avatar-option.selected {
+            border-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Include your existing header content here -->
+    </header>
+
+    <div class="page-wrapper">
+        <div class="main-content">
+            <main class="dashboard-container">
+                <h1>User Dashboard</h1>
+                <div class="user-info">
+                    <h2>Welcome, <span id="username"></span>!</h2>
+                    <p>Store Credit: <span id="storeCredit"></span></p>
+                </div>
+                <div class="avatar-container">
+                    <h3>Your Avatar</h3>
+                    <img id="currentAvatar" class="avatar" src="" alt="User Avatar">
+                    <div class="avatar-options" id="avatarOptions"></div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const username = sessionStorage.getItem('username');
+            const googleToken = sessionStorage.getItem('googleToken');
+
+            if (!username || !googleToken) {
+                window.location.href = 'login.html'; // Redirect to login if not authenticated
+                return;
+            }
+
+            document.getElementById('username').textContent = username;
+
+            // Fetch user information
+            fetchUserInfo(username, googleToken);
+
+            // Fetch avatar options
+            fetchAvatarOptions();
+        });
+
+        async function getProxyToken(action) {
+            const requestBody = { script_id: 'user_dashboard_script', action };
+            const response = await fetch(`${API_URL}/get_token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+            }
+            const data = await response.json();
+            if (data.token) return data.token;
+            throw new Error('Failed to get token: ' + JSON.stringify(data));
+        }
+
+        async function makeRequest(action, additionalData = {}) {
+            try {
+                const token = await getProxyToken(action);
+                const requestBody = { token, action, script_id: 'user_dashboard_script', ...additionalData };
+                const response = await fetch(`${API_URL}/proxy`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+        
+                const responseText = await response.text();
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
+                }
+        
+                try {
+                    return JSON.parse(responseText);
+                } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                    throw new Error(`Invalid JSON response: ${responseText}`);
+                }
+            } catch (error) {
+                console.error('Request error:', error);
+                throw error;
+            }
+        }
+
+        async function fetchUserInfo(username, googleToken) {
+            try {
+                const data = await makeRequest('getUserInfo', { username, googleToken });
+                
+                document.getElementById('storeCredit').textContent = `$${data.storeCredit.toFixed(2)}`;
+                document.getElementById('currentAvatar').src = data.avatarUrl;
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+            }
+        }
+
+        async function fetchAvatarOptions() {
+            try {
+                const avatarUrls = await makeRequest('getAvatarOptions');
+                
+                const avatarOptionsContainer = document.getElementById('avatarOptions');
+                avatarUrls.forEach(url => {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.classList.add('avatar-option');
+                    img.addEventListener('click', () => changeAvatar(url));
+                    avatarOptionsContainer.appendChild(img);
+                });
+            } catch (error) {
+                console.error('Error fetching avatar options:', error);
+            }
+        }
+
+        async function changeAvatar(newAvatarUrl) {
+            const username = sessionStorage.getItem('username');
+            const googleToken = sessionStorage.getItem('googleToken');
+            try {
+                const response = await makeRequest('changeAvatar', { username, googleToken, avatarUrl: newAvatarUrl });
+                
+                if (response.success) {
+                    document.getElementById('currentAvatar').src = newAvatarUrl;
+                    
+                    // Update selected state of avatar options
+                    document.querySelectorAll('.avatar-option').forEach(option => {
+                        option.classList.toggle('selected', option.src === newAvatarUrl);
+                    });
+                } else {
+                    console.error('Failed to change avatar');
+                }
+            } catch (error) {
+                console.error('Error changing avatar:', error);
+            }
+        }
+    </script>
+</body>
+</html>
