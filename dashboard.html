@@ -470,7 +470,7 @@
             }
 
             try {
-                const response = await makeRequest('createShopifyDiscountCode', { username, googleToken, amount });
+                const response = await makeRequest('createCreditDiscount', { username, googleToken, amount });
 
                 if (response.success) {
                     document.getElementById('discountResult').textContent = `Your discount code: ${response.discountCode}`;
