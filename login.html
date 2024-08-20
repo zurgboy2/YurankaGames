@@ -323,6 +323,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         try {
             const data = await makeRequest('customerLogin', loginData);
             if (data.success) {
+                console.log(data)
                 alert('Login successful!');
                 sessionStorage.setItem('username', loginData.username);
                 sessionStorage.setItem('googleToken', loginData.googleToken);
