@@ -307,6 +307,8 @@
             // Fetch avatar options
             fetchAvatarOptions();
 
+            fetchDiscountCodes();
+
             document.getElementById('signOutBtn').addEventListener('click', signOut);
             document.getElementById('editProfileBtn').addEventListener('click', showEditForm);
             document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
@@ -483,6 +485,34 @@
             } catch (error) {
                 console.error('Error generating discount code:', error);
                 alert('An error occurred while generating the discount code. Please try again.');
+            }
+        }
+        
+        async function fetchDiscountCodes() {
+            const username = sessionStorage.getItem('username');
+            const googleToken = sessionStorage.getItem('googleToken');
+
+            try {
+                const response = await makeRequest('getDiscountCodes', { username, googleToken });
+
+                if (response.success && response.discountCodes) {
+                    const discountCodesList = document.getElementById('discountCodesList');
+                    discountCodesList.innerHTML = ''; // Clear existing codes
+
+                    response.discountCodes.forEach(code => {
+                        const listItem = document.createElement('li');
+                        listItem.className = 'discount-code-item';
+                        listItem.innerHTML = `
+                            <span class="discount-code">${code.code}</span>
+                            <span class="discount-amount">€${code.amount.toFixed(2)}</span>
+                        `;
+                        discountCodesList.appendChild(listItem);
+                    });
+                } else {
+                    console.error('Failed to fetch discount codes');
+                }
+            } catch (error) {
+                console.error('Error fetching discount codes:', error);
             }
         }
         
