@@ -374,13 +374,14 @@
                             <a href="#" class="dropbtn">Events</a>
                             <div class="dropdown-content">
                                 <a href="/event-registration.html">Events Registration</a>
-                                <a href="/event/mini-con.html">Mini - Cons</a>
+                                <a href="/mini-con.html">Mini - Cons</a>
                             </div>
                         </li>
                         <li><a href="../about.html">About</a></li>
                         <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
                     </ul>
                 </nav>
+                <div id="userProfileContainer"></div>
             </div>
         </div>
     </header>
@@ -403,7 +404,9 @@
                 <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
             </ul>
         </nav>
+        <div id="sidebarUserProfileContainer"></div>
     </div>
+
         <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="bigLogo">
         <h2 class="subtitle">Yuranka Games proudly presents:</h2>
         <h1 class="main-title">Mini-Cons</h1>
@@ -434,6 +437,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            function updateUserProfile() {
+                const username = sessionStorage.getItem('username');
+                const avatarurl = sessionStorage.getItem('avatarurl');
+                const userProfileContainer = document.getElementById('userProfileContainer');
+                const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+                
+                if (username) {
+                    const profileHTML = `
+                        <div class="user-profile">
+                            <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                            <a href="/dashboard.html" class="username-link">${username}</a>
+                        </div>
+                    `;
+                    userProfileContainer.innerHTML = profileHTML;
+                    sidebarUserProfileContainer.innerHTML = profileHTML;
+                } else {
+                    const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+                    userProfileContainer.innerHTML = loginHTML;
+                    sidebarUserProfileContainer.innerHTML = loginHTML;
+                }
+            }
+            
+            updateUserProfile();
             const tabs = document.querySelectorAll('.tab');
             const contentPage = document.querySelector('.content-page');
             const contentPageWrapper = document.querySelector('.content-page-wrapper');
