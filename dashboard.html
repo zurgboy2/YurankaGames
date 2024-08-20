@@ -527,27 +527,43 @@
         async function fetchDiscountCodes() {
             const username = sessionStorage.getItem('username');
             const googleToken = sessionStorage.getItem('googleToken');
-
             try {
                 const response = await makeRequest('getDiscountCodes', { username, googleToken });
-
+                const discountCodesList = document.getElementById('discountCodesList');
+                discountCodesList.innerHTML = ''; // Clear existing codes
+        
                 if (response.success && response.discountCodes) {
-                    const discountCodesList = document.getElementById('discountCodesList');
-                    discountCodesList.innerHTML = ''; // Clear existing codes
-
-                    response.discountCodes.forEach(code => {
-                        const listItem = document.createElement('li');
-                        listItem.className = 'discount-code-item';
-                        listItem.innerHTML = `
-                            <span class="discount-code">${code.code}</span>
-                            <span class="discount-amount">€${code.amount.toFixed(2)}</span>
-                        `;
-                        discountCodesList.appendChild(listItem);
-                    });
+                    if (response.discountCodes.length === 0) {
+                        // No discount codes available
+                        const noCodesMessage = document.createElement('li');
+                        noCodesMessage.className = 'no-codes-message';
+                        noCodesMessage.textContent = 'You currently have no active discount codes.';
+                        discountCodesList.appendChild(noCodesMessage);
+                    } else {
+                        // Display available discount codes
+                        response.discountCodes.forEach(code => {
+                            const listItem = document.createElement('li');
+                            listItem.className = 'discount-code-item';
+                            listItem.innerHTML = `
+                                <span class="discount-code">${code.code}</span>
+                                <span class="discount-amount">€${code.amount.toFixed(2)}</span>
+                            `;
+                            discountCodesList.appendChild(listItem);
+                        });
+                    }
                 } else {
+                    // Error fetching discount codes
+                    const errorMessage = document.createElement('li');
+                    errorMessage.className = 'error-message';
+                    errorMessage.textContent = 'Failed to fetch discount codes. Please try again later.';
+                    discountCodesList.appendChild(errorMessage);
                     console.error('Failed to fetch discount codes');
                 }
             } catch (error) {
+                const errorMessage = document.createElement('li');
+                errorMessage.className = 'error-message';
+                errorMessage.textContent = 'An error occurred while fetching discount codes. Please try again later.';
+                discountCodesList.appendChild(errorMessage);
                 console.error('Error fetching discount codes:', error);
             }
         }
