@@ -44,6 +44,21 @@
         .avatar-option:hover, .avatar-option.selected {
             border-color: #ff0000;
         }
+        
+        .sign-out-button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        
+        .sign-out-button:hover {
+            background-color: #d32f2f;
+        }
     </style>
 </head>
 <body>
@@ -140,6 +155,7 @@
                     <p><strong>Subscription Type:</strong> <span id="subscriptionType"></span></p>
                     <p><strong>Expiry Date:</strong> <span id="expiryDate"></span></p>
                 </div>
+                <button id="signOutBtn" class="sign-out-button">Sign Out</button>
             </main>
         </div>
     </div>
@@ -162,6 +178,8 @@
 
             // Fetch avatar options
             fetchAvatarOptions();
+
+            document.getElementById('signOutBtn').addEventListener('click', signOut);
         });
 
         async function getProxyToken(action) {
@@ -298,6 +316,15 @@
             } catch (error) {
                 console.error('Error changing avatar:', error);
             }
+        }
+        
+        function signOut() {
+            // Clear session storage
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('googleToken');
+            
+            // Redirect to login page
+            window.location.href = 'login.html';
         }
     </script>
 </body>
