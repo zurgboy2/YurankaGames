@@ -327,7 +327,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 sessionStorage.setItem('username', loginData.username);
                 sessionStorage.setItem('googleToken', loginData.googleToken);
                 sessionStorage.setItem('avatarurl', loginData.image_url);
-                window.location.href = '/index.html'; // Redirect to home page
             } else {
                 alert('Login failed: ' + data.message);
             }
