@@ -101,24 +101,48 @@
         </nav>
         <div id="sidebarUserProfileContainer"></div>
     </div>
-
+    
     <div class="page-wrapper">
         <div class="main-content">
             <main class="dashboard-container">
                 <h1>User Dashboard</h1>
+                
                 <div class="user-info">
                     <h2>Welcome, <span id="username"></span>!</h2>
-                    <p>Store Credit: <span id="storeCredit"></span></p>
+                    <p>Store Credit: $<span id="storeCredit"></span></p>
                 </div>
-                <div class="avatar-container">
-                    <h3>Your Avatar</h3>
-                    <img id="currentAvatar" class="avatar" src="" alt="User Avatar">
-                    <div class="avatar-options" id="avatarOptions"></div>
+                
+                <div class="profile-info">
+                    <h3>Profile Information</h3>
+                    <div class="avatar-container">
+                        <img id="currentAvatar" class="avatar" src="" alt="User Avatar">
+                    </div>
+                    <div id="profileDetails">
+                        <p><strong>Name:</strong> <span id="userName"></span></p>
+                        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+                    </div>
+                    <button id="editProfileBtn" class="edit-button">Edit Profile</button>
+                    <div id="editProfileForm" style="display:none;">
+                        <div class="edit-field">
+                            <label for="editName">Name:</label>
+                            <input type="text" id="editName">
+                        </div>
+                        <div class="edit-field">
+                            <label for="editEmail">Email:</label>
+                            <input type="email" id="editEmail">
+                        </div>
+                        <button id="saveProfileBtn" class="edit-button">Save Changes</button>
+                    </div>
+                </div>
+                
+                <div class="subscription-info">
+                    <h3>Subscription Details</h3>
+                    <p><strong>Subscription Type:</strong> <span id="subscriptionType"></span></p>
+                    <p><strong>Expiry Date:</strong> <span id="expiryDate"></span></p>
                 </div>
             </main>
         </div>
     </div>
-
     <script>
         const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
         
@@ -188,12 +212,54 @@
             try {
                 const data = await makeRequest('getUserInfo', { username, googleToken });
                 
-                document.getElementById('storeCredit').textContent = `$${data.storeCredit.toFixed(2)}`;
-                document.getElementById('currentAvatar').src = data.avatarUrl;
+                document.getElementById('username').textContent = username;
+                document.getElementById('storeCredit').textContent = data.Value.toFixed(2);
+                document.getElementById('currentAvatar').src = data['image-url'];
+                document.getElementById('userName').textContent = data.Name;
+                document.getElementById('userEmail').textContent = data.Email;
+                document.getElementById('subscriptionType').textContent = data.Subscription;
+                document.getElementById('expiryDate').textContent = data['Expiry Date'];
+
+                // Populate edit form
+                document.getElementById('editName').value = data.Name;
+                document.getElementById('editEmail').value = data.Email;
             } catch (error) {
                 console.error('Error fetching user info:', error);
             }
         }
+
+        // Add event listeners for edit profile functionality
+        document.getElementById('editProfileBtn').addEventListener('click', () => {
+            document.getElementById('profileDetails').style.display = 'none';
+            document.getElementById('editProfileForm').style.display = 'block';
+        });
+
+        document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+            const newName = document.getElementById('editName').value;
+            const newEmail = document.getElementById('editEmail').value;
+            const username = sessionStorage.getItem('username');
+            const googleToken = sessionStorage.getItem('googleToken');
+
+            try {
+                const response = await makeRequest('updateProfile', { 
+                    username, 
+                    googleToken, 
+                    newName, 
+                    newEmail 
+                });
+
+                if (response.success) {
+                    document.getElementById('userName').textContent = newName;
+                    document.getElementById('userEmail').textContent = newEmail;
+                    document.getElementById('profileDetails').style.display = 'block';
+                    document.getElementById('editProfileForm').style.display = 'none';
+                } else {
+                    console.error('Failed to update profile');
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
+        });
 
         async function fetchAvatarOptions() {
             try {
