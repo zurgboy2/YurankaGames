@@ -318,16 +318,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
             username: document.getElementById('loginUsername').value,
             password: document.getElementById('loginPassword').value
         };
-        console.log('Login data:', loginData);
         
         try {
             const data = await makeRequest('customerLogin', loginData);
             if (data.success) {
-                console.log(data)
                 alert('Login successful!');
-                sessionStorage.setItem('username', loginData.username);
-                sessionStorage.setItem('googleToken', loginData.googleToken);
-                sessionStorage.setItem('avatarurl', loginData.image_url);
+                sessionStorage.setItem('username', data.username);
+                sessionStorage.setItem('googleToken', data.googleToken);
+                sessionStorage.setItem('avatarurl', data.image_url);
+                window.location.href = '/index.html'; // Redirect to home page
             } else {
                 alert('Login failed: ' + data.message);
             }
