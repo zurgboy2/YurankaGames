@@ -143,23 +143,6 @@
         const searchInput = document.getElementById('search-input');
         const searchButton = document.getElementById('search-button');
         const gamesContainer = document.getElementById('video-games-container');
-
-        function updateUserProfile() {
-            const username = sessionStorage.getItem('username');
-            const avatarurl = sessionStorage.getItem('avatarurl');
-            const userProfileContainer = document.getElementById('userProfileContainer');
-            const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
-            
-            const profileHTML = username
-                ? `<div class="user-profile">
-                    <img src="${avatarurl || 'https://ik.imagekit.io/mcgszbooe/Profile.png?updatedAt=1717316246766'}" alt="User Avatar" class="user-avatar">
-                    <a href="/dashboard.html" class="username-link">${username}</a>
-                   </div>`
-                : `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
-            
-            userProfileContainer.innerHTML = profileHTML;
-            sidebarUserProfileContainer.innerHTML = profileHTML;
-        }
         
         updateUserProfile();
 
@@ -284,5 +267,6 @@
         // Initial load of games
         fetchGames();
     });
+    </script>
 </body>
 </html>
