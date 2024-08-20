@@ -7,57 +7,136 @@
     <link rel="stylesheet" href="css/style.css">
     <style>
         .dashboard-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .user-info {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
             background-color: var(--secondary-bg);
             border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .dashboard-title {
+            font-size: 2rem;
+            color: var(--primary-text);
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
         .avatar-container {
-            text-align: center;
-            margin-bottom: 20px;
+            position: relative;
         }
         .avatar {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
+            border: 3px solid var(--primary-text);
         }
         .avatar-options {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
         }
         .avatar-option {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
             cursor: pointer;
             border: 2px solid transparent;
+            transition: border-color 0.3s ease;
         }
         .avatar-option:hover, .avatar-option.selected {
             border-color: #ff0000;
         }
-        
+        .user-details {
+            flex-grow: 1;
+        }
+        .user-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .user-email {
+            color: #aaa;
+            margin-bottom: 0.5rem;
+        }
+        .store-credit {
+            font-size: 1.2rem;
+            color: #4CAF50;
+        }
+        .dashboard-section {
+            background-color: var(--primary-bg);
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-text);
+        }
+        .subscription-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .subscription-type, .expiry-date {
+            font-size: 1rem;
+            color: #aaa;
+        }
+        .edit-button {
+            background-color: var(--secondary-bg);
+            color: var(--primary-text);
+            border: 2px solid var(--primary-text);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .edit-button:hover {
+            background-color: var(--primary-text);
+            color: var(--secondary-bg);
+        }
         .sign-out-button {
             background-color: #f44336;
             color: white;
-            padding: 10px 20px;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
-        
         .sign-out-button:hover {
             background-color: #d32f2f;
+        }
+        .edit-form {
+            display: none;
+            margin-top: 1rem;
+        }
+        .edit-field {
+            margin-bottom: 1rem;
+        }
+        .edit-field label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+        .edit-field input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
         }
     </style>
 </head>
@@ -120,42 +199,43 @@
     <div class="page-wrapper">
         <div class="main-content">
             <main class="dashboard-container">
-                <h1>User Dashboard</h1>
-                
-                <div class="user-info">
-                    <h2>Welcome, <span id="username"></span>!</h2>
-                    <p>Store Credit: €<span id="storeCredit"></span></p>
+                <div class="dashboard-header">
+                    <h1 class="dashboard-title">User Dashboard</h1>
+                    <button id="signOutBtn" class="sign-out-button">Sign Out</button>
                 </div>
                 
-                <div class="profile-info">
-                    <h3>Profile Information</h3>
+                <div class="dashboard-section user-info">
                     <div class="avatar-container">
                         <img id="currentAvatar" class="avatar" src="" alt="User Avatar">
+                        <div id="avatarOptions" class="avatar-options"></div>
                     </div>
-                    <div id="profileDetails">
-                        <p><strong>Name:</strong> <span id="userName"></span></p>
-                        <p><strong>Email:</strong> <span id="userEmail"></span></p>
+                    <div class="user-details">
+                        <h2 class="user-name" id="userName"></h2>
+                        <p class="user-email" id="userEmail"></p>
+                        <p class="store-credit">Store Credit: €<span id="storeCredit"></span></p>
                     </div>
                     <button id="editProfileBtn" class="edit-button">Edit Profile</button>
-                    <div id="editProfileForm" style="display:none;">
-                        <div class="edit-field">
-                            <label for="editName">Name:</label>
-                            <input type="text" id="editName">
-                        </div>
-                        <div class="edit-field">
-                            <label for="editEmail">Email:</label>
-                            <input type="email" id="editEmail">
-                        </div>
-                        <button id="saveProfileBtn" class="edit-button">Save Changes</button>
-                    </div>
                 </div>
                 
-                <div class="subscription-info">
-                    <h3>Subscription Details</h3>
-                    <p><strong>Subscription Type:</strong> <span id="subscriptionType"></span></p>
-                    <p><strong>Expiry Date:</strong> <span id="expiryDate"></span></p>
+                <div id="editProfileForm" class="edit-form">
+                    <div class="edit-field">
+                        <label for="editName">Name:</label>
+                        <input type="text" id="editName">
+                    </div>
+                    <div class="edit-field">
+                        <label for="editEmail">Email:</label>
+                        <input type="email" id="editEmail">
+                    </div>
+                    <button id="saveProfileBtn" class="edit-button">Save Changes</button>
                 </div>
-                <button id="signOutBtn" class="sign-out-button">Sign Out</button>
+                
+                <div class="dashboard-section subscription-info">
+                    <div>
+                        <h3 class="section-title">Subscription Details</h3>
+                        <p class="subscription-type">Type: <span id="subscriptionType"></span></p>
+                    </div>
+                    <p class="expiry-date">Expires: <span id="expiryDate"></span></p>
+                </div>
             </main>
         </div>
     </div>
