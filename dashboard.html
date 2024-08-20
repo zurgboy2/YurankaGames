@@ -124,7 +124,7 @@
                 
                 <div class="user-info">
                     <h2>Welcome, <span id="username"></span>!</h2>
-                    <p>Store Credit: $<span id="storeCredit"></span></p>
+                    <p>Store Credit: €<span id="storeCredit"></span></p>
                 </div>
                 
                 <div class="profile-info">
@@ -229,11 +229,10 @@
         async function fetchUserInfo(username, googleToken) {
             try {
                 const data = await makeRequest('getUserInfo', { username, googleToken });
-                console.log(data)
                 
                 document.getElementById('username').textContent = username;
                 document.getElementById('storeCredit').textContent = data.Value.toFixed(2);
-                document.getElementById('currentAvatar').src = data['image-url'];
+                document.getElementById('currentAvatar').src = data['image_url'];
                 document.getElementById('userName').textContent = data.Name;
                 document.getElementById('userEmail').textContent = data.Email;
                 document.getElementById('subscriptionType').textContent = data.Subscription;
