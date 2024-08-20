@@ -251,8 +251,6 @@
                 return;
             }
 
-            document.getElementById('username').textContent = username;
-
             // Fetch user information
             fetchUserInfo(username, googleToken);
 
@@ -260,7 +258,10 @@
             fetchAvatarOptions();
 
             document.getElementById('signOutBtn').addEventListener('click', signOut);
+            document.getElementById('editProfileBtn').addEventListener('click', showEditForm);
+            document.getElementById('saveProfileBtn').addEventListener('click', saveProfile);
         });
+
 
         async function getProxyToken(action) {
             const requestBody = { script_id: 'auth_script', action };
@@ -310,11 +311,10 @@
             try {
                 const data = await makeRequest('getUserInfo', { username, googleToken });
                 
-                document.getElementById('username').textContent = username;
-                document.getElementById('storeCredit').textContent = data.Value.toFixed(2);
-                document.getElementById('currentAvatar').src = data['image_url'];
                 document.getElementById('userName').textContent = data.Name;
                 document.getElementById('userEmail').textContent = data.Email;
+                document.getElementById('storeCredit').textContent = data.Value.toFixed(2);
+                document.getElementById('currentAvatar').src = data['image_url'];
                 document.getElementById('subscriptionType').textContent = data.Subscription;
                 document.getElementById('expiryDate').textContent = data['Expiry Date'];
 
@@ -326,13 +326,11 @@
             }
         }
 
-        // Add event listeners for edit profile functionality
-        document.getElementById('editProfileBtn').addEventListener('click', () => {
-            document.getElementById('profileDetails').style.display = 'none';
+        function showEditForm() {
             document.getElementById('editProfileForm').style.display = 'block';
-        });
+        }
 
-        document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+        async function saveProfile() {
             const newName = document.getElementById('editName').value;
             const newEmail = document.getElementById('editEmail').value;
             const username = sessionStorage.getItem('username');
@@ -349,7 +347,6 @@
                 if (response.success) {
                     document.getElementById('userName').textContent = newName;
                     document.getElementById('userEmail').textContent = newEmail;
-                    document.getElementById('profileDetails').style.display = 'block';
                     document.getElementById('editProfileForm').style.display = 'none';
                 } else {
                     console.error('Failed to update profile');
@@ -357,7 +354,7 @@
             } catch (error) {
                 console.error('Error updating profile:', error);
             }
-        });
+        }
 
         async function fetchAvatarOptions() {
             try {
