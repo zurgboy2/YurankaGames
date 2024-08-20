@@ -267,6 +267,33 @@
         // Initial load of games
         fetchGames();
     });
+    function updateUserProfile() {
+        const username = localStorage.getItem('username');
+        const avatarurl = localStorage.getItem('avatarurl');
+        const userProfileContainer = document.getElementById('userProfileContainer');
+        const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+        
+        console.log('Updating user profile:', { username, avatarurl }); // Debug log
+    
+        const profileHTML = username
+            ? `<div class="user-profile">
+                <img src="${avatarurl || 'https://ik.imagekit.io/mcgszbooe/Profile.png?updatedAt=1717316246766'}" alt="User Avatar" class="user-avatar">
+                <a href="/dashboard.html" class="username-link">${username}</a>
+               </div>`
+            : `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+        
+        if (userProfileContainer) {
+            userProfileContainer.innerHTML = profileHTML;
+        } else {
+            console.error('userProfileContainer not found');
+        }
+        
+        if (sidebarUserProfileContainer) {
+            sidebarUserProfileContainer.innerHTML = profileHTML;
+        } else {
+            console.error('sidebarUserProfileContainer not found');
+        }
+    }
     </script>
 </body>
 </html>
