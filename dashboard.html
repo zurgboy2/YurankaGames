@@ -210,6 +210,14 @@
         .discount-amount {
             color: #aaa;
         }
+        .discount-warning {
+            background-color: var(--secondary-bg);
+            border-left: 4px solid #ffa500;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #ffa500;
+        }
     </style>
 </head>
 <body>
@@ -318,6 +326,9 @@
                 </div>
                 <div class="dashboard-section discount-codes-section">
                     <h3 class="section-title">Your Discount Codes</h3>
+                    <div class="discount-warning">
+                        <strong>Note:</strong> Once a discount code is generated, it becomes a Shopify coupon and cannot be transferred back to in-store credit without contacting the IT admin.
+                    </div>
                     <ul id="discountCodesList" class="discount-codes-list">
                         <!-- Discount codes will be populated here -->
                     </ul>
