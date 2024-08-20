@@ -211,6 +211,7 @@
         async function fetchUserInfo(username, googleToken) {
             try {
                 const data = await makeRequest('getUserInfo', { username, googleToken });
+                console.log(data)
                 
                 document.getElementById('username').textContent = username;
                 document.getElementById('storeCredit').textContent = data.Value.toFixed(2);
