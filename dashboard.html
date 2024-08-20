@@ -180,6 +180,36 @@
             font-size: 1.2rem;
             font-weight: bold;
         }
+        .discount-codes-section {
+            background-color: var(--primary-bg);
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .discount-codes-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .discount-code-item {
+            background-color: var(--secondary-bg);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .discount-code {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .discount-amount {
+            color: #aaa;
+        }
     </style>
 </head>
 <body>
@@ -285,6 +315,12 @@
                         <button id="generateDiscountBtn" class="generate-discount-btn">Generate Discount Code</button>
                     </div>
                     <div id="discountResult" class="discount-result"></div>
+                </div>
+                <div class="dashboard-section discount-codes-section">
+                    <h3 class="section-title">Your Discount Codes</h3>
+                    <ul id="discountCodesList" class="discount-codes-list">
+                        <!-- Discount codes will be populated here -->
+                    </ul>
                 </div>
             </main>
         </div>
