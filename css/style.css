@@ -180,6 +180,8 @@ header {
 .nav-section {
     background-color: var(--primary-bg);
     padding: 2rem 0;
+    position: relative; /* Ensure it's above other elements */
+    z-index: 1; /* Raise its stacking order */
 }
 
 .nav-grid {
@@ -188,6 +190,8 @@ header {
     gap: 1.5rem;
     max-width: 900px;
     margin: 0 auto;
+    position: relative; /* Ensure it's above other elements */
+    z-index: 2; /* Raise its stacking order even higher */
 }
 
 .nav-item {
