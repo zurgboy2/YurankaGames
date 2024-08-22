@@ -418,14 +418,16 @@
                 alert("There are currently no active tournaments available for registration.");
             } else {
                 // Add the actual tournament options
-                tournaments.forEach(tournament => {
+                tournaments.forEach((tournament, index) => {
+                    console.log(`Processing tournament ${index}:`, tournament);
                     if (tournament && tournament.name && tournament.price !== undefined) {
                         const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
                         option.dataset.posterUrl = tournament.posterUrl || '';
                         option.dataset.readerInfo = tournament.readerInfo || '';
                         tournamentSelect.add(option);
+                        console.log(`Added option for tournament ${index}`);
                     } else {
-                        console.warn('Invalid tournament data:', tournament);
+                        console.warn(`Invalid tournament data for index ${index}:`, tournament);
                     }
                 });
                 document.getElementById('registrationForm').style.display = 'block'; // Show the form
