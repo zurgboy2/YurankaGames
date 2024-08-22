@@ -395,47 +395,51 @@
           }
         }
         
-        async function loadTournaments() {
-            try {
-                const response = await makeRequest('getActiveTournaments');
-                const tournamentSelect = document.getElementById('tournamentSelect');
-                
-                // Clear existing options
-                tournamentSelect.innerHTML = '';
-        
-                // Add the default "Pick a tournament" option
-                const defaultOption = new Option("Pick a tournament", "");
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                tournamentSelect.add(defaultOption);
-        
-                // Convert response to an array if it's not already one
-                let tournaments = Array.isArray(response) ? response : [response].filter(Boolean);
-        
-                if (tournaments.length === 0) {
-                    const noTournamentsOption = new Option("No tournaments available", "");
-                    noTournamentsOption.disabled = true;
-                    tournamentSelect.add(noTournamentsOption);
-                    document.getElementById('registrationForm').style.display = 'none'; // Hide the form
-                    alert("There are currently no active tournaments available for registration.");
-                } else {
-                    // Add the actual tournament options
-                    tournaments.forEach(tournament => {
+    async function loadTournaments() {
+        try {
+            const response = await makeRequest('getActiveTournaments');
+            const tournamentSelect = document.getElementById('tournamentSelect');
+            
+            // Clear existing options
+            tournamentSelect.innerHTML = '';
+    
+            // Add the default "Pick a tournament" option
+            const defaultOption = new Option("Pick a tournament", "");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            tournamentSelect.add(defaultOption);
+    
+            // Ensure response is an array
+            let tournaments = Array.isArray(response) ? response : [response].filter(Boolean);
+    
+            if (tournaments.length === 0) {
+                const noTournamentsOption = new Option("No tournaments available", "");
+                noTournamentsOption.disabled = true;
+                tournamentSelect.add(noTournamentsOption);
+                document.getElementById('registrationForm').style.display = 'none'; // Hide the form
+                alert("There are currently no active tournaments available for registration.");
+            } else {
+                // Add the actual tournament options
+                tournaments.forEach(tournament => {
+                    if (tournament && tournament.name && tournament.price !== undefined) {
                         const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
-                        option.dataset.posterUrl = tournament.posterUrl;
-                        option.dataset.readerInfo = tournament.readerInfo;
+                        option.dataset.posterUrl = tournament.posterUrl || '';
+                        option.dataset.readerInfo = tournament.readerInfo || '';
                         tournamentSelect.add(option);
-                    });
-                    document.getElementById('registrationForm').style.display = 'block'; // Show the form
-                }
-                
-                document.getElementById('loadingOverlay').style.display = 'none';
-            } catch (error) {
-                console.error("Error loading tournaments:", error);
-                document.getElementById('loadingOverlay').style.display = 'none';
-                alert("Error loading tournaments. Please try again later.");
+                    } else {
+                        console.warn('Invalid tournament data:', tournament);
+                    }
+                });
+                document.getElementById('registrationForm').style.display = 'block'; // Show the form
             }
+            
+            document.getElementById('loadingOverlay').style.display = 'none';
+        } catch (error) {
+            console.error("Error loading tournaments:", error);
+            document.getElementById('loadingOverlay').style.display = 'none';
+            alert("Error loading tournaments. Please try again later.");
         }
+    }
       
         async function initialize() {
             document.getElementById('loadingOverlay').style.display = 'flex';
