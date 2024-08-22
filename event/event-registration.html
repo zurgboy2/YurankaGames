@@ -396,8 +396,12 @@
         
     async function loadTournaments() {
         try {
-            const tournaments = await makeRequest('getActiveTournaments');
-            console.log('Received tournaments:', tournaments);
+            const tournamentData = await makeRequest('getActiveTournaments');
+            console.log('Received tournament data:', tournamentData);
+            
+            // Parse the JSON string into an array of tournament objects
+            const tournaments = JSON.parse(tournamentData);
+            console.log('Parsed tournaments:', tournaments);
             
             const tournamentSelect = document.getElementById('tournamentSelect');
             
