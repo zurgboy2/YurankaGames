@@ -385,7 +385,7 @@
             loadingOverlay.style.display = 'none';
             
             const checkoutUrl = result.checkoutUrl;
-            const organizerMessage = result.message.replace(/\n/g, '<br>');
+            const organizerMessage = result.message;
             
             const confirmationMessage = checkoutUrl ? 
                 'Your registration is confirmed. Please proceed to checkout. If you cannot pay via PayPal, you can pay at the store. Please note that your place is only confirmed once payment is received.' : 
