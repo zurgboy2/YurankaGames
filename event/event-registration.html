@@ -20,13 +20,19 @@
 
         .page-wrapper {
             display: flex;
+            flex-direction: column;
             min-height: 100vh;
         }
 
         .main-content {
             flex: 1;
-            overflow-y: auto;
+            display: flex;
+        }
+
+        .content-area {
+            flex: 1;
             padding: 2rem;
+            overflow-y: auto;
         }
 
         .container {
@@ -135,9 +141,7 @@
 </head>
 <body>
     <div class="page-wrapper">
-        <div class="main-content">
-    <header>
-        <div class="container">
+        <header>
             <div class="header-content">
                 <button class="sidebar-toggle" id="sidebarToggle">
                     <i class="fas fa-bars"></i>
@@ -167,8 +171,7 @@
                 </nav>
                 <div id="userProfileContainer"></div>
             </div>
-        </div>
-    </header>
+        </header>
 
     <div class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
@@ -191,9 +194,10 @@
         <div id="sidebarUserProfileContainer"></div>
     </div>
 
-            
-            <div class="container">
-                <h2>Tournament Registration</h2>
+        <div class="main-content">
+            <div class="content-area">
+                <div class="container">
+                    <h2>Tournament Registration</h2>
                 <form id="registrationForm">
                     <div class="form-group">
                         <label for="nameInput">Name</label>
@@ -228,6 +232,7 @@
                 </video>
             </div>
         </aside>
+        </div>
     </div>
 
     <div id="loadingOverlay" class="loading-overlay" style="display:none;">
@@ -288,6 +293,7 @@
             }
             
             const responseData = await response.json();
+            console.log(responseData);
             
             return responseData;
         } catch (error) {
