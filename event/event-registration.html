@@ -322,13 +322,13 @@ async function loadTournaments() {
             let defaultFound = false;
             tournaments.forEach((tournament, index) => {
                 if (tournament && tournament.name && tournament.price !== undefined) {
-                    const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
+                    const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id.toString());
                     option.dataset.posterUrl = tournament.posterUrl || '';
                     option.dataset.readerInfo = tournament.readerInfo || '';
                     tournamentSelect.add(option);
 
                     // If this tournament matches the default ID, select it
-                    if (tournament.id === defaultTournamentId) {
+                    if (tournament.id.toString() === defaultTournamentId) {
                         option.selected = true;
                         defaultFound = true;
                     }
