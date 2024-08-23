@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuranka Games - Reservation Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: black;
+            --primary-text: white;
+            --secondary-bg: #1a1a1a;
+            --hover-bg: #2a2a2a;
+            --accent-color: #8B0000;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        header {
+            background-color: var(--primary-bg);
+            padding: 0.5rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        form {
+            background-color: var(--secondary-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(255, 99, 71, 0.5);
+            margin: 20px auto;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--primary-text);
+        }
+
+        input[type="date"],
+        select,
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            padding: 10px;
+            border: 2px solid var(--accent-color);
+            border-radius: 4px;
+            background-color: var(--secondary-bg);
+            color: var(--primary-text);
+            outline: none;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        input[type="date"]:hover,
+        select:hover,
+        input[type="text"]:hover,
+        input[type="email"]:hover,
+        input[type="number"]:hover,
+        input[type="date"]:focus,
+        select:focus,
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus {
+            border-color: #FFA07A;
+        }
+
+        button {
+            background-color: var(--accent-color);
+            color: var(--primary-text);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        button:hover {
+            background-color: #CC5237;
+            transform: translateY(-2px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            background-color: var(--secondary-bg);
+            color: var(--accent-color);
+        }
+
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-text);
+            font-size: 24px;
+        }
+
+        #customPopup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: var(--secondary-bg);
+            width: 300px;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .popup-content h2 {
+            color: var(--primary-text);
+            text-align: center;
+        }
+
+        .popup-content p {
+            color: var(--primary-text);
+            text-align: left;
+            margin: 15px 0;
+        }
+
+        .popup-content button {
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: var(--primary-text);
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            .popup-content {
+                width: 90%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                    </div>
+                    <span class="logo-text">YURANKA GAMES</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Reservation Form</h1>
+        <form id="reservationForm" onsubmit="return handleSubmit();">
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="date">Select Date:</label>
+                    <input type="date" id="date" name="date" required onchange="loadTimeSlots();">
+                </div>
+
+                <div class="input-group">
+                    <label for="startTime">Start Time:</label>
+                    <select id="startTime" name="startTime" required onchange="updateEndTimeOptions(); updateAvailability();">
+                        <option value="">Select start time</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="endTime">End Time:</label>
+                    <select id="endTime" name="endTime" required onchange="updateAvailability();">
+                        <option value="">Select end time</option>
+                    </select>
+                </div>
+            </div>
+            
+            <table id="availabilityTable"></table>
+            
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+            
+                <div class="input-group">
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 14px; color: gray;">
+                You can book any combination of items above. The people limit is more of a counter for ourselves, as we might be able to provide a discount if you have more than 10 people coming. Though, only registering the number of people, and not any spaces, implies that you require no seating at the venue and are happy to stand. 
+            </p>
+      
+            <p style="margin-top: 20px; font-size: 14px; color: gray;">
+                The reservation fee is charged on the basis of you being able to reserve. The amount paid will be deducted from your final bill for the total use of the items reserved. Additionally, if you do not show up, the reservation fee will not be refunded. You are also allowed to show up at the venue without having reserved, but you will not be guaranteed a spot if your requested spot is already occupied.
+            </p>
+            
+            <button id="submitBtn" style="display:none" onclick="handleSubmit(event)">Submit Reservation</button>
+        </form>
+    </div>
+
+    <div id="customPopup">
+        <div class="popup-content">
+            <h2>Reservation Status</h2>
+            <p id="popupMessage"></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <div id="loadingOverlay">
+        Loading, please wait...
+    </div>
+
+    <script>
+const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+
+async function getProxyToken(action) {
+    const requestBody = { script_id: 'registration_script', action };
+    
+    try {
+        const response = await fetch(`${API_URL}/get_token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        });
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Token request failed:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.token) {
+            return data.token;
+        }
+        
+        console.error('No token in response');
+        throw new Error('Failed to get token: ' + JSON.stringify(data));
+    } catch (error) {
+        console.error('Error in getProxyToken:', error);
+        throw error;
+    }
+}
+
+async function makeRequest(action, additionalData = {}) {
+    try {
+        const token = await getProxyToken(action);
+        
+        const requestBody = { token, action, script_id: 'registration_script', ...additionalData };
+        const response = await fetch(`${API_URL}/proxy`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
+        });
+    
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Proxy request failed:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+        
+        const responseData = await response.json();
+        
+        return responseData;
+    } catch (error) {
+        console.error('Error in makeRequest:', error);
+        throw error;
+    }
+}
+
+function showLoading() {
+    document.getElementById('loadingOverlay').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loadingOverlay').style.display = 'none';
+}
+
+async function loadTimeSlots() {
+    var date = document.getElementById('date').value;
+    if (date) {
+        showLoading();
+        try {
+            const slots = await makeRequest('getTimeSlots', { date });
+            var startTimeSelect = document.getElementById('startTime');
+            var endTimeSelect = document.getElementById('endTime');
+            startTimeSelect.innerHTML = '<option value="">Select start time</option>';
+            endTimeSelect.innerHTML = '<option value="">Select end time</option>';
+            
+            slots.forEach(function(time, index) {
+                var optionStart = document.createElement('option');
+                optionStart.value = time;
+                optionStart.text = time;
+                startTimeSelect.appendChild(optionStart);
+
+                if (index > 0) { // Populate end time starting from second slot
+                    var optionEnd = document.createElement('option');
+                    optionEnd.value = time;
+                    optionEnd.text = time;
+                    endTimeSelect.appendChild(optionEnd);
+                }
+            });
+            updateEndTimeOptions();
+        } catch (error) {
+            console.error('Error loading time slots:', error);
+            showPopup('Error loading time slots. Please try again.');
+        } finally {
+            hideLoading();
+        }
+    }
+}
+
+function updateEndTimeOptions() {
+    var startTimeSelect = document.getElementById('startTime');
+    var endTimeSelect = document.getElementById('endTime');
+    var startValue = startTimeSelect.value;
+    Array.from(endTimeSelect.options).forEach(function(option) {
+        option.disabled = option.value <= startValue;
+    });
+    updateAvailability();
+}
+
+async function updateAvailability() {
+    showLoading();
+    var date = document.getElementById('date').value;
+    var startTime = document.getElementById('startTime').value;
+    var endTime = document.getElementById('endTime').value;
+
+    function initializeTable() {
+        var table = document.getElementById('availabilityTable');
+        table.innerHTML = ''; // Clear the table completely
+        var headerRow = table.insertRow(0);
+        var headers = ["Image", "Type", "Available", "Choose Amount", "Description"];
+        headers.forEach(function(headerTitle) {
+            var headerCell = headerRow.insertCell(-1);
+            headerCell.innerText = headerTitle;
+        });
+    }
+
+    if (date && startTime && endTime && startTime < endTime) {
+        try {
+            const capacities = await makeRequest('checkUnavailability', { date, startTime, endTime });
+            initializeTable(); // Initialize table with headers
+
+            var table = document.getElementById('availabilityTable');
+
+            Object.keys(capacities).forEach(function(key) {
+                var row = table.insertRow(-1);
+                var imgCell = row.insertCell(0);
+
+                if (capacities[key].image) {
+                    var img = document.createElement('img');
+                    img.src = capacities[key].image;
+                    img.alt = 'Image of ' + key;
+                    img.style.width = '100%';
+                    img.style.height = 'auto';
+                    imgCell.appendChild(img);
+                } else {
+                    imgCell.innerText = "No image available";
+                    imgCell.style.fontStyle = 'italic';
+                }
+
+                row.insertCell(1).innerText = key;
+                row.insertCell(2).innerText = capacities[key].count;
+
+                var inputCell = row.insertCell(3);
+                var input = document.createElement('input');
+                input.type = 'number';
+                input.name = key;
+                input.value = 0;
+                input.min = 0;
+                input.max = capacities[key].count;
+                input.required = true;
+                inputCell.appendChild(input);
+
+                row.insertCell(4).innerText = capacities[key].description;
+            });
+
+            document.getElementById('submitBtn').style.display = 'block'; // Show submit button
+        } catch (error) {
+            console.error('Error updating availability:', error);
+            showPopup('Error updating availability. Please try again.');
+        } finally {
+            hideLoading();
+        }
+    } else {
+        initializeTable(); // Reset the table with only headers
+        document.getElementById('submitBtn').style.display = 'none'; // Hide submit button
+        hideLoading();
+    }
+}
+
+async function handleSubmit(event) {
+    event.preventDefault(); // Stop the form from submitting normally
+    showLoading();
+
+    var submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true; // Disable the button immediately when clicked
+
+    var date = document.getElementById('date').value;
+    var startTime = document.getElementById('startTime').value;
+    var endTime = document.getElementById('endTime').value;
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+
+    var availabilityData = [];
+    var table = document.getElementById('availabilityTable');
+    for (var i = 1; i < table.rows.length; i++) {
+        var row = table.rows[i];
+        var type = row.cells[1].textContent;
+        var chosenAmount = row.cells[3].querySelector('input').value;
+
+        availabilityData.push({
+            type: type,
+            chosenAmount: parseInt(chosenAmount)
+        });
+    }
+
+    var reservationDetails = {
+        date: date,
+        startTime: startTime,
+        endTime: endTime,
+        name: name,
+        email: email,
+        availability: availabilityData
+    };
+
+    try {
+        const response = await makeRequest('submitReservationDetails', reservationDetails);
+        if (response.checkoutUrl) {
+            var message = `Dear ${name},<br>Your reservation for ${date} from ${startTime} to ${endTime} has been successfully submitted! Please click the link below for payment`;
+            showPopup(message, response.checkoutUrl);
+        } else {
+            showPopup(response.message || "Your reservation has been successfully submitted!");
+        }
+    } catch (error) {
+        console.error('Error submitting reservation:', error);
+        showPopup("There was a problem submitting your reservation. Please try again. Make sure to reserve tables or couch spaces");
+    } finally {
+        submitBtn.disabled = false;
+        hideLoading();
+    }
+}
+
+function showPopup(message, checkoutUrl) {
+    var popupContent = document.getElementById('popupMessage');
+    popupContent.innerHTML = message.replace(/(?:\r\n|\r|\n)/g, '<br>'); // Convert newlines to HTML breaks for better formatting
+    if (checkoutUrl) {
+        popupContent.innerHTML += `<br><a href="${checkoutUrl}" target="_blank" style="padding:10px 20px; background-color:black; color:white; border:none; border-radius:5px; text-decoration:none; display:block; margin-top:10px;">View Reservation</a>`;
+    }
+    document.getElementById('customPopup').style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('customPopup').style.display = 'none';
+}
+
+// Initialize the form
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('date').addEventListener('change', loadTimeSlots);
+    document.getElementById('startTime').addEventListener('change', function() {
+        updateEndTimeOptions();
+        updateAvailability();
+    });
+    document.getElementById('endTime').addEventListener('change', updateAvailability);
+    document.getElementById('reservationForm').addEventListener('submit', handleSubmit);
+});
+    </script>
+</body>
+</html>
