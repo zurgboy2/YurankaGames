@@ -296,8 +296,13 @@ function updateMessage(selectElement) {
     }
 }
 
+
 async function loadTournaments() {
     try {
+        // Get the tournament ID from the URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const defaultTournamentId = urlParams.get('tournament');
+
         const tournamentData = await makeRequest('getActiveTournaments');
         const tournaments = JSON.parse(tournamentData.result);
         const tournamentSelect = document.getElementById('tournamentSelect');
@@ -305,7 +310,6 @@ async function loadTournaments() {
 
         const defaultOption = new Option("Pick a tournament", "");
         defaultOption.disabled = true;
-        defaultOption.selected = true;
         tournamentSelect.add(defaultOption);
 
         if (!Array.isArray(tournaments) || tournaments.length === 0) {
@@ -315,17 +319,35 @@ async function loadTournaments() {
             document.getElementById('registrationForm').style.display = 'none';
             alert("There are currently no active tournaments available for registration.");
         } else {
+            let defaultFound = false;
             tournaments.forEach((tournament, index) => {
                 if (tournament && tournament.name && tournament.price !== undefined) {
                     const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
                     option.dataset.posterUrl = tournament.posterUrl || '';
                     option.dataset.readerInfo = tournament.readerInfo || '';
                     tournamentSelect.add(option);
+
+                    // If this tournament matches the default ID, select it
+                    if (tournament.id === defaultTournamentId) {
+                        option.selected = true;
+                        defaultFound = true;
+                    }
                 } else {
                     console.warn(`Invalid tournament data for index ${index}:`, tournament);
                 }
             });
             document.getElementById('registrationForm').style.display = 'block';
+
+            // If a default was specified but not found, select the "Pick a tournament" option
+            if (defaultTournamentId && !defaultFound) {
+                defaultOption.selected = true;
+                console.warn(`Specified default tournament ${defaultTournamentId} not found.`);
+            }
+
+            // If a default was found and selected, trigger the change event
+            if (defaultFound) {
+                tournamentSelect.dispatchEvent(new Event('change'));
+            }
         }
         
         document.getElementById('loadingOverlay').style.display = 'none';
@@ -343,6 +365,8 @@ async function handleRegistration(e) {
     const email = document.getElementById('emailInput').value;
     const tournamentSelect = document.getElementById('tournamentSelect');
     const eventId = tournamentSelect.value;
+    const username = sessionStorage.getItem('username') || '';
+    const googleToken = sessionStorage.getItem('googleToken') || '';
     
     const loadingOverlay = document.getElementById('loadingOverlay');
     loadingOverlay.style.display = 'flex';
@@ -351,7 +375,9 @@ async function handleRegistration(e) {
         const result = await makeRequest('registerForEvent', {
             eventId: eventId,
             name: name,
-            email: email
+            email: email,
+            username: username,
+            googleToken: googleToken
         });
         
         loadingOverlay.style.display = 'none';
