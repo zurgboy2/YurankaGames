@@ -272,6 +272,26 @@
             z-index: 10;
         }
 
+        .signup-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #8B0000; /* Dark blood red */
+            color: #FFFFFF; /* White text */
+            text-decoration: none;
+            border-radius: 0; /* Sharp corners for a more dramatic look */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid #8B0000;
+        }
+
+        .signup-btn:hover {
+            background-color: #000000; /* Black background on hover */
+            color: #8B0000; /* Blood red text on hover */
+            border-color: #8B0000; /* Maintain blood red border on hover */
+        }
+
         .prev { left: -20px; }
         .next { right: -20px; }
         /* Placeholder backgrounds for event images */
@@ -494,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="event-bubble">
                         <h2>One Piece Mini Con</h2>
                         <p>September 7th</p>
-                        <p>More information coming up!</p>
+                        <a href="/event-registration.html?tournament=27" class="signup-btn">Click here to sign up</a>
                     </div>
                     <div class="main-events">
                         <div class="event-card">

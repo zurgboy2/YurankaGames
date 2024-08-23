@@ -351,8 +351,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Login form submission
     loginFormElement.addEventListener('submit', async function(e) {
         e.preventDefault();
-
-        // Get the login button
         const loginButton = this.querySelector('.auth-btn');
 
         // Disable the button and change its text
@@ -364,28 +362,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
             username: document.getElementById('loginUsername').value,
             password: document.getElementById('loginPassword').value
         };
-
+        
         try {
-            // Your login logic here
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(loginData)
-            });
-
-            if (response.ok) {
-                // Login successful
-                const userData = await response.json();
-                // Handle successful login (e.g., redirect, update UI)
+            const data = await makeRequest('customerLogin', loginData);
+            if (data.success) {
+                alert('Login successful!');
+                sessionStorage.setItem('username', data.username);
+                sessionStorage.setItem('googleToken', data.googleToken);
+                sessionStorage.setItem('name', data.name);
+                sessionStorage.setItem('email', data.email);
+                sessionStorage.setItem('avatarurl', data.image_url);
+                window.location.href = '/index.html'; // Redirect to home page
             } else {
-                // Login failed
                 throw new Error('Login failed');
             }
         } catch (error) {
-            console.error('Login error:', error);
-            // Handle login error (e.g., show error message to user)
+            console.error('Error:', error);
         } finally {
             // Re-enable the button and restore its text
             loginButton.disabled = false;
