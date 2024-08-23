@@ -75,6 +75,40 @@
         .username-unavailable {
             color: red;
         }
+        .auth-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .auth-btn-loading {
+            position: relative;
+            color: transparent !important;
+        }
+
+        .auth-btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            border: 4px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: button-loading-spinner 1s linear infinite;
+        }
+
+        @keyframes button-loading-spinner {
+            from {
+                transform: rotate(0turn);
+            }
+            to {
+                transform: rotate(1turn);
+            }
+        }
     </style>
 </head>
 <body>
@@ -317,27 +351,46 @@ document.addEventListener('DOMContentLoaded', (event) => {
     // Login form submission
     loginFormElement.addEventListener('submit', async function(e) {
         e.preventDefault();
+
+        // Get the login button
+        const loginButton = this.querySelector('.auth-btn');
+
+        // Disable the button and change its text
+        loginButton.disabled = true;
+        loginButton.textContent = 'Logging in...';
+        loginButton.classList.add('auth-btn-loading');
+
         const loginData = {
             username: document.getElementById('loginUsername').value,
             password: document.getElementById('loginPassword').value
         };
-        
+
         try {
-            const data = await makeRequest('customerLogin', loginData);
-            if (data.success) {
-                alert('Login successful!');
-                sessionStorage.setItem('username', data.username);
-                sessionStorage.setItem('googleToken', data.googleToken);
-                sessionStorage.setItem('name', data.name);
-                sessionStorage.setItem('email', data.email);
-                sessionStorage.setItem('avatarurl', data.image_url);
-                window.location.href = '/index.html'; // Redirect to home page
+            // Your login logic here
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginData)
+            });
+
+            if (response.ok) {
+                // Login successful
+                const userData = await response.json();
+                // Handle successful login (e.g., redirect, update UI)
             } else {
-                alert('Login failed: ' + data.message);
+                // Login failed
+                throw new Error('Login failed');
             }
         } catch (error) {
-            console.error('Error:', error);
-            alert('An error occurred during login');
+            console.error('Login error:', error);
+            // Handle login error (e.g., show error message to user)
+        } finally {
+            // Re-enable the button and restore its text
+            loginButton.disabled = false;
+            loginButton.textContent = 'Login';
+            loginButton.classList.remove('auth-btn-loading');
         }
     });
 
