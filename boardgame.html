@@ -135,71 +135,85 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
                     </div>
-                    <span class="logo-text">YURANKA GAMES</span>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="/boardgame.html">Board Games</a></li>
+                            <li><a href="/videogame.html">Video Games</a></li>
+                            <li><a href="/registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="/event/event-registration.html">Events Registration</a>
+                                    <a href="/event/mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="/about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
                 </div>
-                <nav class="main-nav" id="mainNav">
-                    <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="https://store.yuranka.com">Store</a></li>            
-                        <li><a href="/boardgame.html">Board Games</a></li>
-                        <li><a href="/videogame.html">Video Games</a></li>
-                        <li><a href="/registration.html">Reservations</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Events</a>
-                            <div class="dropdown-content">
-                                <a href="/event/event-registration.html">Events Registration</a>
-                                <a href="/event/mini-con.html">Mini - Cons</a>
-                            </div>
-                        </li>
-                        <li><a href="/about.html">About</a></li>
-                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <div id="userProfileContainer"></div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <div class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="https://store.yuranka.com">Store</a></li>  
-                <li><a href="/boardgame.html">Board Games</a></li>
-                <li><a href="/videogame.html">Video Games</a></li>
-                <li><a href="/registration.html">Reservations</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Events</a>
-                    <div class="dropdown-content">
-                        <a href="event/event-registration.html">Events Registration</a>
-                        <a href="/event/mini-con.html">Mini - Cons</a>
+        <div class="content-wrapper">
+            <main class="main-content">
+                <div class="container">
+                    <h1>Board Games</h1>
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search board games...">
+                        <button id="search-button">Search</button>
                     </div>
-                </li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="sidebarUserProfileContainer"></div>
-    </div>
-
-    <main>
-        <h1>Board Games</h1>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search board games...">
-            <button id="search-button">Search</button>
+                    <div id="board-games-container" class="board-games-container"></div>
+                </div>
+            </main>
+            <aside class="video-sidebar">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </aside>
         </div>
-        <div id="board-games-container" class="board-games-container"></div>
-    </main>
+
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="https://store.yuranka.com">Store</a></li>  
+                    <li><a href="/boardgame.html">Board Games</a></li>
+                    <li><a href="/videogame.html">Video Games</a></li>
+                    <li><a href="/registration.html">Reservations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Events</a>
+                        <div class="dropdown-content">
+                            <a href="event/event-registration.html">Events Registration</a>
+                            <a href="/event/mini-con.html">Mini - Cons</a>
+                        </div>
+                    </li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div id="sidebarUserProfileContainer"></div>
+        </div>
+    </div>
 
     <div id="modal" class="modal">
         <div class="modal-content">
@@ -207,16 +221,36 @@
             <h2 id="modal-title"></h2>
             <div id="document-links"></div>
             <iframe id="doc-frame" src=""></iframe>
+            <a id="fallback-link" style="display: none;" target="_blank"></a>
         </div>
     </div>
 
-    <script>
-    const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
-    let allGames = [];
 
-    async function getProxyToken(action) {
-        const requestBody = { script_id: 'games_script', action };
-        const response = await fetch(`${API_URL}/get_token`, {
+<script>
+const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+let allGames = [];
+
+async function getProxyToken(action) {
+    const requestBody = { script_id: 'games_script', action };
+    const response = await fetch(`${API_URL}/get_token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody)
+    });
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+    }
+    const data = await response.json();
+    if (data.token) return data.token;
+    throw new Error('Failed to get token: ' + JSON.stringify(data));
+}
+
+async function makeRequest(action, additionalData = {}) {
+    try {
+        const token = await getProxyToken(action);
+        const requestBody = { token, action, script_id: 'games_script', ...additionalData };
+        const response = await fetch(`${API_URL}/proxy`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody)
@@ -225,192 +259,175 @@
             const errorText = await response.text();
             throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
         }
-        const data = await response.json();
-        if (data.token) return data.token;
-        throw new Error('Failed to get token: ' + JSON.stringify(data));
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+}
+
+function updateUserProfile() {
+    const username = sessionStorage.getItem('username');
+    const avatarurl = sessionStorage.getItem('avatarurl');
+    const userProfileContainer = document.getElementById('userProfileContainer');
+    const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+    
+    if (username) {
+        const profileHTML = `
+            <div class="user-profile">
+                <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                <a href="/dashboard.html" class="username-link">${username}</a>
+            </div>
+        `;
+        userProfileContainer.innerHTML = profileHTML;
+        sidebarUserProfileContainer.innerHTML = profileHTML;
+    } else {
+        const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+        userProfileContainer.innerHTML = loginHTML;
+        sidebarUserProfileContainer.innerHTML = loginHTML;
+    }
+}
+
+function performSearch() {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    const filteredGames = allGames.filter(game => 
+        game.name.toLowerCase().includes(searchTerm) ||
+        game.difficulty.toLowerCase().includes(searchTerm) ||
+        game.mainLanguage.toLowerCase().includes(searchTerm) ||
+        game.languageLevel.toLowerCase().includes(searchTerm)
+    );
+    displayBoardGames(filteredGames);
+}
+
+function displayBoardGames(games) {
+    const container = document.getElementById('board-games-container');
+    container.innerHTML = '';
+
+    if (games.length === 0) {
+        container.innerHTML = '<p>No matching board games found.</p>';
+        return;
     }
 
-    async function makeRequest(action, additionalData = {}) {
-        try {
-            const token = await getProxyToken(action);
-            const requestBody = { token, action, script_id: 'games_script', ...additionalData };
-            const response = await fetch(`${API_URL}/proxy`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
-            });
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-            }
-            return response.json();
-        } catch (error) {
-            throw error;
-        }
-    }
+    games.forEach(game => {
+        const gameElement = document.createElement('div');
+        gameElement.className = 'board-game-card';
+        gameElement.innerHTML = `
+            <img src="${game.imageLink}" alt="${game.name}" class="board-game-image">
+            <div class="board-game-info">
+                <h3 class="board-game-name">${game.name}</h3>
+                <p class="board-game-data">Difficulty: ${game.difficulty}</p>
+                <p class="board-game-data">Main Language: ${game.mainLanguage}</p>
+                <p class="board-game-data">Language Level: ${game.languageLevel}</p>
+            </div>
+        `;
 
-    document.addEventListener('DOMContentLoaded', function() {
-        function updateUserProfile() {
-            const username = sessionStorage.getItem('username');
-            const avatarurl = sessionStorage.getItem('avatarurl');
-            const userProfileContainer = document.getElementById('userProfileContainer');
-            const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+        if (game.documents && game.documents.length > 0) {
+            const documentLinksContainer = document.createElement('div');
+            documentLinksContainer.className = 'document-links';
             
-            if (username) {
-                const profileHTML = `
-                    <div class="user-profile">
-                        <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
-                        <a href="/dashboard.html" class="username-link">${username}</a>
-                    </div>
-                `;
-                userProfileContainer.innerHTML = profileHTML;
-                sidebarUserProfileContainer.innerHTML = profileHTML;
-            } else {
-                const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
-                userProfileContainer.innerHTML = loginHTML;
-                sidebarUserProfileContainer.innerHTML = loginHTML;
-            }
+            game.documents.forEach((doc) => {
+                const link = document.createElement('a');
+                link.href = '#';
+                link.className = 'document-link';
+                link.textContent = doc.name || 'View Document';
+                link.onclick = function(e) {
+                    e.preventDefault();
+                    showDocument(doc.url);
+                };
+                documentLinksContainer.appendChild(link);
+            });
+
+            gameElement.appendChild(documentLinksContainer);
         }
-        
-        updateUserProfile();
-        
-        makeRequest('getBoardGames')
-            .then(data => {
-                if (Array.isArray(data) && data.length > 0) {
-                    allGames = data;
-                    displayBoardGames(data);
-                } else {
-                    document.getElementById('board-games-container').innerHTML = '<p>No board games data available.</p>';
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching board games:', error);
-                document.getElementById('board-games-container').innerHTML = '<p>Error loading board games. Please try again later.</p>';
-            });
 
-        // Add event listener for the search button
-        document.getElementById('search-button').addEventListener('click', performSearch);
+        container.appendChild(gameElement);
+    });
+}
+
+function showDocument(url) {
+    const modal = document.getElementById('modal');
+    const iframe = document.getElementById('doc-frame');
+    iframe.src = url;
+    modal.style.display = "block";
+
+    iframe.onerror = function() {
+        iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
         
-        // Add event listener for the Enter key in the search input
-        document.getElementById('search-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
+        iframe.onerror = function() {
+            iframe.style.display = 'none';
+            const fallbackLink = document.getElementById('fallback-link');
+            fallbackLink.href = url;
+            fallbackLink.textContent = 'Click here to open the document in a new tab';
+            fallbackLink.style.display = 'block';
+        };
+    };
+}
+
+function closeModal() {
+    const modal = document.getElementById('modal');
+    const iframe = document.getElementById('doc-frame');
+    const fallbackLink = document.getElementById('fallback-link');
+    modal.style.display = "none";
+    iframe.src = '';
+    iframe.style.display = 'block';
+    fallbackLink.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateUserProfile();
+    
+    makeRequest('getBoardGames')
+        .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+                allGames = data;
+                displayBoardGames(data);
+            } else {
+                document.getElementById('board-games-container').innerHTML = '<p>No board games data available.</p>';
             }
-        });
-        // Dropdown functionality
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            const dropbtn = dropdown.querySelector('.dropbtn');
-            const dropdownContent = dropdown.querySelector('.dropdown-content');
-            dropbtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-            });
+        })
+        .catch(error => {
+            console.error('Error fetching board games:', error);
+            document.getElementById('board-games-container').innerHTML = '<p>Error loading board games. Please try again later.</p>';
         });
 
-        // Sidebar functionality
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-        if (sidebarToggle && sidebar) {
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-            });
-        } 
+    document.getElementById('search-button').addEventListener('click', performSearch);
+    
+    document.getElementById('search-input').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
 
-        // Close dropdowns and sidebar when clicking outside
-        window.addEventListener('click', (e) => {
-            dropdowns.forEach(dropdown => {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.querySelector('.dropdown-content').style.display = 'none';
-                }
-            });
-
-            if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        dropbtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
         });
     });
 
-    function performSearch() {
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
-        const filteredGames = allGames.filter(game => 
-            game.name.toLowerCase().includes(searchTerm) ||
-            game.difficulty.toLowerCase().includes(searchTerm) ||
-            game.mainLanguage.toLowerCase().includes(searchTerm) ||
-            game.languageLevel.toLowerCase().includes(searchTerm)
-        );
-        displayBoardGames(filteredGames);
-    }
-
-    function displayBoardGames(games) {
-        const container = document.getElementById('board-games-container');
-        container.innerHTML = '';
-
-        if (games.length === 0) {
-            container.innerHTML = '<p>No matching board games found.</p>';
-            return;
-        }
-
-        games.forEach(game => {
-            const gameElement = document.createElement('div');
-            gameElement.className = 'board-game-card';
-            gameElement.innerHTML = `
-                <img src="${game.imageLink}" alt="${game.name}" class="board-game-image">
-                <div class="board-game-info">
-                    <h3 class="board-game-name">${game.name}</h3>
-                    <p class="board-game-data">Difficulty: ${game.difficulty}</p>
-                    <p class="board-game-data">Main Language: ${game.mainLanguage}</p>
-                    <p class="board-game-data">Language Level: ${game.languageLevel}</p>
-                </div>
-            `;
-
-            // Add document links
-            if (game.documents && game.documents.length > 0) {
-                const documentLinksContainer = document.createElement('div');
-                documentLinksContainer.className = 'document-links';
-                
-                game.documents.forEach((doc) => {
-                    const link = document.createElement('a');
-                    link.href = '#';
-                    link.className = 'document-link';
-                    link.textContent = doc.name || 'View Document';
-                    link.onclick = function(e) {
-                        e.preventDefault();
-                        showDocument(doc.url);
-                    };
-                    documentLinksContainer.appendChild(link);
-                });
-
-                gameElement.appendChild(documentLinksContainer);
-            }
-
-            container.appendChild(gameElement);
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
         });
-    }
+    } 
 
-    function showDocument(url) {
-        const modal = document.getElementById('modal');
-        const iframe = document.getElementById('doc-frame');
-        iframe.src = url;
-        modal.style.display = "block";
+    window.addEventListener('click', (e) => {
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.querySelector('.dropdown-content').style.display = 'none';
+            }
+        });
 
-        // Error handling for iframe loading
-        iframe.onerror = function() {
-            iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(url)}&embedded=true`;
-            
-            iframe.onerror = function() {
-                iframe.style.display = 'none';
-                const fallbackLink = document.getElementById('fallback-link');
-                fallbackLink.href = url;
-                fallbackLink.textContent = 'Click here to open the document in a new tab';
-                fallbackLink.style.display = 'block';
-            };
-        };
-    }
+        if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+        }
+    });
 
-    document.querySelector('.close').onclick = function() {
-        closeModal();
-    };
+    document.querySelector('.close').onclick = closeModal;
 
     window.onclick = function(event) {
         const modal = document.getElementById('modal');
@@ -418,16 +435,7 @@
             closeModal();
         }
     };
-
-    function closeModal() {
-        const modal = document.getElementById('modal');
-        const iframe = document.getElementById('doc-frame');
-        const fallbackLink = document.getElementById('fallback-link');
-        modal.style.display = "none";
-        iframe.src = '';
-        iframe.style.display = 'block';
-        fallbackLink.style.display = 'none';
-    }
+});
 </script>
 </body>
 </html>

@@ -6,88 +6,24 @@
     <title>Yuranka Games - Reservation Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-bg: black;
-            --primary-text: white;
-            --secondary-bg: #1a1a1a;
-            --hover-bg: #2a2a2a;
-            --accent-color: #8B0000;
-        }
+    <link rel="stylesheet" href="css/style.css">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Orbitron', sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--primary-text);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-        }
-
-        header {
-            background-color: var(--primary-bg);
-            padding: 0.5rem 0;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-        }
-
-        .logo-text {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        form {
-            background-color: var(--secondary-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(255, 99, 71, 0.5);
-            margin: 20px auto;
-            width: 100%;
-            max-width: 600px;
-        }
-
+    <style>/* Reservation Form Specific Styles */
         .form-row {
             margin-bottom: 20px;
         }
-
+        
         .input-group {
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
         }
-
+        
         label {
             font-weight: 500;
             margin-bottom: 5px;
-            color: var(--primary-text);
         }
-
+        
         input[type="date"],
         select,
         input[type="text"],
@@ -101,7 +37,7 @@
             outline: none;
             font-family: 'Orbitron', sans-serif;
         }
-
+        
         input[type="date"]:hover,
         select:hover,
         input[type="text"]:hover,
@@ -114,42 +50,25 @@
         input[type="number"]:focus {
             border-color: #FFA07A;
         }
-
-        button {
-            background-color: var(--accent-color);
-            color: var(--primary-text);
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-            width: 100%;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-        }
-
-        button:hover {
-            background-color: #CC5237;
-            transform: translateY(-2px);
-        }
-
-        table {
+        
+        #availabilityTable {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-
-        th, td {
+        
+        #availabilityTable th, 
+        #availabilityTable td {
             text-align: left;
             padding: 8px;
             border-bottom: 1px solid #333;
         }
-
-        th {
+        
+        #availabilityTable th {
             background-color: var(--secondary-bg);
             color: var(--accent-color);
         }
-
+        
         #loadingOverlay {
             position: fixed;
             top: 0;
@@ -164,7 +83,7 @@
             color: var(--primary-text);
             font-size: 24px;
         }
-
+        
         #customPopup {
             display: none;
             position: fixed;
@@ -175,7 +94,7 @@
             background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
         }
-
+        
         .popup-content {
             background-color: var(--secondary-bg);
             width: 300px;
@@ -187,18 +106,18 @@
             transform: translate(-50%, -50%);
             text-align: center;
         }
-
+        
         .popup-content h2 {
             color: var(--primary-text);
             text-align: center;
         }
-
+        
         .popup-content p {
             color: var(--primary-text);
             text-align: left;
             margin: 15px 0;
         }
-
+        
         .popup-content button {
             padding: 10px 20px;
             background-color: var(--accent-color);
@@ -208,22 +127,14 @@
             margin-top: 20px;
             cursor: pointer;
         }
-
+        
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            form {
-                padding: 15px;
-            }
-
             .popup-content {
                 width: 90%;
                 max-width: 300px;
             }
         }
-    </style>
+        </style>
 </head>
 <body>
     <header>
@@ -284,55 +195,67 @@
     </div>
 
 
-    <div class="container">
-        <h1>Reservation Form</h1>
-        <form id="reservationForm" onsubmit="return handleSubmit();">
-            <div class="form-row">
-                <div class="input-group">
-                    <label for="date">Select Date:</label>
-                    <input type="date" id="date" name="date" required onchange="loadTimeSlots();">
-                </div>
+    <div class="content-wrapper">
+        <main class="main-content">
+            <div class="container">
+                <h1>Reservation Form</h1>
+                <form id="reservationForm" onsubmit="return handleSubmit();">
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="date">Select Date:</label>
+                            <input type="date" id="date" name="date" required onchange="loadTimeSlots();">
+                        </div>
 
-                <div class="input-group">
-                    <label for="startTime">Start Time:</label>
-                    <select id="startTime" name="startTime" required onchange="updateEndTimeOptions(); updateAvailability();">
-                        <option value="">Select start time</option>
-                    </select>
-                </div>
+                        <div class="input-group">
+                            <label for="startTime">Start Time:</label>
+                            <select id="startTime" name="startTime" required onchange="updateEndTimeOptions(); updateAvailability();">
+                                <option value="">Select start time</option>
+                            </select>
+                        </div>
 
-                <div class="input-group">
-                    <label for="endTime">End Time:</label>
-                    <select id="endTime" name="endTime" required onchange="updateAvailability();">
-                        <option value="">Select end time</option>
-                    </select>
-                </div>
+                        <div class="input-group">
+                            <label for="endTime">End Time:</label>
+                            <select id="endTime" name="endTime" required onchange="updateAvailability();">
+                                <option value="">Select end time</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <table id="availabilityTable"></table>
+                    
+                    <div class="form-row">
+                        <div class="input-group">
+                            <label for="name">Your Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                    
+                        <div class="input-group">
+                            <label for="email">Your Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px; font-size: 14px; color: gray;">
+                        You can book any combination of items above. The people limit is more of a counter for ourselves, as we might be able to provide a discount if you have more than 10 people coming. Though, only registering the number of people, and not any spaces, implies that you require no seating at the venue and are happy to stand. 
+                    </p>
+              
+                    <p style="margin-top: 20px; font-size: 14px; color: gray;">
+                        The reservation fee is charged on the basis of you being able to reserve. The amount paid will be deducted from your final bill for the total use of the items reserved. Additionally, if you do not show up, the reservation fee will not be refunded. You are also allowed to show up at the venue without having reserved, but you will not be guaranteed a spot if your requested spot is already occupied.
+                    </p>
+                    
+                    <button id="submitBtn" style="display:none" onclick="handleSubmit(event)">Submit Reservation</button>
+                </form>
             </div>
-            
-            <table id="availabilityTable"></table>
-            
-            <div class="form-row">
-                <div class="input-group">
-                    <label for="name">Your Name:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-            
-                <div class="input-group">
-                    <label for="email">Your Email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
+        </main>
+        <aside class="video-sidebar">
+            <div class="video-container">
+                <video autoplay muted loop playsinline>
+                    <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
-            <p style="margin-top: 20px; font-size: 14px; color: gray;">
-                You can book any combination of items above. The people limit is more of a counter for ourselves, as we might be able to provide a discount if you have more than 10 people coming. Though, only registering the number of people, and not any spaces, implies that you require no seating at the venue and are happy to stand. 
-            </p>
-      
-            <p style="margin-top: 20px; font-size: 14px; color: gray;">
-                The reservation fee is charged on the basis of you being able to reserve. The amount paid will be deducted from your final bill for the total use of the items reserved. Additionally, if you do not show up, the reservation fee will not be refunded. You are also allowed to show up at the venue without having reserved, but you will not be guaranteed a spot if your requested spot is already occupied.
-            </p>
-            
-            <button id="submitBtn" style="display:none" onclick="handleSubmit(event)">Submit Reservation</button>
-        </form>
+        </aside>
     </div>
-
+    
     <div id="customPopup">
         <div class="popup-content">
             <h2>Reservation Status</h2>
@@ -340,7 +263,7 @@
             <button onclick="closePopup()">Close</button>
         </div>
     </div>
-
+    
     <div id="loadingOverlay">
         Loading, please wait...
     </div>
@@ -591,7 +514,31 @@ function closePopup() {
     document.getElementById('customPopup').style.display = 'none';
 }
 
+function updateUserProfile() {
+    const username = sessionStorage.getItem('username');
+    const avatarurl = sessionStorage.getItem('avatarurl');
+    const userProfileContainer = document.getElementById('userProfileContainer');
+    const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+    
+    if (username) {
+        const profileHTML = `
+            <div class="user-profile">
+                <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                <a href="/dashboard.html" class="username-link">${username}</a>
+            </div>
+        `;
+        userProfileContainer.innerHTML = profileHTML;
+        sidebarUserProfileContainer.innerHTML = profileHTML;
+    } else {
+        const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+        userProfileContainer.innerHTML = loginHTML;
+        sidebarUserProfileContainer.innerHTML = loginHTML;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    updateUserProfile();
+
     const dateInput = document.getElementById('date');
     
     dateInput.addEventListener('blur', validateAndLoadTimeSlots);
@@ -631,6 +578,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.getElementById('endTime').addEventListener('change', updateAvailability);
     document.getElementById('reservationForm').addEventListener('submit', handleSubmit);
+
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        dropbtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+
+    // Sidebar functionality
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+        });
+    }
+
+    // Close dropdowns and sidebar when clicking outside
+    window.addEventListener('click', (e) => {
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.querySelector('.dropdown-content').style.display = 'none';
+            }
+        });
+
+        if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+        }
+    });
 });
     </script>
 </body>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Your existing styles here */
         .video-games-container {
             display: flex;
             flex-wrap: wrap;
@@ -72,230 +73,244 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
                     </div>
-                    <span class="logo-text">YURANKA GAMES</span>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="/boardgame.html">Board Games</a></li>
+                            <li><a href="/videogame.html">Video Games</a></li>
+                            <li><a href="/registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="/event/event-registration.html">Events Registration</a>
+                                    <a href="/event/mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="/about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
                 </div>
-                <nav class="main-nav" id="mainNav">
-                    <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="https://store.yuranka.com">Store</a></li>            
-                        <li><a href="/boardgame.html">Board Games</a></li>
-                        <li><a href="/videogame.html">Video Games</a></li>
-                        <li><a href="/registration.html">Reservations</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Events</a>
-                            <div class="dropdown-content">
-                                <a href="/event/event-registration.html">Events Registration</a>
-                                <a href="/event/mini-con.html">Mini - Cons</a>
-                            </div>
-                        </li>
-                        <li><a href="/about.html">About</a></li>
-                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <div id="userProfileContainer"></div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <div class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="https://store.yuranka.com">Store</a></li>  
-                <li><a href="/boardgame.html">Board Games</a></li>
-                <li><a href="/videogame.html">Video Games</a></li>
-                <li><a href="/registration.html">Reservations</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Events</a>
-                    <div class="dropdown-content">
-                        <a href="event/event-registration.html">Events Registration</a>
-                        <a href="/event/mini-con.html">Mini - Cons</a>
-                    </div>
-                </li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="sidebarUserProfileContainer"></div>
+        <div class="content-wrapper">
+            <main class="main-content">
+                <h1>Video Games</h1>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="Search video games...">
+                    <button id="search-button">Search</button>
+                </div>
+                <div id="video-games-container" class="video-games-container"></div>
+            </main>
+            <aside class="video-sidebar">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </aside>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="https://store.yuranka.com">Store</a></li>  
+                    <li><a href="/boardgame.html">Board Games</a></li>
+                    <li><a href="/videogame.html">Video Games</a></li>
+                    <li><a href="/registration.html">Reservations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Events</a>
+                        <div class="dropdown-content">
+                            <a href="event/event-registration.html">Events Registration</a>
+                            <a href="/event/mini-con.html">Mini - Cons</a>
+                        </div>
+                    </li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div id="sidebarUserProfileContainer"></div>
+        </div>
     </div>
 
-    <main>
-        <h1>Video Games</h1>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Search video games...">
-            <button id="search-button">Search</button>
-        </div>
-        <div id="video-games-container" class="video-games-container"></div>
-    </main>
-
     <script>
-    const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('search-input');
-        const searchButton = document.getElementById('search-button');
-        const gamesContainer = document.getElementById('video-games-container');
+        // Your existing JavaScript code here
+        const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
         
-        updateUserProfile();
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const gamesContainer = document.getElementById('video-games-container');
+            
+            updateUserProfile();
 
-        // Dropdown functionality
-        document.querySelectorAll('.dropdown').forEach(dropdown => {
-            const dropbtn = dropdown.querySelector('.dropbtn');
-            const dropdownContent = dropdown.querySelector('.dropdown-content');
-            dropbtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-
-        // Sidebar functionality
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-        if (sidebarToggle && sidebar) {
-            sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
-        }
-
-        // Close dropdowns and sidebar when clicking outside
-        window.addEventListener('click', (e) => {
+            // Dropdown functionality
             document.querySelectorAll('.dropdown').forEach(dropdown => {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.querySelector('.dropdown-content').style.display = 'none';
+                const dropbtn = dropdown.querySelector('.dropbtn');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                dropbtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+
+            // Sidebar functionality
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+            }
+
+            // Close dropdowns and sidebar when clicking outside
+            window.addEventListener('click', (e) => {
+                document.querySelectorAll('.dropdown').forEach(dropdown => {
+                    if (!dropdown.contains(e.target)) {
+                        dropdown.querySelector('.dropdown-content').style.display = 'none';
+                    }
+                });
+
+                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    sidebar.classList.remove('open');
                 }
             });
 
-            if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
-        });
-
-        async function getProxyToken(action) {
-            const requestBody = { script_id: 'games_script', action };
-            const response = await fetch(`${API_URL}/get_token`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
-            });
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
-            if (!data.token) throw new Error('Failed to get token');
-            return data.token;
-        }
-
-        async function makeRequest(action, additionalData = {}) {
-            try {
-                const token = await getProxyToken(action);
-                const requestBody = { token, action, script_id: 'videogames_script', ...additionalData };
-                const response = await fetch(`${API_URL}/proxy`, {
+            async function getProxyToken(action) {
+                const requestBody = { script_id: 'games_script', action };
+                const response = await fetch(`${API_URL}/get_token`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(requestBody)
                 });
                 if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                return await response.json();
-            } catch (error) {
-                console.error('Request error:', error);
-                throw error;
+                const data = await response.json();
+                if (!data.token) throw new Error('Failed to get token');
+                return data.token;
             }
-        }
 
-        let debounceTimer;
+            async function makeRequest(action, additionalData = {}) {
+                try {
+                    const token = await getProxyToken(action);
+                    const requestBody = { token, action, script_id: 'videogames_script', ...additionalData };
+                    const response = await fetch(`${API_URL}/proxy`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(requestBody)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    console.error('Request error:', error);
+                    throw error;
+                }
+            }
 
-        searchInput.addEventListener('input', () => {
-            clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(fetchGames, 300);
+            let debounceTimer;
+
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(fetchGames, 300);
+            });
+
+            searchButton.addEventListener('click', fetchGames);
+
+            async function fetchGames() {
+                const query = searchInput.value.trim();
+                if (query.length < 3) {
+                    gamesContainer.innerHTML = '<p class="error-message">Please enter at least 3 characters to search.</p>';
+                    return;
+                }
+            
+                gamesContainer.innerHTML = '<p class="loading">Searching for games...</p>';
+            
+                try {
+                    const response = await makeRequest('search_games', { query });
+                    if (response.success && response.games) {
+                        displayGames(response.games);
+                    } else {
+                        throw new Error('Failed to fetch games');
+                    }
+                } catch (error) {
+                    console.error('Error fetching game suggestions:', error);
+                    gamesContainer.innerHTML = '<p class="error-message">Error fetching game suggestions. Please try again later.</p>';
+                }
+            }
+
+            function displayGames(games) {
+                if (games.length === 0) {
+                    gamesContainer.innerHTML = '<p class="error-message">No games found matching your search.</p>';
+                    return;
+                }
+            
+                gamesContainer.innerHTML = games.map(game => `
+                    <div class="video-game-card">
+                        ${game.error 
+                            ? `<div class="video-game-info">
+                                <h3 class="video-game-name">${game.name}</h3>
+                                <p class="video-game-data">${game.error}</p>
+                                <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
+                              </div>`
+                            : `<img src="${game.artwork || '/api/placeholder/300/200'}" alt="${game.name}" class="video-game-image">
+                              <div class="video-game-info">
+                                <h3 class="video-game-name">${game.name}</h3>
+                                <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
+                                ${game.rating ? `<p class="video-game-data">Rating: ${Math.round(game.rating)}/100</p>` : ''}
+                                ${game.releaseDate ? `<p class="video-game-data">Release Date: ${new Date(game.releaseDate).toLocaleDateString()}</p>` : ''}
+                                ${game.franchise ? `<p class="video-game-data">Franchise: ${game.franchise.name}</p>` : ''}
+                              </div>`
+                        }
+                    </div>
+                `).join('');
+            }
+
+            // Initial load of games
+            fetchGames();
         });
 
-        searchButton.addEventListener('click', fetchGames);
-
-        async function fetchGames() {
-            const query = searchInput.value.trim();
-            if (query.length < 3) {
-                gamesContainer.innerHTML = '<p class="error-message">Please enter at least 3 characters to search.</p>';
-                return;
+        function updateUserProfile() {
+            const username = sessionStorage.getItem('username');
+            const avatarurl = sessionStorage.getItem('avatarurl');
+            const userProfileContainer = document.getElementById('userProfileContainer');
+            const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+            
+            console.log('Updating user profile:', { username, avatarurl }); // Debug log
+        
+            const profileHTML = username
+                ? `<div class="user-profile">
+                    <img src="${avatarurl || 'https://ik.imagekit.io/mcgszbooe/Profile.png?updatedAt=1717316246766'}" alt="User Avatar" class="user-avatar">
+                    <a href="/dashboard.html" class="username-link">${username}</a>
+                   </div>`
+                : `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+            
+            if (userProfileContainer) {
+                userProfileContainer.innerHTML = profileHTML;
+            } else {
+                console.error('userProfileContainer not found');
             }
-        
-            gamesContainer.innerHTML = '<p class="loading">Searching for games...</p>';
-        
-            try {
-                const response = await makeRequest('search_games', { query });
-                if (response.success && response.games) {
-                    displayGames(response.games);
-                } else {
-                    throw new Error('Failed to fetch games');
-                }
-            } catch (error) {
-                console.error('Error fetching game suggestions:', error);
-                gamesContainer.innerHTML = '<p class="error-message">Error fetching game suggestions. Please try again later.</p>';
+            
+            if (sidebarUserProfileContainer) {
+                sidebarUserProfileContainer.innerHTML = profileHTML;
+            } else {
+                console.error('sidebarUserProfileContainer not found');
             }
         }
-
-        function displayGames(games) {
-            if (games.length === 0) {
-                gamesContainer.innerHTML = '<p class="error-message">No games found matching your search.</p>';
-                return;
-            }
-        
-            gamesContainer.innerHTML = games.map(game => `
-                <div class="video-game-card">
-                    ${game.error 
-                        ? `<div class="video-game-info">
-                            <h3 class="video-game-name">${game.name}</h3>
-                            <p class="video-game-data">${game.error}</p>
-                            <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
-                          </div>`
-                        : `<img src="${game.artwork || '/api/placeholder/300/200'}" alt="${game.name}" class="video-game-image">
-                          <div class="video-game-info">
-                            <h3 class="video-game-name">${game.name}</h3>
-                            <p class="video-game-data">Console: ${game.console || 'Not specified'}</p>
-                            ${game.rating ? `<p class="video-game-data">Rating: ${Math.round(game.rating)}/100</p>` : ''}
-                            ${game.releaseDate ? `<p class="video-game-data">Release Date: ${new Date(game.releaseDate).toLocaleDateString()}</p>` : ''}
-                            ${game.franchise ? `<p class="video-game-data">Franchise: ${game.franchise.name}</p>` : ''}
-                          </div>`
-                    }
-                </div>
-            `).join('');
-        }
-
-        // Initial load of games
-        fetchGames();
-    });
-    function updateUserProfile() {
-        const username = sessionStorage.getItem('username');
-        const avatarurl = sessionStorage.getItem('avatarurl');
-        const userProfileContainer = document.getElementById('userProfileContainer');
-        const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
-        
-        console.log('Updating user profile:', { username, avatarurl }); // Debug log
-    
-        const profileHTML = username
-            ? `<div class="user-profile">
-                <img src="${avatarurl || 'https://ik.imagekit.io/mcgszbooe/Profile.png?updatedAt=1717316246766'}" alt="User Avatar" class="user-avatar">
-                <a href="/dashboard.html" class="username-link">${username}</a>
-               </div>`
-            : `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
-        
-        if (userProfileContainer) {
-            userProfileContainer.innerHTML = profileHTML;
-        } else {
-            console.error('userProfileContainer not found');
-        }
-        
-        if (sidebarUserProfileContainer) {
-            sidebarUserProfileContainer.innerHTML = profileHTML;
-        } else {
-            console.error('sidebarUserProfileContainer not found');
-        }
-    }
     </script>
 </body>
 </html>

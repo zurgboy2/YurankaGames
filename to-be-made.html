@@ -13,7 +13,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             text-align: center;
             padding: 20px;
         }
@@ -28,70 +28,84 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
                     </div>
-                    <span class="logo-text">YURANKA GAMES</span>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="/index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="/boardgame.html">Board Games</a></li>
+                            <li><a href="/videogame.html">Video Games</a></li>
+                            <li><a href="/registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="/event/event-registration.html">Events Registration</a>
+                                    <a href="/event/mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="/about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
                 </div>
-                <nav class="main-nav" id="mainNav">
-                    <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="https://store.yuranka.com">Store</a></li>            
-                        <li><a href="/boardgame.html">Board Games</a></li>
-                        <li><a href="/videogame.html">Video Games</a></li>
-                        <li><a href="/registration.html">Reservations</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Events</a>
-                            <div class="dropdown-content">
-                                <a href="/event/event-registration.html">Events Registration</a>
-                                <a href="/event/mini-con.html">Mini - Cons</a>
-                            </div>
-                        </li>
-                        <li><a href="/about.html">About</a></li>
-                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <div id="userProfileContainer"></div>
             </div>
+        </header>
+
+        <div class="content-wrapper">
+            <main class="main-content">
+                <div class="construction-container">
+                    <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="construction-logo">
+                    <h1 class="construction-message">Page Under Construction</h1>
+                    <p class="construction-message">We're working hard to bring you an awesome experience!</p>
+                    <p class="construction-message">This page is currently being updated and will be available soon.</p>
+                    <p class="construction-message">Thank you for your patience.</p>
+                </div>
+            </main>
+            <aside class="video-sidebar">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </aside>
         </div>
-    </header>
 
-    <div class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="https://store.yuranka.com">Store</a></li>  
-                <li><a href="/boardgame.html">Board Games</a></li>
-                <li><a href="/videogame.html">Video Games</a></li>
-                <li><a href="/registration.html">Reservations</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Events</a>
-                    <div class="dropdown-content">
-                        <a href="event/event-registration.html">Events Registration</a>
-                        <a href="/event/mini-con.html">Mini - Cons</a>
-                    </div>
-                </li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="sidebarUserProfileContainer"></div>
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="https://store.yuranka.com">Store</a></li>  
+                    <li><a href="/boardgame.html">Board Games</a></li>
+                    <li><a href="/videogame.html">Video Games</a></li>
+                    <li><a href="/registration.html">Reservations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Events</a>
+                        <div class="dropdown-content">
+                            <a href="event/event-registration.html">Events Registration</a>
+                            <a href="/event/mini-con.html">Mini - Cons</a>
+                        </div>
+                    </li>
+                    <li><a href="/about.html">About</a></li>
+                    <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div id="sidebarUserProfileContainer"></div>
+        </div>
     </div>
-
-    <main class="construction-container">
-        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="construction-logo">
-        <h1 class="construction-message">Page Under Construction</h1>
-        <p class="construction-message">We're working hard to bring you an awesome experience!</p>
-        <p class="construction-message">This page is currently being updated and will be available soon.</p>
-        <p class="construction-message">Thank you for your patience.</p>
-    </main>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -127,6 +141,27 @@
                     sidebar.classList.remove('open');
                 }
             });
+
+            // User profile update function
+            function updateUserProfile() {
+                const username = sessionStorage.getItem('username');
+                const avatarurl = sessionStorage.getItem('avatarurl');
+                const userProfileContainer = document.getElementById('userProfileContainer');
+                const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+                
+                const profileHTML = username
+                    ? `<div class="user-profile">
+                        <img src="${avatarurl || 'https://ik.imagekit.io/mcgszbooe/Profile.png?updatedAt=1717316246766'}" alt="User Avatar" class="user-avatar">
+                        <a href="/dashboard.html" class="username-link">${username}</a>
+                       </div>`
+                    : `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+                
+                if (userProfileContainer) userProfileContainer.innerHTML = profileHTML;
+                if (sidebarUserProfileContainer) sidebarUserProfileContainer.innerHTML = profileHTML;
+            }
+
+            // Call updateUserProfile when the page loads
+            updateUserProfile();
         });
     </script>
 </body>

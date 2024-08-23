@@ -18,31 +18,6 @@
             line-height: 1.6;
         }
 
-        .page-wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-        }
-
-        .content-area {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: rgba(26, 26, 26, 0.8);
-            padding: 2rem;
-            border-radius: 10px;
-        }
-
         h2 {
             font-size: 2rem;
             text-align: center;
@@ -118,417 +93,348 @@
             color: white;
             font-size: 1.2rem;
         }
-
-        .video-sidebar {
-            width: 300px;
-            height: 100vh;
-            position: sticky;
-            top: 0;
-            overflow: hidden;
-        }
-
-        .video-container {
-            width: 100%;
-            height: 100%;
-        }
-
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
     </style>
 </head>
 <body>
     <div class="page-wrapper">
         <header>
-            <div class="header-content">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
                     </div>
-                    <span class="logo-text">YURANKA GAMES</span>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="../boardgame.html">Board Games</a></li>
+                            <li><a href="../videogame.html">Video Games</a></li>
+                            <li><a href="../registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="/event-registration.html">Events Registration</a>
+                                    <a href="/mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
                 </div>
-                <nav class="main-nav" id="mainNav">
-                    <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="https://store.yuranka.com">Store</a></li>            
-                        <li><a href="../boardgame.html">Board Games</a></li>
-                        <li><a href="../videogame.html">Video Games</a></li>
-                        <li><a href="../registration.html">Reservations</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Events</a>
-                            <div class="dropdown-content">
-                                <a href="/event-registration.html">Events Registration</a>
-                                <a href="/mini-con.html">Mini - Cons</a>
-                            </div>
-                        </li>
-                        <li><a href="../about.html">About</a></li>
-                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <div id="userProfileContainer"></div>
             </div>
         </header>
 
-    <div class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="https://store.yuranka.com">Store</a></li>  
-                <li><a href="../boardgame.html">Board Games</a></li>
-                <li><a href="../videogame.html">Video Games</a></li>
-                <li><a href="../registration.html">Reservations</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Events</a>
-                    <div class="dropdown-content">
-                        <a href="/event-registration.html">Events Registration</a>
-                        <a href="/mini-con.html">Mini - Cons</a>
+        <div class="content-wrapper">
+            <main class="main-content">
+                <div class="container">
+                    <h2>Tournament Registration</h2>
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label for="nameInput">Name</label>
+                            <input type="text" id="nameInput" placeholder="Enter name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailInput">Email address</label>
+                            <input type="email" id="emailInput" placeholder="Enter email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tournamentSelect">Select Tournament</label>
+                            <select id="tournamentSelect" required onchange="handleTournamentChange(this)">
+                            </select>
+                        </div>
+                        <div id="message" class="reader-info"></div>
+                        <button type="submit" class="btn-primary">Register</button>
+                    </form>
+                    
+                    <div class="additional-info">
+                        <p>Your personal information is collected solely for the purpose of tournament organization and communication. All data will be securely stored and deleted within 30 days after the tournament's conclusion.</p>
+                        <p>For your convenience, secure online payment options are available. Follow the provided checkout link to pay by card, or choose to pay in person at our store by cash.</p>
+                        <p><strong>Ticket Purchase Policy:</strong> Tickets are non-refundable. If you cannot attend the registered tournament, your ticket will be valid for the next event in the series. Should you miss all events, collect your boosters the following business day at our store.</p>
                     </div>
-                </li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="sidebarUserProfileContainer"></div>
-    </div>
-
-    <div class="main-content">
-        <div class="content-area">
-            <div class="container">
-                <h2>Tournament Registration</h2>
-            <form id="registrationForm">
-                <div class="form-group">
-                    <label for="nameInput">Name</label>
-                    <input type="text" id="nameInput" placeholder="Enter name" required>
                 </div>
-                <div class="form-group">
-                    <label for="emailInput">Email address</label>
-                    <input type="email" id="emailInput" placeholder="Enter email" required>
+            </main>
+            <aside class="video-sidebar">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
-                <div class="form-group">
-                    <label for="tournamentSelect">Select Tournament</label>
-                    <select id="tournamentSelect" required onchange="handleTournamentChange(this)">
-                    </select>
-                </div>
-                <div id="message" class="reader-info"></div>
-                <button type="submit" class="btn-primary">Register</button>
-            </form>
+            </aside>
         </div>
-        
-        <div class="additional-info">
-            <p>Your personal information is collected solely for the purpose of tournament organization and communication. All data will be securely stored and deleted within 30 days after the tournament's conclusion.</p>
-            <p>For your convenience, secure online payment options are available. Follow the provided checkout link to pay by card, or choose to pay in person at our store by cash.</p>
-            <p><strong>Ticket Purchase Policy:</strong> Tickets are non-refundable. If you cannot attend the registered tournament, your ticket will be valid for the next event in the series. Should you miss all events, collect your boosters the following business day at our store.</p>
+
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="https://store.yuranka.com">Store</a></li>  
+                    <li><a href="../boardgame.html">Board Games</a></li>
+                    <li><a href="../videogame.html">Video Games</a></li>
+                    <li><a href="../registration.html">Reservations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Events</a>
+                        <div class="dropdown-content">
+                            <a href="/event-registration.html">Events Registration</a>
+                            <a href="/mini-con.html">Mini - Cons</a>
+                        </div>
+                    </li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div id="sidebarUserProfileContainer"></div>
         </div>
     </div>
-        <aside class="video-sidebar">
-            <div class="video-container">
-                <video autoplay muted loop playsinline>
-                    <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </aside>
+
+    <div id="loadingOverlay" class="loading-overlay" style="display:none;">
+        <div class="loading-message">Please wait...</div>
     </div>
-</div>
-
-<div id="loadingOverlay" class="loading-overlay" style="display:none;">
-    <div class="loading-message">Please wait...</div>
-</div>
-
 <script>
-    const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
-    
-    async function getProxyToken(action) {
-        const requestBody = { script_id: 'tournament_script', action };
-        
-        try {
-            const response = await fetch(`${API_URL}/get_token`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
-            });
-            
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Token request failed:', errorText);
-                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-            }
-            
-            const data = await response.json();
-            
-            if (data.token) {
-                return data.token;
-            }
-            
-            console.error('No token in response');
-            throw new Error('Failed to get token: ' + JSON.stringify(data));
-        } catch (error) {
-            console.error('Error in getProxyToken:', error);
-            throw error;
-        }
-    }
-    
-    async function makeRequest(action, additionalData = {}) {
-        
-        try {
-            const token = await getProxyToken(action);
-            
-            const requestBody = { token, action, script_id: 'tournament_script', ...additionalData };
-            const response = await fetch(`${API_URL}/proxy`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody)
-            });
-        
-            
-            
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('Proxy request failed:', errorText);
-                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-            }
-            
-            const responseData = await response.json();
-            
-            return responseData;
-        } catch (error) {
-            console.error('Error in makeRequest:', error);
-            throw error;
-        }
-    }
+const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
 
-    document.addEventListener('DOMContentLoaded', (event) => {
-
-        // Dropdown functionality
-        const dropdowns = document.querySelectorAll('.dropdown');
-        dropdowns.forEach(dropdown => {
-            const dropbtn = dropdown.querySelector('.dropbtn');
-            const dropdownContent = dropdown.querySelector('.dropdown-content');
-            dropbtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-            });
+async function getProxyToken(action) {
+    const requestBody = { script_id: 'tournament_script', action };
+    try {
+        const response = await fetch(`${API_URL}/get_token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
         });
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Token request failed:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+        const data = await response.json();
+        if (data.token) return data.token;
+        throw new Error('Failed to get token: ' + JSON.stringify(data));
+    } catch (error) {
+        console.error('Error in getProxyToken:', error);
+        throw error;
+    }
+}
 
-        // Sidebar functionality
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-        if (sidebarToggle && sidebar) {
-            sidebarToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('open');
-            });
-        } 
-
-        // Close dropdowns and sidebar when clicking outside
-        window.addEventListener('click', (e) => {
-            dropdowns.forEach(dropdown => {
-                if (!dropdown.contains(e.target)) {
-                    dropdown.querySelector('.dropdown-content').style.display = 'none';
-                }
-            });
-
-            if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
-            }
+async function makeRequest(action, additionalData = {}) {
+    try {
+        const token = await getProxyToken(action);
+        const requestBody = { token, action, script_id: 'tournament_script', ...additionalData };
+        const response = await fetch(`${API_URL}/proxy`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody)
         });
-
-        function updateUserProfile() {
-            const username = sessionStorage.getItem('username');
-            const avatarurl = sessionStorage.getItem('avatarurl');
-            const userProfileContainer = document.getElementById('userProfileContainer');
-            const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
-            
-            if (username) {
-                const profileHTML = `
-                    <div class="user-profile">
-                        <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
-                        <a href="/dashboard.html" class="username-link">${username}</a>
-                    </div>
-                `;
-                userProfileContainer.innerHTML = profileHTML;
-                sidebarUserProfileContainer.innerHTML = profileHTML;
-            } else {
-                const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
-                userProfileContainer.innerHTML = loginHTML;
-                sidebarUserProfileContainer.innerHTML = loginHTML;
-            }
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Proxy request failed:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
         }
-        
-        updateUserProfile();
-    });
+        return response.json();
+    } catch (error) {
+        console.error('Error in makeRequest:', error);
+        throw error;
+    }
+}
 
-    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        // Retrieve form data
-        const name = document.getElementById('nameInput').value;
-        const email = document.getElementById('emailInput').value;
-        const tournamentSelect = document.getElementById('tournamentSelect');
-        const eventId = tournamentSelect.value;
-        const selectedOption = tournamentSelect.options[tournamentSelect.selectedIndex];
-        const posterUrl = selectedOption.dataset.posterUrl;
-        
-        const loadingOverlay = document.getElementById('loadingOverlay');
-        loadingOverlay.style.display = 'flex'; // Show the overlay
-        
-        try {
-            const result = await makeRequest('registerForEvent', {
-                eventId: eventId,
-                name: name,
-                email: email
-            });
-            
-            loadingOverlay.style.display = 'none';
-            
-            const checkoutUrl = result.checkoutUrl;
-            const organizerMessage = result.message;
-            
-            const confirmationMessage = checkoutUrl ? 
-                'Your registration is confirmed. Please proceed to checkout. If you cannot pay via PayPal, you can pay at the store. Please note that your place is only confirmed once payment is received.' : 
-                'Your registration is confirmed and no payment is required. Enjoy the event!';
-            
-            const checkoutButton = checkoutUrl ? 
-                `<a href="${checkoutUrl}" class="btn btn-primary" style="margin-bottom: 20px; display: block;" target="_blank">Proceed to Checkout</a>` : 
-                '';
-            
-            const popup = document.createElement('div');
-            popup.id = 'confirmationPopup';
-            popup.innerHTML = `
-                <div style="background-color: #121212; padding: 20px; border-radius: 10px; color: #fff; text-align: center; max-width: 80%; margin: 20px auto; max-height: 40vh; overflow-y: auto;">
-                    <h2>Registration Confirmed</h2>
-                    <p style="margin-bottom: 20px;">${confirmationMessage}</p>
-                    <div style="background-color: #2c2c2c; padding: 10px; text-align: left; border-radius: 5px; margin-bottom: 20px;">
-                        <strong>Message from the organizer:</strong><br>${organizerMessage}
-                    </div>
-                    ${checkoutButton}
-                    <button onclick="document.getElementById('confirmationPopup').remove()" class="btn btn-primary" style="margin-top: 10px;">Close</button>
-                </div>
-            `;
-            popup.style.position = 'fixed';
-            popup.style.left = '50%';
-            popup.style.top = '50%';
-            popup.style.transform = 'translate(-50%, -50%)';
-            popup.style.zIndex = '1000'; // Ensure it's above other content
-            
-            // Add responsive styles
-            const style = document.createElement('style');
-            style.innerHTML = `
-                #confirmationPopup div {
-                    max-width: 90%;
-                    padding: 10px;
-                }
-                @media (min-width: 768px) {
-                    #confirmationPopup div {
-                        max-width: 60%;
-                        padding: 20px;
-                    }
-                }
-                @media (min-width: 1024px) {
-                    #confirmationPopup div {
-                        max-width: 40%;
-                        padding: 20px;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
-            
-            document.body.appendChild(popup);
-        } catch (error) {
-            console.error("Error processing registration:", error);
-            loadingOverlay.style.display = 'none';
-            alert("An error occurred while processing your registration. Please try again later.");
-        }
-    });
-    function handleTournamentChange(selectElement) {
-      changeBackground(selectElement);
-      updateMessage(selectElement);
+function updateUserProfile() {
+    const username = sessionStorage.getItem('username');
+    const avatarurl = sessionStorage.getItem('avatarurl');
+    const userProfileContainer = document.getElementById('userProfileContainer');
+    const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+    
+    if (username) {
+        const profileHTML = `
+            <div class="user-profile">
+                <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                <a href="/dashboard.html" class="username-link">${username}</a>
+            </div>
+        `;
+        userProfileContainer.innerHTML = profileHTML;
+        sidebarUserProfileContainer.innerHTML = profileHTML;
+    } else {
+        const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+        userProfileContainer.innerHTML = loginHTML;
+        sidebarUserProfileContainer.innerHTML = loginHTML;
     }
-  
-    function changeBackground(selectElement) {
-      const url = selectElement.options[selectElement.selectedIndex].dataset.posterUrl;
-      document.body.style.backgroundImage = `url('${url}')`;
-    }
-  
-    function updateMessage(selectElement) {
-      const messageDiv = document.getElementById('message');
-      const selectedOption = selectElement.options[selectElement.selectedIndex];
-      const readerInfo = selectedOption.dataset.readerInfo;
-      
-      // Set dark grey background color
-      messageDiv.style.backgroundColor = '#333'; // Dark grey background
-      messageDiv.style.color = '#fff'; // White text color for better contrast
-      messageDiv.style.fontSize = '0.875rem'; // Reduced font size
-      messageDiv.style.lineHeight = '1.2'; // Reduced line height
-      messageDiv.style.height = '20vh'; // Set height to 20% of the viewport height
-      messageDiv.style.overflowY = 'auto'; // Enable vertical scrolling for overflow content
-      messageDiv.style.margin = '5% 0';
-  
-      // Convert text into HTML paragraphs
-      if (readerInfo) {
+}
+
+function handleTournamentChange(selectElement) {
+    changeBackground(selectElement);
+    updateMessage(selectElement);
+}
+
+function changeBackground(selectElement) {
+    const url = selectElement.options[selectElement.selectedIndex].dataset.posterUrl;
+    document.body.style.backgroundImage = `url('${url}')`;
+}
+
+function updateMessage(selectElement) {
+    const messageDiv = document.getElementById('message');
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    const readerInfo = selectedOption.dataset.readerInfo;
+    
+    messageDiv.style.backgroundColor = '#333';
+    messageDiv.style.color = '#fff';
+    messageDiv.style.fontSize = '0.875rem';
+    messageDiv.style.lineHeight = '1.2';
+    messageDiv.style.height = '20vh';
+    messageDiv.style.overflowY = 'auto';
+    messageDiv.style.margin = '5% 0';
+
+    if (readerInfo) {
         const paragraphs = readerInfo.split('\n').map(line => `<p>${line.trim()}</p>`).join('');
         messageDiv.innerHTML = paragraphs;
-      } else {
+    } else {
         messageDiv.innerHTML = '';
-      }
     }
-        
-    async function loadTournaments() {
-        try {
-            const tournamentData = await makeRequest('getActiveTournaments');
-            
-            // Parse the JSON string into an array of tournament objects
-            const tournaments = JSON.parse(tournamentData.result);
-            
-            const tournamentSelect = document.getElementById('tournamentSelect');
-            
-            // Clear existing options
-            tournamentSelect.innerHTML = '';
-    
-            // Add the default "Pick a tournament" option
-            const defaultOption = new Option("Pick a tournament", "");
-            defaultOption.disabled = true;
-            defaultOption.selected = true;
-            tournamentSelect.add(defaultOption);
-    
-            if (!Array.isArray(tournaments) || tournaments.length === 0) {
-                const noTournamentsOption = new Option("No tournaments available", "");
-                noTournamentsOption.disabled = true;
-                tournamentSelect.add(noTournamentsOption);
-                document.getElementById('registrationForm').style.display = 'none'; // Hide the form
-                alert("There are currently no active tournaments available for registration.");
-            } else {
-                // Add the actual tournament options
-                tournaments.forEach((tournament, index) => {
-                    if (tournament && tournament.name && tournament.price !== undefined) {
-                        const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
-                        option.dataset.posterUrl = tournament.posterUrl || '';
-                        option.dataset.readerInfo = tournament.readerInfo || '';
-                        tournamentSelect.add(option);
-                    } else {
-                        console.warn(`Invalid tournament data for index ${index}:`, tournament);
-                    }
-                });
-                document.getElementById('registrationForm').style.display = 'block'; // Show the form
-            }
-            
-            document.getElementById('loadingOverlay').style.display = 'none';
-        } catch (error) {
-            console.error("Error loading tournaments:", error);
-            document.getElementById('loadingOverlay').style.display = 'none';
-            alert("Error loading tournaments. Please try again later.");
+}
+
+async function loadTournaments() {
+    try {
+        const tournamentData = await makeRequest('getActiveTournaments');
+        const tournaments = JSON.parse(tournamentData.result);
+        const tournamentSelect = document.getElementById('tournamentSelect');
+        tournamentSelect.innerHTML = '';
+
+        const defaultOption = new Option("Pick a tournament", "");
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        tournamentSelect.add(defaultOption);
+
+        if (!Array.isArray(tournaments) || tournaments.length === 0) {
+            const noTournamentsOption = new Option("No tournaments available", "");
+            noTournamentsOption.disabled = true;
+            tournamentSelect.add(noTournamentsOption);
+            document.getElementById('registrationForm').style.display = 'none';
+            alert("There are currently no active tournaments available for registration.");
+        } else {
+            tournaments.forEach((tournament, index) => {
+                if (tournament && tournament.name && tournament.price !== undefined) {
+                    const option = new Option(`${tournament.name} - €${tournament.price}`, tournament.id);
+                    option.dataset.posterUrl = tournament.posterUrl || '';
+                    option.dataset.readerInfo = tournament.readerInfo || '';
+                    tournamentSelect.add(option);
+                } else {
+                    console.warn(`Invalid tournament data for index ${index}:`, tournament);
+                }
+            });
+            document.getElementById('registrationForm').style.display = 'block';
         }
+        
+        document.getElementById('loadingOverlay').style.display = 'none';
+    } catch (error) {
+        console.error("Error loading tournaments:", error);
+        document.getElementById('loadingOverlay').style.display = 'none';
+        alert("Error loading tournaments. Please try again later.");
     }
-    async function initialize() {
-        document.getElementById('loadingOverlay').style.display = 'flex';
-        await loadTournaments();
+}
+
+async function handleRegistration(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('nameInput').value;
+    const email = document.getElementById('emailInput').value;
+    const tournamentSelect = document.getElementById('tournamentSelect');
+    const eventId = tournamentSelect.value;
+    
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    loadingOverlay.style.display = 'flex';
+    
+    try {
+        const result = await makeRequest('registerForEvent', {
+            eventId: eventId,
+            name: name,
+            email: email
+        });
+        
+        loadingOverlay.style.display = 'none';
+        
+        const checkoutUrl = result.checkoutUrl;
+        const organizerMessage = result.message;
+        
+        const confirmationMessage = checkoutUrl ? 
+            'Your registration is confirmed. Please proceed to checkout. If you cannot pay via PayPal, you can pay at the store. Please note that your place is only confirmed once payment is received.' : 
+            'Your registration is confirmed and no payment is required. Enjoy the event!';
+        
+        const checkoutButton = checkoutUrl ? 
+            `<a href="${checkoutUrl}" class="btn btn-primary" style="margin-bottom: 20px; display: block;" target="_blank">Proceed to Checkout</a>` : 
+            '';
+        
+        showConfirmationPopup(confirmationMessage, organizerMessage, checkoutButton);
+    } catch (error) {
+        console.error("Error processing registration:", error);
+        loadingOverlay.style.display = 'none';
+        alert("An error occurred while processing your registration. Please try again later.");
     }
-    window.onload = initialize;
+}
+
+function showConfirmationPopup(confirmationMessage, organizerMessage, checkoutButton) {
+    const popup = document.createElement('div');
+    popup.id = 'confirmationPopup';
+    popup.innerHTML = `
+        <div style="background-color: #121212; padding: 20px; border-radius: 10px; color: #fff; text-align: center; max-width: 80%; margin: 20px auto; max-height: 40vh; overflow-y: auto;">
+            <h2>Registration Confirmed</h2>
+            <p style="margin-bottom: 20px;">${confirmationMessage}</p>
+            <div style="background-color: #2c2c2c; padding: 10px; text-align: left; border-radius: 5px; margin-bottom: 20px;">
+                <strong>Message from the organizer:</strong><br>${organizerMessage}
+            </div>
+            ${checkoutButton}
+            <button onclick="document.getElementById('confirmationPopup').remove()" class="btn btn-primary" style="margin-top: 10px;">Close</button>
+        </div>
+    `;
+    popup.style.position = 'fixed';
+    popup.style.left = '50%';
+    popup.style.top = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.zIndex = '1000';
+    
+    document.body.appendChild(popup);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    updateUserProfile();
+    
+    document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
+
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        dropbtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+        });
+    } 
+
+    window.addEventListener('click', (e) => {
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.querySelector('.dropdown-content').style.display = 'none';
+            }
+        });
+
+        if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+        }
+    });
+
+    loadTournaments();
+});
 </script>
 </body>
 </html>

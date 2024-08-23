@@ -351,282 +351,299 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="page-wrapper">
         <header>
-            <div class="header-content">
-                <button class="sidebar-toggle" id="sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="logo-container">
-                    <div class="logo">
-                        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
                     </div>
-                    <span class="logo-text">YURANKA GAMES</span>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="../boardgame.html">Board Games</a></li>
+                            <li><a href="../videogame.html">Video Games</a></li>
+                            <li><a href="../registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="/event-registration.html">Events Registration</a>
+                                    <a href="/mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
                 </div>
-                <nav class="main-nav" id="mainNav">
-                    <ul>
-                        <li><a href="../index.html">Home</a></li>
-                        <li><a href="https://store.yuranka.com">Store</a></li>            
-                        <li><a href="../boardgame.html">Board Games</a></li>
-                        <li><a href="../videogame.html">Video Games</a></li>
-                        <li><a href="../registration.html">Reservations</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Events</a>
-                            <div class="dropdown-content">
-                                <a href="/event-registration.html">Events Registration</a>
-                                <a href="/mini-con.html">Mini - Cons</a>
-                            </div>
-                        </li>
-                        <li><a href="../about.html">About</a></li>
-                        <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <div id="userProfileContainer"></div>
             </div>
         </header>
 
-    <div class="sidebar" id="sidebar">
-        <nav class="sidebar-nav">
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="https://store.yuranka.com">Store</a></li>  
-                <li><a href="../boardgame.html">Board Games</a></li>
-                <li><a href="../videogame.html">Video Games</a></li>
-                <li><a href="../registration.html">Reservations</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Events</a>
-                    <div class="dropdown-content">
-                        <a href="/event-registration.html">Events Registration</a>
-                        <a href="/mini-con.html">Mini - Cons</a>
+        <div class="content-wrapper">
+            <main class="main-content">
+                <div class="container">
+                    <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="bigLogo">
+                    <h2 class="subtitle">Yuranka Games proudly presents:</h2>
+                    <h1 class="main-title">Mini-Cons</h1>
+                    <div class="tabs">
+                        <div class="tab-container">
+                            <div class="tab" data-tab="1" data-name="One Piece" style="background-image: url('https://ik.imagekit.io/mcgszbooe/OnePIece.jpg?updatedAt=1723494235003');"></div>
+                            <img src="https://ik.imagekit.io/mcgszbooe/one-piece-logo-67.png?updatedAt=1723494804613" alt="One Piece Logo" class="tab-logo">
+                        </div>
+                        <div class="tab-container">
+                            <div class="tab" data-tab="2" data-name="Genshin" style="background-image: url('https://ik.imagekit.io/mcgszbooe/genshin-honkai-logo.png');"></div>
+                            <img src="https://ik.imagekit.io/mcgszbooe/Genshin%20Impact%20Logo%20PNG%20-%201500x1500.png?updatedAt=1723539150184" alt="Genshin Logo" class="tab-logo">
+                        </div>
+                        <div class="tab-container">
+                            <div class="tab" data-tab="3" data-name="Star Wars" style="background-image: url('https://ik.imagekit.io/mcgszbooe/star-wars-logo.png');"></div>
+                            <img src="https://ik.imagekit.io/mcgszbooe/star-wars-logo-975.png?updatedAt=1723538862880" alt="Star Wars Logo" class="tab-logo">
+                        </div>
+                        <div class="tab-container">
+                            <div class="tab" data-tab="4" data-name="Disney" style="background-image: url('https://ik.imagekit.io/mcgszbooe/disney-logo.png');"></div>
+                            <img src="https://ik.imagekit.io/mcgszbooe/Disney.png?updatedAt=1723539119358" alt="Disney Logo" class="tab-logo">
+                        </div>
                     </div>
-                </li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div id="sidebarUserProfileContainer"></div>
-    </div>
+                </div>
+            </main>
+            <aside class="video-sidebar">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </aside>
+        </div>
 
-        <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo" class="bigLogo">
-        <h2 class="subtitle">Yuranka Games proudly presents:</h2>
-        <h1 class="main-title">Mini-Cons</h1>
-        <div class="tabs">
-            <div class="tab-container">
-                <div class="tab" data-tab="1" data-name="One Piece" style="background-image: url('https://ik.imagekit.io/mcgszbooe/OnePIece.jpg?updatedAt=1723494235003');"></div>
-                <img src="https://ik.imagekit.io/mcgszbooe/one-piece-logo-67.png?updatedAt=1723494804613" alt="One Piece Logo" class="tab-logo">
-            </div>
-            <div class="tab-container">
-                <div class="tab" data-tab="2" data-name="Genshin" style="background-image: url('https://ik.imagekit.io/mcgszbooe/genshin-honkai-logo.png');"></div>
-                <img src="https://ik.imagekit.io/mcgszbooe/Genshin%20Impact%20Logo%20PNG%20-%201500x1500.png?updatedAt=1723539150184" alt="Genshin Logo" class="tab-logo">
-            </div>
-            <div class="tab-container">
-                <div class="tab" data-tab="3" data-name="Star Wars" style="background-image: url('https://ik.imagekit.io/mcgszbooe/star-wars-logo.png');"></div>
-                <img src="https://ik.imagekit.io/mcgszbooe/star-wars-logo-975.png?updatedAt=1723538862880" alt="Star Wars Logo" class="tab-logo">
-            </div>
-            <div class="tab-container">
-                <div class="tab" data-tab="4" data-name="Disney" style="background-image: url('https://ik.imagekit.io/mcgszbooe/disney-logo.png');"></div>
-                <img src="https://ik.imagekit.io/mcgszbooe/Disney.png?updatedAt=1723539119358" alt="Disney Logo" class="tab-logo">
-            </div>
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="https://store.yuranka.com">Store</a></li>  
+                    <li><a href="../boardgame.html">Board Games</a></li>
+                    <li><a href="../videogame.html">Video Games</a></li>
+                    <li><a href="../registration.html">Reservations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Events</a>
+                        <div class="dropdown-content">
+                            <a href="/event-registration.html">Events Registration</a>
+                            <a href="/mini-con.html">Mini - Cons</a>
+                        </div>
+                    </li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div id="sidebarUserProfileContainer"></div>
         </div>
     </div>
-    <div class = "content-page-wrapper">
-    <div class="content-page">
-        <button class="back-btn"></button>
-    </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            function updateUserProfile() {
-                const username = sessionStorage.getItem('username');
-                const avatarurl = sessionStorage.getItem('avatarurl');
-                const userProfileContainer = document.getElementById('userProfileContainer');
-                const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
-                
-                if (username) {
-                    const profileHTML = `
-                        <div class="user-profile">
-                            <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
-                            <a href="/dashboard.html" class="username-link">${username}</a>
+    <div class="content-page-wrapper">
+        <div class="content-page">
+            <button class="back-btn"></button>
+        </div>
+    </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    function updateUserProfile() {
+        const username = sessionStorage.getItem('username');
+        const avatarurl = sessionStorage.getItem('avatarurl');
+        const userProfileContainer = document.getElementById('userProfileContainer');
+        const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+        
+        if (username) {
+            const profileHTML = `
+                <div class="user-profile">
+                    <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                    <a href="/dashboard.html" class="username-link">${username}</a>
+                </div>
+            `;
+            userProfileContainer.innerHTML = profileHTML;
+            sidebarUserProfileContainer.innerHTML = profileHTML;
+        } else {
+            const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+            userProfileContainer.innerHTML = loginHTML;
+            sidebarUserProfileContainer.innerHTML = loginHTML;
+        }
+    }
+    
+    updateUserProfile();
+
+    const tabs = document.querySelectorAll('.tab');
+    const contentPage = document.querySelector('.content-page');
+    const contentPageWrapper = document.querySelector('.content-page-wrapper');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.body.style.overflowY = 'hidden';
+            contentPageWrapper.classList.add('active');
+            const tabName = tab.dataset.name;
+
+            if (tabName === "One Piece") {
+                contentPageWrapper.style.backgroundImage = "url('https://ik.imagekit.io/mcgszbooe/OnePIece.jpg?updatedAt=1723494235003')";
+                contentPage.innerHTML = `
+                    <button class="back-btn"></button>
+                    <div class="event-bubble">
+                        <h2>One Piece Mini Con</h2>
+                        <p>September 7th</p>
+                        <p>More information coming up!</p>
+                    </div>
+                    <div class="main-events">
+                        <div class="event-card">
+                            <div class="event-image" id="treasure-hunt-img"></div>
+                            <h3>11:00 AM</h3>
+                            <p>Find the Devil Fruit Treasure Hunt</p>
                         </div>
-                    `;
-                    userProfileContainer.innerHTML = profileHTML;
-                    sidebarUserProfileContainer.innerHTML = profileHTML;
-                } else {
-                    const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
-                    userProfileContainer.innerHTML = loginHTML;
-                    sidebarUserProfileContainer.innerHTML = loginHTML;
-                }
+                        <div class="event-card">
+                            <div class="event-image" id="trivia-img"></div>
+                            <h3>3:00 PM</h3>
+                            <p>Trivia Time</p>
+                        </div>
+                        <div class="event-card">
+                            <div class="event-image" id="cosplay-img"></div>
+                            <h3>6:00 PM</h3>
+                            <p>Cosplay Competition</p>
+                        </div>
+                    </div>
+                    <div class="side-events-carousel">
+                        <h3>All Day Events</h3>
+                        <div class="carousel-container">
+                            <div class="carousel-slide">
+                                <div class="event-image" id="artist-alley-img"></div>
+                                <p>Artist Alley</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="event-image" id="photo-booth-img"></div>
+                                <p>Photo Booth</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="event-image" id="video-games-img"></div>
+                                <p>Video Games</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="event-image" id="tcg-img"></div>
+                                <p>Trading Card Games</p>
+                            </div>
+                            <div class="carousel-slide">
+                                <div class="event-image" id="crafting-img"></div>
+                                <p>Crafting Table</p>
+                            </div>
+                        </div>
+                        <button class="carousel-btn prev">&#10094;</button>
+                        <button class="carousel-btn next">&#10095;</button>
+                    </div>
+                    <div class="sponsor-spaces">
+                        <div class="sponsor-space">
+                            <p>Space for Future Sponsors/Partners</p>
+                        </div>
+                        <div class="sponsor-space">
+                            <p>Space for Future Sponsors/Partners</p>
+                        </div>
+                    </div>
+                `;
+                initializeCarousel();
+            } else if (tabName === "Genshin") {
+                contentPage.style.backgroundImage = "none";
+                contentPage.style.backgroundColor = "black";
+                contentPage.innerHTML = `
+                    <button class="back-btn"></button>
+                    <div class="event-bubble">
+                        <h2>Genshin & Honkai Mini Con</h2>
+                        <p>September 30th</p>
+                        <p>Coming Soon!</p>
+                    </div>
+                `;
+            } else if (tabName === "Star Wars") {
+                contentPage.style.backgroundImage = "none";
+                contentPage.style.backgroundColor = "black";
+                contentPage.innerHTML = `
+                    <button class="back-btn"></button>
+                    <div class="event-bubble">
+                        <h2>Star Wars Mini Con</h2>
+                        <p>October 31st</p>
+                        <p>Coming Soon!</p>
+                    </div>
+                `;
+            } else if (tabName === "Disney") {
+                contentPage.style.backgroundImage = "none";
+                contentPage.style.backgroundColor = "black";
+                contentPage.innerHTML = `
+                    <button class="back-btn"></button>
+                    <div class="event-bubble">
+                        <h2>Disney Mini Con</h2>
+                        <p>November 30th</p>
+                        <p>Coming Soon!</p>
+                    </div>
+                `;
             }
-            
-            updateUserProfile();
-            const tabs = document.querySelectorAll('.tab');
-            const contentPage = document.querySelector('.content-page');
-            const contentPageWrapper = document.querySelector('.content-page-wrapper');
-            const backBtn = document.querySelector('.back-btn');
 
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.body.style.overflowY = 'hidden';
-                    contentPageWrapper.classList.add('active');
-                    const tabName = tab.dataset.name;
-
-                    if (tabName === "One Piece") {
-                        contentPageWrapper.style.backgroundImage = "url('https://ik.imagekit.io/mcgszbooe/OnePIece.jpg?updatedAt=1723494235003')";
-                        contentPage.innerHTML = `
-                            <button class="back-btn"></button>
-                            <div class="event-bubble">
-                                <h2>One Piece Mini Con</h2>
-                                <p>September 7th</p>
-                                <p>More information coming up!</p>
-                            </div>
-                            <div class="main-events">
-                                <div class="event-card">
-                                    <div class="event-image" id="treasure-hunt-img"></div>
-                                    <h3>11:00 AM</h3>
-                                    <p>Find the Devil Fruit Treasure Hunt</p>
-                                </div>
-                                <div class="event-card">
-                                    <div class="event-image" id="trivia-img"></div>
-                                    <h3>3:00 PM</h3>
-                                    <p>Trivia Time</p>
-                                </div>
-                                <div class="event-card">
-                                    <div class="event-image" id="cosplay-img"></div>
-                                    <h3>6:00 PM</h3>
-                                    <p>Cosplay Competition</p>
-                                </div>
-                            </div>
-                            <div class="side-events-carousel">
-                                <h3>All Day Events</h3>
-                                <div class="carousel-container">
-                                    <div class="carousel-slide">
-                                        <div class="event-image" id="artist-alley-img"></div>
-                                        <p>Artist Alley</p>
-                                    </div>
-                                    <div class="carousel-slide">
-                                        <div class="event-image" id="photo-booth-img"></div>
-                                        <p>Photo Booth</p>
-                                    </div>
-                                    <div class="carousel-slide">
-                                        <div class="event-image" id="video-games-img"></div>
-                                        <p>Video Games</p>
-                                    </div>
-                                    <div class="carousel-slide">
-                                        <div class="event-image" id="tcg-img"></div>
-                                        <p>Trading Card Games</p>
-                                    </div>
-                                    <div class="carousel-slide">
-                                        <div class="event-image" id="crafting-img"></div>
-                                        <p>Crafting Table</p>
-                                    </div>
-                                </div>
-                                <button class="carousel-btn prev">&#10094;</button>
-                                <button class="carousel-btn next">&#10095;</button>
-                            </div>
-                            <div class="sponsor-spaces">
-                                <div class="sponsor-space">
-                                    <p>Space for Future Sponsors/Partners</p>
-                                </div>
-                                <div class="sponsor-space">
-                                    <p>Space for Future Sponsors/Partners</p>
-                                </div>
-                            </div>
-                        `;
-
-                        // Carousel functionality
-                        let currentSlide = 0;
-                        const slides = document.querySelectorAll('.carousel-slide');
-                        const prevBtn = document.querySelector('.prev');
-                        const nextBtn = document.querySelector('.next');
-
-                        function showSlide(n) {
-                            slides[currentSlide].style.display = 'none';
-                            currentSlide = (n + slides.length) % slides.length;
-                            slides[currentSlide].style.display = 'block';
-                        }
-
-                        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
-                        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
-
-                        // Initialize carousel
-                        showSlide(0);
-                    } else if (tabName === "Genshin") {
-                        contentPage.style.backgroundImage = "none";
-                        contentPage.style.backgroundColor = "black";
-                        contentPage.innerHTML = `
-                            <button class="back-btn"></button>
-                            <div class="event-bubble">
-                                <h2>Genshin & Honkai Mini Con</h2>
-                                <p>September 30th</p>
-                                <p>Coming Soon!</p>
-                            </div>
-                        `;
-                    } else if (tabName === "Star Wars") {
-                        contentPage.style.backgroundImage = "none";
-                        contentPage.style.backgroundColor = "black";
-                        contentPage.innerHTML = `
-                            <button class="back-btn"></button>
-                            <div class="event-bubble">
-                                <h2>Star Wars Mini Con</h2>
-                                <p>October 31st</p>
-                                <p>Coming Soon!</p>
-                            </div>
-                        `;
-                    } else if (tabName === "Disney") {
-                        contentPage.style.backgroundImage = "none";
-                        contentPage.style.backgroundColor = "black";
-                        contentPage.innerHTML = `
-                            <button class="back-btn"></button>
-                            <div class="event-bubble">
-                                <h2>Disney Mini Con</h2>
-                                <p>November 30th</p>
-                                <p>Coming Soon!</p>
-                            </div>
-                        `;
-                    }
-
-                    const newBackBtn = contentPage.querySelector('.back-btn');
-                    newBackBtn.addEventListener('click', () => {
-                        contentPageWrapper.classList.remove('active');
-                        document.body.style.overflowY = 'auto';
-                    });
-                });
-            });
-            // Dropdown functionality
-            const dropdowns = document.querySelectorAll('.dropdown');
-            dropdowns.forEach(dropdown => {
-                const dropbtn = dropdown.querySelector('.dropbtn');
-                const dropdownContent = dropdown.querySelector('.dropdown-content');
-                dropbtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-                });
-            });
-
-            // Sidebar functionality
-            const sidebarToggle = document.getElementById('sidebarToggle');
-            const sidebar = document.getElementById('sidebar');
-            if (sidebarToggle && sidebar) {
-                sidebarToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('open');
-                });
-            } 
-
-            // Close dropdowns and sidebar when clicking outside
-            window.addEventListener('click', (e) => {
-                dropdowns.forEach(dropdown => {
-                    if (!dropdown.contains(e.target)) {
-                        dropdown.querySelector('.dropdown-content').style.display = 'none';
-                    }
-                });
-
-                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
-                    sidebar.classList.remove('open');
-                }
+            const newBackBtn = contentPage.querySelector('.back-btn');
+            newBackBtn.addEventListener('click', () => {
+                contentPageWrapper.classList.remove('active');
+                document.body.style.overflowY = 'auto';
             });
         });
-    </script>
+    });
+
+    function initializeCarousel() {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+
+        function showSlide(n) {
+            slides[currentSlide].style.display = 'none';
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].style.display = 'block';
+        }
+
+        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+
+        showSlide(0);
+    }
+
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        const dropdownContent = dropdown.querySelector('.dropdown-content');
+        dropbtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+
+    // Sidebar functionality
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+        });
+    } 
+
+    // Close dropdowns and sidebar when clicking outside
+    window.addEventListener('click', (e) => {
+        dropdowns.forEach(dropdown => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.querySelector('.dropdown-content').style.display = 'none';
+            }
+        });
+
+        if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+            sidebar.classList.remove('open');
+        }
+    });
+});
+</script>
 </body>
 </html>
