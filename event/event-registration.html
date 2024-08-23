@@ -424,6 +424,23 @@ function showConfirmationPopup(confirmationMessage, organizerMessage, checkoutBu
     document.body.appendChild(popup);
 }
 
+function populateFormFromSessionStorage() {
+    const nameInput = document.getElementById('nameInput');
+    const emailInput = document.getElementById('emailInput');
+
+    // Check if name exists in session storage
+    const storedName = sessionStorage.getItem('name');
+    if (storedName) {
+        nameInput.value = storedName;
+    }
+
+    // Check if email exists in session storage
+    const storedEmail = sessionStorage.getItem('email');
+    if (storedEmail) {
+        emailInput.value = storedEmail;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     updateUserProfile();
     
@@ -460,6 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     loadTournaments();
+    populateFormFromSessionStorage();
 });
 </script>
 </body>
