@@ -218,6 +218,65 @@
             font-size: 0.9rem;
             color: #ffa500;
         }
+    
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: var(--secondary-bg);
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #passwordInput {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #aaa;
+            border-radius: 3px;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+        }
+
+        #confirmPasswordBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #confirmPasswordBtn:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -338,6 +397,15 @@
             </main>
         </div>
     </div>
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Verify Password</h2>
+            <p>Please enter your password to confirm changes:</p>
+            <input type="password" id="passwordInput" placeholder="Enter your password">
+            <button id="confirmPasswordBtn">Confirm</button>
+        </div>
+    </div>
     <script>
         const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
         
@@ -436,26 +504,50 @@
         async function saveProfile() {
             const newName = document.getElementById('editName').value;
             const newEmail = document.getElementById('editEmail').value;
-            const username = sessionStorage.getItem('username');
-            const googleToken = sessionStorage.getItem('googleToken');
+            
+            // Show the password modal
+            document.getElementById('passwordModal').style.display = 'block';
 
-            try {
-                const response = await makeRequest('updateProfile', { 
-                    username, 
-                    googleToken, 
-                    newName, 
-                    newEmail 
-                });
+            // Set up event listener for password confirmation
+            document.getElementById('confirmPasswordBtn').onclick = async function() {
+                const password = document.getElementById('passwordInput').value;
+                const username = sessionStorage.getItem('username');
+                const googleToken = sessionStorage.getItem('googleToken');
 
-                if (response.success) {
-                    document.getElementById('userName').textContent = newName;
-                    document.getElementById('userEmail').textContent = newEmail;
-                    document.getElementById('editProfileForm').style.display = 'none';
-                } else {
-                    console.error('Failed to update profile');
+                try {
+                    const response = await makeRequest('updateProfile', { 
+                        username, 
+                        googleToken, 
+                        newName, 
+                        newEmail,
+                        password
+                    });
+
+                    if (response.success) {
+                        document.getElementById('userName').textContent = newName;
+                        document.getElementById('userEmail').textContent = newEmail;
+                        document.getElementById('editProfileForm').style.display = 'none';
+                        document.getElementById('passwordModal').style.display = 'none';
+                        alert('Profile updated successfully!');
+                    } else {
+                        alert('Failed to update profile. Please check your password and try again.');
+                    }
+                } catch (error) {
+                    console.error('Error updating profile:', error);
+                    alert('An error occurred while updating the profile. Please try again.');
                 }
-            } catch (error) {
-                console.error('Error updating profile:', error);
+
+                // Clear the password input
+                document.getElementById('passwordInput').value = '';
+            };
+        }
+
+        // Close modal when clicking on the close button or outside the modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('passwordModal');
+            if (event.target == modal || event.target.className == 'close') {
+                modal.style.display = 'none';
+                document.getElementById('passwordInput').value = '';
             }
         }
 
