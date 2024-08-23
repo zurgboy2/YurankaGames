@@ -546,9 +546,40 @@ function closePopup() {
     document.getElementById('customPopup').style.display = 'none';
 }
 
-// Initialize the form
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('date').addEventListener('change', loadTimeSlots);
+    const dateInput = document.getElementById('date');
+    
+    dateInput.addEventListener('blur', validateAndLoadTimeSlots);
+    dateInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.blur();
+        }
+    });
+
+    function validateAndLoadTimeSlots() {
+        const selectedDate = new Date(dateInput.value);
+        const today = new Date();
+        const twoMonthsLater = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
+
+        if (isNaN(selectedDate.getTime())) {
+            showPopup("Please enter a valid date.");
+            return;
+        }
+
+        if (selectedDate < today) {
+            showPopup("Please select a date from today onwards.");
+            return;
+        }
+
+        if (selectedDate > twoMonthsLater) {
+            showPopup("Please select a date within the next two months.");
+            return;
+        }
+
+        loadTimeSlots();
+    }
+
     document.getElementById('startTime').addEventListener('change', function() {
         updateEndTimeOptions();
         updateAvailability();
