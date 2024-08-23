@@ -225,7 +225,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         try {
             const token = await getProxyToken(action);
             const requestBody = { token, action, script_id: 'auth_script', form_data: formData };
-            console.log('Request body:', requestBody);
             const response = await fetch(`${API_URL}/proxy`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -299,7 +298,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             password: document.getElementById('signupPassword').value,
             confirmPassword: document.getElementById('signupConfirmPassword').value
         };
-        console.log('Signup data:', signupData);
         
         try {
             const data = await makeRequest('signUp', signupData);
