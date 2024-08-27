@@ -244,9 +244,8 @@
         const eventSelect = document.getElementById('eventName');
         try {
             const response = await fetchEvents();
-            console.log('Fetched events:', response); // For debugging
 
-            let events = response.events || []; // Ensure events is always an array
+            let events = JSON.parse(response.events) || []; // Ensure events is always an array
 
             if (!Array.isArray(events)) {
                 events = [events]; // If it's a single event, convert it to an array
