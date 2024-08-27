@@ -241,17 +241,40 @@
         }
 
         async function populateEventDropdown() {
-            const eventSelect = document.getElementById('eventName');
-            const events = await fetchEvents();
-            eventSelect.innerHTML = '<option value="">Select an event</option>';
-            events.forEach(event => {
-                const option = document.createElement('option');
-                option.value = event.Name;
-                option.textContent = event.Name;
-                eventSelect.appendChild(option);
-            });
-        }
+        const eventSelect = document.getElementById('eventName');
+        try {
+            const response = await fetchEvents();
+            console.log('Fetched events:', response); // For debugging
 
+            let events = response.events || []; // Ensure events is always an array
+
+            if (!Array.isArray(events)) {
+                events = [events]; // If it's a single event, convert it to an array
+            }
+
+            if (events.length === 0) {
+                eventSelect.innerHTML = '<option value="">No events available</option>';
+                eventSelect.disabled = true;
+            } else if (events.length === 1) {
+                const event = events[0];
+                eventSelect.innerHTML = `<option value="${event.Name}">${event.Name}</option>`;
+                eventSelect.disabled = true; // Disable selection if there's only one event
+            } else {
+                eventSelect.innerHTML = '<option value="">Select an event</option>';
+                events.forEach(event => {
+                    const option = document.createElement('option');
+                    option.value = event.Name;
+                    option.textContent = event.Name;
+                    eventSelect.appendChild(option);
+                });
+                eventSelect.disabled = false;
+            }
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            eventSelect.innerHTML = '<option value="">Error loading events</option>';
+            eventSelect.disabled = true;
+        }
+    }
         function populateFormFromSessionStorage() {
             const nameInput = document.getElementById('artistName');
             const emailInput = document.getElementById('artistEmail');
