@@ -298,14 +298,12 @@
                 if (response.success && Array.isArray(response.events)) {
                     const events = response.events;
 
+                    eventSelect.innerHTML = '<option value="">Select an event</option>';
+
                     if (events.length === 0) {
-                        eventSelect.innerHTML = '<option value="">No events available</option>';
+                        eventSelect.innerHTML += '<option value="" disabled>No events available</option>';
                         eventSelect.disabled = true;
-                    } else if (events.length === 1) {
-                        eventSelect.innerHTML = `<option value="${events[0]}">${events[0]}</option>`;
-                        eventSelect.disabled = false; // Disable selection if there's only one event
                     } else {
-                        eventSelect.innerHTML = '<option value="">Select an event</option>';
                         events.forEach(eventName => {
                             const option = document.createElement('option');
                             option.value = eventName;
