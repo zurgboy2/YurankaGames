@@ -200,6 +200,8 @@
                     console.error('Proxy request failed:', errorText);
                     throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
                 }
+                console.log(response)
+                console.log(response.json())
                 return response.json();
             } catch (error) {
                 console.error('Error in makeRequest:', error);
