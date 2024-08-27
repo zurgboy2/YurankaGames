@@ -261,7 +261,7 @@
                         eventSelect.disabled = true;
                     } else if (events.length === 1) {
                         eventSelect.innerHTML = `<option value="${events[0]}">${events[0]}</option>`;
-                        eventSelect.disabled = true; // Disable selection if there's only one event
+                        eventSelect.disabled = false; // Disable selection if there's only one event
                     } else {
                         eventSelect.innerHTML = '<option value="">Select an event</option>';
                         events.forEach(eventName => {
