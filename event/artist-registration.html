@@ -376,19 +376,6 @@
                     modal.style.display = "none";
                 }
             }
-
-            // Function to populate event dropdown (to be implemented)
-            async function populateEventDropdown() {
-                const eventSelect = document.getElementById('eventName');
-                const events = await fetchEvents(); // Implement this function to get events from your backend
-                events.forEach(event => {
-                    const option = document.createElement('option');
-                    option.value = event.name;
-                    option.textContent = event.name;
-                    eventSelect.appendChild(option);
-                });
-            }
-
             // Call the function to populate events when the page loads
             populateEventDropdown();
         });
