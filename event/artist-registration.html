@@ -161,10 +161,11 @@
         <div class="loading-message">Please wait...</div>
     </div>
 
-    <div id="modal" class="modal">
+    <div id="successModal" class="modal">
         <div class="modal-content">
-            <p id="modalMessage"></p>
-            <!-- Other modal content -->
+            <span class="close">&times;</span>
+            <h2>Registration Successful</h2>
+            <p id="successMessage"></p>
         </div>
     </div>
 
@@ -355,12 +356,11 @@
                         if (loadingOverlay) loadingOverlay.style.display = 'none';
                         
                         if (response.success) {
-                            if (modal) {
-                                const modalMessage = document.getElementById('modalMessage');
-                                if (modalMessage) {
-                                    modalMessage.textContent = response.message || 'Registration successful!';
-                                }
-                                modal.style.display = "block";
+                            const successModal = document.getElementById('successModal');
+                            const successMessage = document.getElementById('successMessage');
+                            if (successModal && successMessage) {
+                                successMessage.textContent = response.message || 'Registration successful!';
+                                successModal.style.display = "block";
                             } else {
                                 alert(response.message || 'Registration successful!');
                             }
@@ -378,26 +378,23 @@
                 console.error('Form element not found');
             }
 
-            // Close the modal when clicking the close button
-            if (span) {
-                span.onclick = function() {
-                    if (modal) modal.style.display = "none";
-                }
-            }
-
-            // Close the modal when clicking the "Close" button
-            if (closeButton) {
-                closeButton.onclick = function() {
-                    if (modal) modal.style.display = "none";
-                }
-            }
-
-            // Close the modal when clicking outside of it
+            // Close modal when clicking outside of it
             window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
+                const successModal = document.getElementById('successModal');
+                if (event.target == successModal) {
+                    successModal.style.display = "none";
                 }
             }
+
+            // Close modal when clicking the close button
+            const closeBtn = document.getElementsByClassName("close")[0];
+            if (closeBtn) {
+                closeBtn.onclick = function() {
+                    const successModal = document.getElementById('successModal');
+                    successModal.style.display = "none";
+                }
+            }
+
             // Call the function to populate events when the page loads
             populateEventDropdown();
         });
