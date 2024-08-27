@@ -293,6 +293,26 @@
             border-color: #8B0000; /* Maintain blood red border on hover */
         }
 
+        .artist-signup-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #8B0000; /* Dark blood red */
+            color: #FFFFFF; /* White text */
+            text-decoration: none;
+            border-radius: 0; /* Sharp corners for a more dramatic look */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid #8B0000;
+        }
+
+        .artist-signup-btn:hover {
+            background-color: #000000; /* Black background on hover */
+            color: #8B0000; /* Blood red text on hover */
+            border-color: #8B0000; /* Maintain blood red border on hover */
+        }
+
         .prev { left: -20px; }
         .next { right: -20px; }
         /* Placeholder backgrounds for event images */
@@ -516,6 +536,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h2>One Piece Mini Con</h2>
                         <p>September 7th</p>
                         <a href="event-registration.html?tournament=27" class="signup-btn">Click here to sign up</a>
+                        <a href="artist-registration.html" class="artist-signup-btn">Artist Registration</a>
                     </div>
                     <div class="main-events">
                         <div class="event-card">
