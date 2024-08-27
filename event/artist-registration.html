@@ -246,8 +246,8 @@
             eventSelect.innerHTML = '<option value="">Select an event</option>';
             events.forEach(event => {
                 const option = document.createElement('option');
-                option.value = event.name;
-                option.textContent = event.name;
+                option.value = event.Name;
+                option.textContent = event.Name;
                 eventSelect.appendChild(option);
             });
         }
