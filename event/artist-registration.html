@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Registration - Yuranka Games</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--secondary-bg);
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+        .form-group textarea {
+            height: 100px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
+                    </div>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="../boardgame.html">Board Games</a></li>
+                            <li><a href="../videogame.html">Video Games</a></li>
+                            <li><a href="../registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="event-registration.html">Events Registration</a>
+                                    <a href="mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-wrapper">
+            <main class="main-content">
+                <section class="form-section">
+                    <div class="container">
+                        <h1>Artist Registration</h1>
+                        <div class="form-container">
+                            <form id="artistForm">
+                                <div class="form-group">
+                                    <label for="artistName">Artist Name:</label>
+                                    <input type="text" id="artistName" name="ARTIST_NAME" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="artistAddress">Address:</label>
+                                    <input type="text" id="artistAddress" name="ARTIST_ADDRESS" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="artistPhone">Phone:</label>
+                                    <input type="tel" id="artistPhone" name="ARTIST_PHONE" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="artistEmail">Email:</label>
+                                    <input type="email" id="artistEmail" name="ARTIST_EMAIL" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="artistWebsite">Website:</label>
+                                    <input type="url" id="artistWebsite" name="ARTIST_WEBSITE">
+                                </div>
+                                <div class="form-group">
+                                    <label for="workType">Type of Work:</label>
+                                    <input type="text" id="workType" name="WORK_TYPE" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="expectedProvisions">Expected Provisions:</label>
+                                    <textarea id="expectedProvisions" name="EXPECTED_PROVISIONS" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="eventName">Event Name:</label>
+                                    <select id="eventName" name="eventName" required>
+                                        <option value="">Select an event</option>
+                                        <!-- Event options will be populated dynamically -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="submit-btn">Submit Registration</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </main>
+            <aside class="video-sidebar">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://ik.imagekit.io/mcgszbooe/Video/Advertising.mp4?updatedAt=1723581805126" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </aside>
+        </div>
+
+        <div class="sidebar" id="sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="https://store.yuranka.com">Store</a></li>  
+                    <li><a href="../boardgame.html">Board Games</a></li>
+                    <li><a href="../videogame.html">Video Games</a></li>
+                    <li><a href="../registration.html">Reservations</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Events</a>
+                        <div class="dropdown-content">
+                            <a href="event-registration.html">Events Registration</a>
+                            <a href="mini-con.html">Mini - Cons</a>
+                        </div>
+                    </li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div id="sidebarUserProfileContainer"></div>
+        </div>
+    </div>
+    <div id="loadingOverlay" class="loading-overlay" style="display:none;">
+        <div class="loading-message">Please wait...</div>
+    </div>
+
+    <script>
+        const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+
+        async function getProxyToken(action) {
+            const requestBody = { script_id: 'artist_script', action };
+            try {
+                const response = await fetch(`${API_URL}/get_token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Token request failed:', errorText);
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                const data = await response.json();
+                if (data.token) return data.token;
+                throw new Error('Failed to get token: ' + JSON.stringify(data));
+            } catch (error) {
+                console.error('Error in getProxyToken:', error);
+                throw error;
+            }
+        }
+
+        async function makeRequest(action, additionalData = {}) {
+            try {
+                const token = await getProxyToken(action);
+                const requestBody = { token, action, script_id: 'artist_script', ...additionalData };
+                const response = await fetch(`${API_URL}/proxy`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Proxy request failed:', errorText);
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                return response.json();
+            } catch (error) {
+                console.error('Error in makeRequest:', error);
+                throw error;
+            }
+        }
+
+        function updateUserProfile() {
+            const username = sessionStorage.getItem('username');
+            const avatarurl = sessionStorage.getItem('avatarurl');
+            const userProfileContainer = document.getElementById('userProfileContainer');
+            const sidebarUserProfileContainer = document.getElementById('sidebarUserProfileContainer');
+            
+            if (username) {
+                const profileHTML = `
+                    <div class="user-profile">
+                        <img src="${avatarurl || '/path/to/default/avatar.png'}" alt="User Avatar">
+                        <a href="/dashboard.html" class="username-link">${username}</a>
+                    </div>
+                `;
+                userProfileContainer.innerHTML = profileHTML;
+                sidebarUserProfileContainer.innerHTML = profileHTML;
+            } else {
+                const loginHTML = `<a href="/login.html" class="login-link">Login / Sign Up</a>`;
+                userProfileContainer.innerHTML = loginHTML;
+                sidebarUserProfileContainer.innerHTML = loginHTML;
+            }
+        }
+
+        async function fetchEvents() {
+            try {
+                const response = await makeRequest('getActiveEvents');
+                return JSON.parse(response.result);
+            } catch (error) {
+                console.error("Error fetching events:", error);
+                alert("Error loading events. Please try again later.");
+                return [];
+            }
+        }
+
+        async function populateEventDropdown() {
+            const eventSelect = document.getElementById('eventName');
+            const events = await fetchEvents();
+            eventSelect.innerHTML = '<option value="">Select an event</option>';
+            events.forEach(event => {
+                const option = document.createElement('option');
+                option.value = event.name;
+                option.textContent = event.name;
+                eventSelect.appendChild(option);
+            });
+        }
+
+        function populateFormFromSessionStorage() {
+            const nameInput = document.getElementById('artistName');
+            const emailInput = document.getElementById('artistEmail');
+
+            const storedName = sessionStorage.getItem('name');
+            if (storedName) {
+                nameInput.value = storedName;
+            }
+
+            const storedEmail = sessionStorage.getItem('email');
+            if (storedEmail) {
+                emailInput.value = storedEmail;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            updateUserProfile();
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                const dropbtn = dropdown.querySelector('.dropbtn');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+                dropbtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('open');
+                });
+            } 
+
+            window.addEventListener('click', (e) => {
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(e.target)) {
+                        dropdown.querySelector('.dropdown-content').style.display = 'none';
+                    }
+                });
+
+                if (sidebar && !sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            loadTournaments();
+            populateFormFromSessionStorage();
+            // New script for form submission
+            const form = document.getElementById('artistForm');
+            const modal = document.getElementById('successModal');
+            const span = document.getElementsByClassName("close")[0];
+            const closeButton = document.getElementById("closeModal");
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                const formData = new FormData(form);
+                const jsonData = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await makeRequest('submitArtistRegistration', jsonData);
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    if (response.success) {
+                        modal.style.display = "block";
+                        form.reset(); // Optional: reset the form after successful submission
+                    } else {
+                        alert('Registration failed. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    alert('An error occurred. Please try again.');
+                }
+            });
+
+            // Close the modal when clicking the close button
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Close the modal when clicking the "Close" button
+            closeButton.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // Close the modal when clicking outside of it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            // Function to populate event dropdown (to be implemented)
+            async function populateEventDropdown() {
+                const eventSelect = document.getElementById('eventName');
+                const events = await fetchEvents(); // Implement this function to get events from your backend
+                events.forEach(event => {
+                    const option = document.createElement('option');
+                    option.value = event.name;
+                    option.textContent = event.name;
+                    eventSelect.appendChild(option);
+                });
+            }
+
+            // Call the function to populate events when the page loads
+            populateEventDropdown();
+        });
+    </script>
+</body>
+</html>
