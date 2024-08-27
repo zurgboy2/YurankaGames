@@ -303,39 +303,48 @@
             // New script for form submission
             const form = document.getElementById('artistForm');
             const modal = document.getElementById('successModal');
-            const span = document.getElementsByClassName("close")[0];
+            const span = document.querySelector(".modal .close");
             const closeButton = document.getElementById("closeModal");
 
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                document.getElementById('loadingOverlay').style.display = 'flex';
-                const formData = new FormData(form);
-                const jsonData = Object.fromEntries(formData.entries());
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const loadingOverlay = document.getElementById('loadingOverlay');
+                    if (loadingOverlay) loadingOverlay.style.display = 'flex';
+                    const formData = new FormData(form);
+                    const jsonData = Object.fromEntries(formData.entries());
 
-                try {
-                    const response = await makeRequest('submitArtistRegistration', jsonData);
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                    if (response.success) {
-                        modal.style.display = "block";
-                        form.reset(); // Optional: reset the form after successful submission
-                    } else {
-                        alert('Registration failed. Please try again.');
+                    try {
+                        const response = await makeRequest('submitArtistRegistration', jsonData);
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                        if (response.success && modal) {
+                            modal.style.display = "block";
+                            form.reset(); // Optional: reset the form after successful submission
+                        } else {
+                            alert('Registration failed. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        if (loadingOverlay) loadingOverlay.style.display = 'none';
+                        alert('An error occurred. Please try again.');
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    document.getElementById('loadingOverlay').style.display = 'none';
-                    alert('An error occurred. Please try again.');
-                }
-            });
+                });
+            } else {
+                console.error('Form element not found');
+            }
 
             // Close the modal when clicking the close button
-            span.onclick = function() {
-                modal.style.display = "none";
+            if (span) {
+                span.onclick = function() {
+                    if (modal) modal.style.display = "none";
+                }
             }
 
             // Close the modal when clicking the "Close" button
-            closeButton.onclick = function() {
-                modal.style.display = "none";
+            if (closeButton) {
+                closeButton.onclick = function() {
+                    if (modal) modal.style.display = "none";
+                }
             }
 
             // Close the modal when clicking outside of it
