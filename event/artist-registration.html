@@ -113,14 +113,6 @@
                                     <input type="url" id="artistWebsite" name="ARTIST_WEBSITE">
                                 </div>
                                 <div class="form-group">
-                                    <label for="workType">Type of Work:</label>
-                                    <input type="text" id="workType" name="WORK_TYPE" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="expectedProvisions">Expected Provisions:</label>
-                                    <textarea id="expectedProvisions" name="EXPECTED_PROVISIONS" required></textarea>
-                                </div>
-                                <div class="form-group">
                                     <label for="eventName">Event Name:</label>
                                     <select id="eventName" name="eventName" required>
                                         <option value="">Select an event</option>
@@ -307,7 +299,6 @@
                 }
             });
 
-            loadTournaments();
             populateFormFromSessionStorage();
             // New script for form submission
             const form = document.getElementById('artistForm');
