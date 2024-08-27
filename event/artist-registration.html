@@ -234,7 +234,12 @@
         async function fetchEvents() {
             try {
                 const response = await makeRequest('getActiveEvents');
-                return JSON.parse(response.result);
+                if (response.success && Array.isArray(response.events)) {
+                    return response.events;
+                } else {
+                    console.error("Unexpected response format:", response);
+                    throw new Error("Unexpected response format");
+                }
             } catch (error) {
                 console.error("Error fetching events:", error);
                 alert("Error loading events. Please try again later.");
