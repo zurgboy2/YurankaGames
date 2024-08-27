@@ -232,16 +232,18 @@
         async function fetchEvents() {
             try {
                 const response = await makeRequest('getActiveEvents');
-                if (response.success && Array.isArray(response.events)) {
-                    return response.events;
+                console.log('Raw response:', response); // For debugging
+                if (Array.isArray(response)) {
+                    return { success: true, events: response };
+                } else if (response.success && Array.isArray(response.events)) {
+                    return response;
                 } else {
                     console.error("Unexpected response format:", response);
                     throw new Error("Unexpected response format");
                 }
             } catch (error) {
                 console.error("Error fetching events:", error);
-                alert("Error loading events. Please try again later.");
-                return [];
+                return { success: false, error: error.message };
             }
         }
 
@@ -271,10 +273,10 @@
                         eventSelect.disabled = false;
                     }
                 } else {
-                    throw new Error('Invalid response format');
+                    throw new Error(response.error || 'Invalid response format');
                 }
             } catch (error) {
-                console.error('Error fetching events:', error);
+                console.error('Error populating event dropdown:', error);
                 eventSelect.innerHTML = '<option value="">Error loading events</option>';
                 eventSelect.disabled = true;
             }
