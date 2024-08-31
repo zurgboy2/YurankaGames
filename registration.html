@@ -545,11 +545,11 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Date input initialized:', dateInput);
 
     dateInput.addEventListener('input', silentlyValidateDate);
-    dateInput.addEventListener('change', handleDateChange);
+    dateInput.addEventListener('change', silentlyValidateDate);
 
-    function silentlyValidateDate() {
+    function silentlyValidateDate(event) {
         const inputDate = dateInput.value;
-        console.log('Silently validating date:', inputDate);
+        console.log('Validating date:', inputDate);
 
         if (isValidDateFormat(inputDate)) {
             console.log('Valid date entered:', inputDate);
@@ -559,16 +559,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         } else {
             console.log('Date not yet valid or complete');
-        }
-    }
-
-    function handleDateChange() {
-        const inputDate = dateInput.value;
-        console.log('Date change event, current value:', inputDate);
-
-        if (!isValidDateFormat(inputDate)) {
-            console.log('Invalid date on change event');
-            showPopup("Please enter a valid date in YYYY-MM-DD format.");
+            if (event.type === 'change') {
+                console.log('Invalid date on change event');
+            }
         }
     }
 
