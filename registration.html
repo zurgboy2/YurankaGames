@@ -486,6 +486,9 @@ async function handleSubmit(event) {
 
     try {
         const response = await makeRequest('submitReservationDetails', reservationDetails);
+        console.log(response)
+        console.log(JSON.parse(response))
+
         if (response.checkoutUrl) {
             var message = `Dear ${name},<br>Your reservation for ${date} from ${startTime} to ${endTime} has been successfully submitted! Please click the link below for payment`;
             showPopup(message, response.checkoutUrl);
@@ -542,27 +545,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const dateInput = document.getElementById('date');
     let lastValidDate = '';
 
-    console.log('Date input initialized:', dateInput);
 
     dateInput.addEventListener('input', silentlyValidateDate);
     dateInput.addEventListener('change', silentlyValidateDate);
 
     function silentlyValidateDate(event) {
         const inputDate = dateInput.value;
-        console.log('Validating date:', inputDate);
 
         if (isValidDateFormat(inputDate)) {
-            console.log('Valid date entered:', inputDate);
             if (inputDate !== lastValidDate) {
                 lastValidDate = inputDate;
                 handleValidDate(inputDate);
             }
-        } else {
-            console.log('Date not yet valid or complete');
-            if (event.type === 'change') {
-                console.log('Invalid date on change event');
-            }
-        }
+        } 
     }
 
     function isValidDateFormat(dateString) {
@@ -583,25 +578,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     function handleValidDate(dateString) {
-        console.log('Handling valid date:', dateString);
         const selectedDate = parseDate(dateString);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const twoMonthsLater = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
 
         if (selectedDate < today) {
-            console.log('Date is in the past');
             showPopup("Please select a date from today onwards.");
             return;
         }
 
         if (selectedDate > twoMonthsLater) {
-            console.log('Date is more than two months in the future');
             showPopup("Please select a date within the next two months.");
             return;
         }
 
-        console.log('Date is valid and within range, loading time slots');
         loadTimeSlots();
     }
 
