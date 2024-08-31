@@ -572,10 +572,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!regex.test(dateString)) return false;
         
         const [year, month, day] = dateString.split('-').map(Number);
+        
+        // Check if the year is 2000 or later
+        if (year < 2000) return false;
+        
         const date = new Date(year, month - 1, day);
         
         return date && date.getMonth() === month - 1 && date.getDate() === day && date.getFullYear() === year;
     }
+
 
     function handleValidDate(dateString) {
         console.log('Handling valid date:', dateString);
