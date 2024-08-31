@@ -541,24 +541,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const dateInput = document.getElementById('date');
     let lastValidDate = '';
-    let debounceTimer;
 
     console.log('Date input initialized:', dateInput);
 
-    dateInput.addEventListener('input', debounceValidateAndLoad);
-    dateInput.addEventListener('blur', validateAndLoadTimeSlots);
-    dateInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            this.blur();
-        }
-    });
-
-    function debounceValidateAndLoad() {
-        console.log('Debounce triggered');
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(validateAndLoadTimeSlots, 500);
-    }
+    dateInput.addEventListener('change', validateAndLoadTimeSlots);
 
     function validateAndLoadTimeSlots() {
         console.log('Validating and loading time slots');
@@ -572,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!isValidDateFormat(inputDate)) {
             console.log('Invalid date format');
-            showPopup("Please enter a valid date in DD/MM/YYYY format.");
+            showPopup("Please enter a valid date in YYYY-MM-DD format.");
             return;
         }
 
@@ -609,23 +595,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function isValidDateFormat(dateString) {
         console.log('Checking date format:', dateString);
-        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
         if (!regex.test(dateString)) {
-            console.log('Date does not match DD/MM/YYYY format');
+            console.log('Date does not match YYYY-MM-DD format');
             return false;
         }
         
-        const [, day, month, year] = dateString.match(regex);
+        const [year, month, day] = dateString.split('-').map(Number);
         const date = new Date(year, month - 1, day);
         
-        const isValid = date && date.getMonth() === month - 1 && date.getDate() == day && date.getFullYear() == year;
+        const isValid = date && date.getMonth() === month - 1 && date.getDate() === day && date.getFullYear() === year;
         console.log('Date validity:', isValid);
         return isValid;
     }
 
     function parseDate(dateString) {
         console.log('Parsing date:', dateString);
-        const [day, month, year] = dateString.split('/');
+        const [year, month, day] = dateString.split('-').map(Number);
         const parsedDate = new Date(year, month - 1, day);
         console.log('Parsed date:', parsedDate);
         return parsedDate;
