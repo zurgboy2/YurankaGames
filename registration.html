@@ -544,33 +544,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('Date input initialized:', dateInput);
 
-    dateInput.addEventListener('change', validateAndLoadTimeSlots);
+    dateInput.addEventListener('input', silentlyValidateDate);
+    dateInput.addEventListener('change', handleDateChange);
 
-    function validateAndLoadTimeSlots() {
-        console.log('Validating and loading time slots');
+    function silentlyValidateDate() {
         const inputDate = dateInput.value;
-        console.log('Input date:', inputDate);
+        console.log('Silently validating date:', inputDate);
 
-        if (!inputDate) {
-            console.log('Date input is empty');
-            return;
+        if (isValidDateFormat(inputDate)) {
+            console.log('Valid date entered:', inputDate);
+            if (inputDate !== lastValidDate) {
+                lastValidDate = inputDate;
+                handleValidDate(inputDate);
+            }
+        } else {
+            console.log('Date not yet valid or complete');
         }
+    }
+
+    function handleDateChange() {
+        const inputDate = dateInput.value;
+        console.log('Date change event, current value:', inputDate);
 
         if (!isValidDateFormat(inputDate)) {
-            console.log('Invalid date format');
+            console.log('Invalid date on change event');
             showPopup("Please enter a valid date in YYYY-MM-DD format.");
-            return;
         }
+    }
 
-        const selectedDate = parseDate(inputDate);
-        console.log('Parsed selected date:', selectedDate);
+    function isValidDateFormat(dateString) {
+        if (!dateString) return false;
 
+        const regex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!regex.test(dateString)) return false;
+        
+        const [year, month, day] = dateString.split('-').map(Number);
+        const date = new Date(year, month - 1, day);
+        
+        return date && date.getMonth() === month - 1 && date.getDate() === day && date.getFullYear() === year;
+    }
+
+    function handleValidDate(dateString) {
+        console.log('Handling valid date:', dateString);
+        const selectedDate = parseDate(dateString);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const twoMonthsLater = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
-
-        console.log('Today:', today);
-        console.log('Two months later:', twoMonthsLater);
 
         if (selectedDate < today) {
             console.log('Date is in the past');
@@ -584,37 +603,13 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (inputDate !== lastValidDate) {
-            console.log('New valid date entered. Last valid date:', lastValidDate);
-            lastValidDate = inputDate;
-            loadTimeSlots();
-        } else {
-            console.log('Date unchanged, not loading time slots');
-        }
-    }
-
-    function isValidDateFormat(dateString) {
-        console.log('Checking date format:', dateString);
-        const regex = /^\d{4}-\d{2}-\d{2}$/;
-        if (!regex.test(dateString)) {
-            console.log('Date does not match YYYY-MM-DD format');
-            return false;
-        }
-        
-        const [year, month, day] = dateString.split('-').map(Number);
-        const date = new Date(year, month - 1, day);
-        
-        const isValid = date && date.getMonth() === month - 1 && date.getDate() === day && date.getFullYear() === year;
-        console.log('Date validity:', isValid);
-        return isValid;
+        console.log('Date is valid and within range, loading time slots');
+        loadTimeSlots();
     }
 
     function parseDate(dateString) {
-        console.log('Parsing date:', dateString);
         const [year, month, day] = dateString.split('-').map(Number);
-        const parsedDate = new Date(year, month - 1, day);
-        console.log('Parsed date:', parsedDate);
-        return parsedDate;
+        return new Date(year, month - 1, day);
     }
 
     document.getElementById('startTime').addEventListener('change', function() {
