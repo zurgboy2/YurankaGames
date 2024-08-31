@@ -471,6 +471,8 @@ async function handleSubmit(event) {
     var endTime = document.getElementById('endTime').value;
     var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
+    var username = sessionStorage.getItem('username');
+    var googleToken = sessionStorage.getItem('googleToken');
 
     var availabilityData = [];
     var table = document.getElementById('availabilityTable');
@@ -491,6 +493,8 @@ async function handleSubmit(event) {
         endTime: endTime,
         name: name,
         email: email,
+        username: username,
+        googleToken: googleToken,
         availability: availabilityData
     };
 
