@@ -484,6 +484,8 @@ async function handleSubmit(event) {
         availability: availabilityData
     };
 
+    console.log(reservationDetails)
+
     try {
         const response = await makeRequest('submitReservationDetails', reservationDetails);
         console.log(response)
