@@ -203,7 +203,7 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label for="date">Select Date:</label>
-                            <input type="date" id="date" name="date" required onchange="loadTimeSlots();">
+                            <input type="date" id="date" name="date" required placeholder="DD/MM/YYYY">
                         </div>
 
                         <div class="input-group">
@@ -540,7 +540,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateUserProfile();
 
     const dateInput = document.getElementById('date');
-    
+    let lastValidDate = '';
+    let debounceTimer;
+
+    dateInput.addEventListener('input', debounceValidateAndLoad);
     dateInput.addEventListener('blur', validateAndLoadTimeSlots);
     dateInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
@@ -549,15 +552,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    function validateAndLoadTimeSlots() {
-        const selectedDate = new Date(dateInput.value);
-        const today = new Date();
-        const twoMonthsLater = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
+    function debounceValidateAndLoad() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(validateAndLoadTimeSlots, 500);
+    }
 
-        if (isNaN(selectedDate.getTime())) {
-            showPopup("Please enter a valid date.");
+    function validateAndLoadTimeSlots() {
+        const inputDate = dateInput.value;
+        if (!isValidDateFormat(inputDate)) {
+            showPopup("Please enter a valid date in DD/MM/YYYY format.");
             return;
         }
+
+        const selectedDate = parseDate(inputDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set to beginning of day for accurate comparison
+        const twoMonthsLater = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
 
         if (selectedDate < today) {
             showPopup("Please select a date from today onwards.");
@@ -569,7 +579,25 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        loadTimeSlots();
+        if (inputDate !== lastValidDate) {
+            lastValidDate = inputDate;
+            loadTimeSlots();
+        }
+    }
+
+    function isValidDateFormat(dateString) {
+        const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+        if (!regex.test(dateString)) return false;
+        
+        const [, day, month, year] = dateString.match(regex);
+        const date = new Date(year, month - 1, day);
+        
+        return date && date.getMonth() === month - 1 && date.getDate() == day && date.getFullYear() == year;
+    }
+
+    function parseDate(dateString) {
+        const [day, month, year] = dateString.split('/');
+        return new Date(year, month - 1, day);
     }
 
     document.getElementById('startTime').addEventListener('change', function() {
