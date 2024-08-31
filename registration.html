@@ -540,10 +540,10 @@ document.addEventListener('DOMContentLoaded', function() {
     updateUserProfile();
 
     const dateInput = document.getElementById('date');
-    console.log(dateInput)
-    console.log(dateInput.value)
     let lastValidDate = '';
     let debounceTimer;
+
+    console.log('Date input initialized:', dateInput);
 
     dateInput.addEventListener('input', debounceValidateAndLoad);
     dateInput.addEventListener('blur', validateAndLoadTimeSlots);
@@ -555,52 +555,80 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function debounceValidateAndLoad() {
+        console.log('Debounce triggered');
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(validateAndLoadTimeSlots, 500);
     }
 
     function validateAndLoadTimeSlots() {
+        console.log('Validating and loading time slots');
         const inputDate = dateInput.value;
+        console.log('Input date:', inputDate);
+
+        if (!inputDate) {
+            console.log('Date input is empty');
+            return;
+        }
+
         if (!isValidDateFormat(inputDate)) {
+            console.log('Invalid date format');
             showPopup("Please enter a valid date in DD/MM/YYYY format.");
             return;
         }
 
         const selectedDate = parseDate(inputDate);
+        console.log('Parsed selected date:', selectedDate);
+
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Set to beginning of day for accurate comparison
+        today.setHours(0, 0, 0, 0);
         const twoMonthsLater = new Date(today.getFullYear(), today.getMonth() + 2, today.getDate());
 
+        console.log('Today:', today);
+        console.log('Two months later:', twoMonthsLater);
+
         if (selectedDate < today) {
+            console.log('Date is in the past');
             showPopup("Please select a date from today onwards.");
             return;
         }
 
         if (selectedDate > twoMonthsLater) {
+            console.log('Date is more than two months in the future');
             showPopup("Please select a date within the next two months.");
             return;
         }
 
         if (inputDate !== lastValidDate) {
+            console.log('New valid date entered. Last valid date:', lastValidDate);
             lastValidDate = inputDate;
             loadTimeSlots();
+        } else {
+            console.log('Date unchanged, not loading time slots');
         }
     }
 
     function isValidDateFormat(dateString) {
-        console.log(dataString)
+        console.log('Checking date format:', dateString);
         const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-        if (!regex.test(dateString)) return false;
+        if (!regex.test(dateString)) {
+            console.log('Date does not match DD/MM/YYYY format');
+            return false;
+        }
         
         const [, day, month, year] = dateString.match(regex);
         const date = new Date(year, month - 1, day);
         
-        return date && date.getMonth() === month - 1 && date.getDate() == day && date.getFullYear() == year;
+        const isValid = date && date.getMonth() === month - 1 && date.getDate() == day && date.getFullYear() == year;
+        console.log('Date validity:', isValid);
+        return isValid;
     }
 
     function parseDate(dateString) {
+        console.log('Parsing date:', dateString);
         const [day, month, year] = dateString.split('/');
-        return new Date(year, month - 1, day);
+        const parsedDate = new Date(year, month - 1, day);
+        console.log('Parsed date:', parsedDate);
+        return parsedDate;
     }
 
     document.getElementById('startTime').addEventListener('change', function() {
