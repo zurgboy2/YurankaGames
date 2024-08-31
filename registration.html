@@ -586,6 +586,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function isValidDateFormat(dateString) {
+        console.log(dataString)
         const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
         if (!regex.test(dateString)) return false;
         
