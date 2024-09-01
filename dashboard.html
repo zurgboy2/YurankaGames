@@ -649,8 +649,10 @@
                             const listItem = document.createElement('li');
                             listItem.className = 'discount-code-item';
                             listItem.innerHTML = `
-                                <span class="discount-code">${code.code}</span>
-                                <span class="discount-amount">€${code.amount.toFixed(2)}</span>
+                                <span class="discount-code">Code: ${code['Discount Code']}</span>
+                                <span class="discount-amount">Amount: €${code.Amount.toFixed(2)}</span>
+                                <span class="discount-status">Status: ${code.Status ? 'Active' : 'Inactive'}</span>
+                                <span class="discount-timestamp">Date: ${code.Timestamp.toLocaleDateString()}</span>
                             `;
                             discountCodesList.appendChild(listItem);
                         });
