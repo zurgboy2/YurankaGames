@@ -350,6 +350,51 @@
             text-align: center;
         }
 
+        .mini-con-info {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .mini-con-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .info-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #f1c40f;
+        }
+
+        .info-item p, .info-item ul {
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .info-item ul {
+            padding-left: 20px;
+        }
+
+        .info-item li {
+            margin-bottom: 5px;
+        }
+
         .prev { left: -20px; }
         .next { right: -20px; }
         #treasure-hunt-img { background-image: url('https://ik.imagekit.io/mcgszbooe/Webpage%20Pics/devil%20fruit%20hunt.jpg'); }
@@ -424,6 +469,9 @@
             }
             .schedule-bubble {
                 padding: 30px;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -627,6 +675,37 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <button class="carousel-btn prev">&#10094;</button>
                         <button class="carousel-btn next">&#10095;</button>
+                    </div>
+                    <div class="mini-con-info">
+                        <h3>One Piece Mini-Con Details</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <h4>Event Time</h4>
+                                <p>Starting Time: <span id="opening-time">10:30 AM</span></p>
+                                <p>End Time: <span id="closing-time">9:30 PM</span></p>
+                            </div>
+                            <div class="info-item">
+                                <h4>Entry Price</h4>
+                                <p>€<span id="entry-price">5</span></p>
+                            </div>
+                            <div class="info-item">
+                                <h4>Cosplay Categories</h4>
+                                <ul id="cosplay-categories">
+                                    <li>Best Straw Hats Cosplay</li>
+                                    <li>Best Male Cosplay</li>
+                                    <li>Best Female Cosplay</li>
+                                    <li>Best Group Cosplay</li>
+                                </ul>
+                            </div>
+                            <div class="info-item">
+                                <h4>Scavenger Hunt Prizes</h4>
+                                <ul id="scavenger-hunt-prizes">
+                                    <li>1st Place: Gomu Gomu Devil Fruit and Random Gacha Balls</li>
+                                    <li>2nd Place: Mera Mera Devil Fruit and Random Gacha Balls</li>
+                                    <li>3rd Place: Hana Hana Devil Fruit and Random Gacha Ball</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="sponsor-spaces">
                         <div class="sponsor-space-filled">
