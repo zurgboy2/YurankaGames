@@ -277,6 +277,27 @@
         #confirmPasswordBtn:hover {
             background-color: #45a049;
         }
+
+        .sales-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .sales-info th, .sales-info td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .sales-info th {
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+        }
+
+        .sales-info tr:nth-child(even) {
+            background-color: var(--secondary-bg);
+        }
     </style>
 </head>
 <body>
@@ -476,7 +497,6 @@
                 throw error;
             }
         }
-
         async function fetchUserInfo(username, googleToken) {
             try {
                 const data = await makeRequest('getUserInfo', { username, googleToken });
@@ -492,9 +512,46 @@
                 document.getElementById('editName').value = data.Name;
                 document.getElementById('editEmail').value = data.Email;
                 updateAvailableCredit(data.Value);
+
+                // Display sales data
+                displaySalesData(data.Sales);
             } catch (error) {
                 console.error('Error fetching user info:', error);
             }
+        }
+
+        function displaySalesData(salesData) {
+            const salesContainer = document.getElementById('salesData');
+            salesContainer.innerHTML = ''; // Clear existing content
+
+            if (Object.keys(salesData).length === 0) {
+                salesContainer.textContent = 'No sales data for this month.';
+                return;
+            }
+
+            const table = document.createElement('table');
+            table.innerHTML = `
+                <tr>
+                    <th>Date</th>
+                    <th>Amount</th>
+                </tr>
+            `;
+
+            let totalSales = 0;
+
+            for (const [date, amount] of Object.entries(salesData)) {
+                const row = table.insertRow();
+                row.insertCell(0).textContent = date;
+                row.insertCell(1).textContent = `€${Number(amount).toFixed(2)}`;
+                totalSales += Number(amount);
+            }
+
+            const totalRow = table.insertRow();
+            totalRow.insertCell(0).textContent = 'Total';
+            totalRow.insertCell(1).textContent = `€${totalSales.toFixed(2)}`;
+            totalRow.style.fontWeight = 'bold';
+
+            salesContainer.appendChild(table);
         }
 
         function showEditForm() {
