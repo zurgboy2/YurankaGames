@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report a Bug - Yuranka Games</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .bug-report-form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-message {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            padding: 1rem;
+            border-left: 3px solid #e74c3c;
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ecf0f1;
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #2c3e50;
+            border: 1px solid #34495e;
+            border-radius: 5px;
+            color: white;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: #e74c3c;
+        }
+
+        .submit-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .console-instructions {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <button class="sidebar-toggle" id="sidebarToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="logo-container">
+                        <div class="logo">
+                            <img src="https://ik.imagekit.io/mcgszbooe/Logo?updatedAt=1717316244029" alt="Yuranka Games Logo">
+                        </div>
+                        <span class="logo-text">YURANKA GAMES</span>
+                    </div>
+                    <nav class="main-nav" id="mainNav">
+                        <ul>
+                            <li><a href="../index.html">Home</a></li>
+                            <li><a href="https://store.yuranka.com">Store</a></li>            
+                            <li><a href="../boardgame.html">Board Games</a></li>
+                            <li><a href="../videogame.html">Video Games</a></li>
+                            <li><a href="../registration.html">Reservations</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Events</a>
+                                <div class="dropdown-content">
+                                    <a href="event-registration.html">Events Registration</a>
+                                    <a href="mini-con.html">Mini - Cons</a>
+                                </div>
+                            </li>
+                            <li><a href="../about.html">About</a></li>
+                            <li><a href="https://store.yuranka.com/pages/contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <div id="userProfileContainer"></div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="content-wrapper">
+            <main class="main-content">
+                <div class="container">
+                    <div class="bug-report-form">
+                        <h1>Report a Bug</h1>
+                        
+                        <div class="form-message">
+                            <p>Thank you for taking the time to report an issue! We're working hard to make Yuranka Games an amazing platform for our gaming community. While we operate with limited resources, your feedback is invaluable in helping us improve.</p>
+                            <p>Please provide as much detail as possible to help us understand and address the issue.</p>
+                        </div>
+
+                        <form id="bugReportForm" onsubmit="return submitBugReport(event)">
+                            <div class="form-group">
+                                <label for="description">Describe the Issue:</label>
+                                <textarea id="description" name="description" rows="5" required 
+                                    placeholder="What happened? What were you expecting to happen?"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="steps">Steps to Reproduce:</label>
+                                <textarea id="steps" name="steps" rows="4" required
+                                    placeholder="1. First, I...&#10;2. Then I...&#10;3. Finally..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="consoleError">Console Error (if applicable):</label>
+                                <textarea id="consoleError" name="consoleError" rows="3"
+                                    placeholder="Paste any error messages from the browser console here"></textarea>
+                                <div class="console-instructions">
+                                    <i class="fas fa-info-circle"></i> To access console errors:
+                                    <ul>
+                                        <li>Windows: Press F12 or right-click and select "Inspect" > Console tab</li>
+                                        <li>Mac: Press Cmd+Option+J or right-click and select "Inspect" > Console tab</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Your Email (optional):</label>
+                                <input type="email" id="email" name="email" 
+                                    placeholder="Enter your email if you'd like us to follow up">
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <i class="fas fa-paper-plane"></i> Submit Report
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="site-footer">
+            <div class="container">
+                <a href="https://yuranka.com/bug-report.html" target="_blank" class="bug-report-btn">
+                    <i class="fas fa-bug"></i> Report a Bug
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
+
+        async function getProxyToken(action) {
+            const requestBody = { script_id: 'bugreport_script', action };
+            const response = await fetch(`${API_URL}/get_token`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestBody)
+            });
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+            }
+            const data = await response.json();
+            if (data.token) return data.token;
+            throw new Error('Failed to get token: ' + JSON.stringify(data));
+        }
+
+        async function makeRequest(action, additionalData = {}) {
+            try {
+                const token = await getProxyToken(action);
+                const requestBody = { token, action, script_id: 'bugreport_script', ...additionalData };
+                const response = await fetch(`${API_URL}/proxy`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+                }
+                return response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        async function submitBugReport(event) {
+            event.preventDefault();
+            
+            // Show loading state
+            const submitButton = event.target.querySelector('.submit-btn');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            submitButton.disabled = true;
+
+            try {
+                // Collect form data
+                const formData = {
+                    description: document.getElementById('description').value,
+                    steps: document.getElementById('steps').value,
+                    consoleError: document.getElementById('consoleError').value,
+                    email: document.getElementById('email').value,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent
+                };
+
+                // Send bug report using your API structure
+                const response = await makeRequest('submit_bug_report', { bugReport: formData });
+
+                if (response.success) {
+                    // Show success message
+                    alert('Thank you for your report! We will look into this issue.');
+                    // Clear the form
+                    document.getElementById('bugReportForm').reset();
+                } else {
+                    throw new Error('Failed to submit bug report');
+                }
+            } catch (error) {
+                console.error('Error submitting bug report:', error);
+                alert('Sorry, there was an error submitting your report. Please try again later.');
+            } finally {
+                // Reset button state
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }
+
+            return false;
+        }
+
+        // Add loading overlay
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingOverlay = document.createElement('div');
+            loadingOverlay.id = 'loadingOverlay';
+            loadingOverlay.innerHTML = '<div class="spinner"></div>';
+            document.body.appendChild(loadingOverlay);
+        });
+    </script>
+</body>
+</html>
