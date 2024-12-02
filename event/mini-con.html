@@ -525,8 +525,8 @@
                             <img src="https://ik.imagekit.io/mcgszbooe/one-piece-logo-67.png" alt="One Piece Logo" class="tab-logo">
                         </div>
                         <div class="tab-container">
-                            <div class="tab" data-tab="2" data-name="Genshin" style="background-image: url('https://ik.imagekit.io/mcgszbooe/genshin-honkai-logo.png');"></div>
-                            <img src="https://ik.imagekit.io/mcgszbooe/Genshin%20Impact%20Logo%20PNG%20-%201500x1500.png" alt="Genshin Logo" class="tab-logo">
+                            <div class="tab" data-tab="2" data-name="Wii Olympics" style="background-image: url('https://ik.imagekit.io/mcgszbooe/Wii%20Sports.svg');"></div>
+                            <img src="path-to-wii-sports-logo.png" alt="Wii Olympics Logo" class="tab-logo">
                         </div>
                         <div class="tab-container">
                             <div class="tab" data-tab="3" data-name="Star Wars" style="background-image: url('https://ik.imagekit.io/mcgszbooe/star-wars-logo.png');"></div>
@@ -735,15 +735,77 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Coming Soon!</p>
                     </div>
                 `;
-            } else if (tabName === "Star Wars") {
-                contentPage.style.backgroundImage = "none";
-                contentPage.style.backgroundColor = "black";
+            } else if (tabName === "Wii Olympics") {
+                contentPageWrapper.style.backgroundImage = "url('https://ik.imagekit.io/mcgszbooe/wii%20sports.jpg')";
                 contentPage.innerHTML = `
                     <button class="back-btn"></button>
                     <div class="event-bubble">
-                        <h2>Star Wars Mini Con</h2>
-                        <p>October 31st</p>
-                        <p>Coming Soon!</p>
+                        <h2>Yuranka Wii Olympics Games</h2>
+                        <p>December 21st, 2024</p>
+                        <a href="event-registration.html?tournament=28" class="signup-btn">Click here to sign up</a>
+                    </div>
+                    <div class="main-events">
+                        <div class="event-card">
+                            <div class="event-image"></div>
+                            <h3>12:00 PM - 1:00 PM</h3>
+                            <p>Registration and Warm-Up</p>
+                            <p class="event-description">Sign up for competitions and get some practice matches in to warm up!</p>
+                        </div>
+                        <div class="event-card">
+                            <div class="event-image"></div>
+                            <h3>1:00 PM - 2:30 PM</h3>
+                            <p>Individual Competitions (Round 1)</p>
+                            <p class="event-description">Bowling, Boxing, Tennis, Badminton, and Baseball preliminary rounds</p>
+                        </div>
+                        <div class="event-card">
+                            <div class="event-image"></div>
+                            <h3>3:00 PM - 4:30 PM</h3>
+                            <p>Individual Competitions (Finals)</p>
+                            <p class="event-description">Championship matches and final showdowns in all sports categories!</p>
+                        </div>
+                    </div>
+                    <div class="mini-con-info">
+                        <h3>Event Details</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <h4>Event Schedule</h4>
+                                <p>12:00 PM - 6:00 PM</p>
+                                <p>Including awards ceremony and free play session</p>
+                            </div>
+                            <div class="info-item">
+                                <h4>Entry Fee</h4>
+                                <p>€2 per person</p>
+                            </div>
+                            <div class="info-item">
+                                <h4>Sports Categories</h4>
+                                <ul>
+                                    <li>Wii Bowling Challenge</li>
+                                    <li>Boxing Face-Off</li>
+                                    <li>Tennis Tournament</li>
+                                    <li>Badminton Battle</li>
+                                    <li>Baseball Showdown</li>
+                                </ul>
+                            </div>
+                            <div class="info-item">
+                                <h4>Prizes</h4>
+                                <ul>
+                                    <li>Gold Medal: Yuranka Wii Winter Games Gold Medal</li>
+                                    <li>Silver Medal: Yuranka Wii Winter Games Silver Medal</li>
+                                    <li>Bronze Medal: Yuranka Wii Winter Games Bronze Medal</li>
+                                    <li>Top Team: Champion Trophy + €20 Store Credit</li>
+                                    <li>All participants receive special Yuranka Games merchandise!</li>
+                                </ul>
+                            </div>
+                            <div class="info-item">
+                                <h4>Team Points System</h4>
+                                <ul>
+                                    <li>1st Place: 10 points</li>
+                                    <li>2nd Place: 7 points</li>
+                                    <li>3rd Place: 5 points</li>
+                                    <li>Participation: 2 points</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 `;
             } else if (tabName === "Disney") {
