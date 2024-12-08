@@ -437,6 +437,9 @@
         #tcg-img { background-image: url('https://ik.imagekit.io/mcgszbooe/Webpage%20Pics/TCG.jpg'); }
         #crafting-img { background-image: url('https://ik.imagekit.io/mcgszbooe/Webpage%20Pics/Crafting.jpg'); }
         #anime-watch-club-img {background-image: url('https://ik.imagekit.io/mcgszbooe/Webpage%20Pics/Anime%20watch%20Club.png');}
+        #round-img {background-image: url('https://ik.imagekit.io/mcgszbooe/Rounds%20-%20wii%20sport.jpg');}
+        #kick-off-img {background-image: url('https://ik.imagekit.io/mcgszbooe/Kick-off%20-%20wii%20sport.jpg');}
+        #finale-img {background-image: url('https://ik.imagekit.io/mcgszbooe/Finale%20-%20wii%20sport.jpg');}
         @media (min-width: 768px) {
             .container {
                 padding: 40px;
@@ -775,19 +778,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="main-events">
                         <div class="event-card">
-                            <div class="event-image"></div>
+                            <div class="event-image" id="kick-off-img"></div>
                             <h3>12:00 PM - 1:00 PM</h3>
                             <p>Registration and Warm-Up</p>
                             <p class="event-description">Sign up for competitions and get some practice matches in to warm up!</p>
                         </div>
-                        <div class="event-card">
+                        <div class="event-card" id="round-img">
                             <div class="event-image"></div>
                             <h3>1:00 PM - 2:30 PM</h3>
                             <p>Individual Competitions (Round 1)</p>
-                            <p class="event-description">Bowling, Boxing, Tennis, Badminton, and Baseball preliminary rounds</p>
+                            <p class="event-description">Bowling, Boxing, Tennis, and Baseball preliminary rounds</p>
                         </div>
                         <div class="event-card">
-                            <div class="event-image"></div>
+                            <div class="event-image" id="final-img></div>
                             <h3>3:00 PM - 4:30 PM</h3>
                             <p>Individual Competitions (Finals)</p>
                             <p class="event-description">Championship matches and final showdowns in all sports categories!</p>
@@ -811,7 +814,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <li>Wii Bowling Challenge</li>
                                     <li>Boxing Face-Off</li>
                                     <li>Tennis Tournament</li>
-                                    <li>Badminton Battle</li>
                                     <li>Baseball Showdown</li>
                                 </ul>
                             </div>
