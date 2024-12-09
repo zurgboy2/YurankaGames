@@ -373,10 +373,11 @@
     </footer>
     </div>
     <script>
+      let activeCalendarId = null;
+      let currentDate = new Date();]
       document.querySelector('.carousel-prev').onclick = () => scrollCarousel('prev');
       document.querySelector('.carousel-next').onclick = () => scrollCarousel('next');
       const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
-      let activeCalendarId = null;
       async function getProxyToken(action) {
         const requestBody = {
           script_id: 'calendar_script',
@@ -466,14 +467,20 @@
         prevButton.style.visibility = 'hidden';
         nextButton.style.visibility = track.offsetWidth > container.offsetWidth ? 'visible' : 'hidden';
       }
-      async function loadCalendarEvents(calendarId) {
+      async function loadCalendarEvents(calendarId, date = new Date()) {
         showLoading();
         try {
           activeCalendarId = calendarId;
+          // Format date to YYYY-MM
+          const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
           const response = await makeRequest('getEvents', {
-            calendarId
+            calendarId,
+            monthYear
           });
-          renderCalendar(response.events);
+          // Update current month display
+          const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          document.getElementById('current-month').textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+          renderCalendar(response.events, date);
         } catch (error) {
           console.error('Error loading events:', error);
         } finally {
@@ -481,7 +488,7 @@
         }
       }
 
-      function createCalendarGrid() {
+      function createCalendarGrid(date) {
         const grid = document.getElementById('calendar-grid');
         grid.innerHTML = '';
         // Create header row for days of week
@@ -492,28 +499,51 @@
           dayHeader.style.fontWeight = 'bold';
           grid.appendChild(dayHeader);
         });
-        // Create day cells
-        for (let i = 0; i < 35; i++) {
+        // Calculate first day of month and number of days
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+        const startingDay = firstDay.getDay();
+        const totalDays = lastDay.getDate();
+        // Create empty cells for days before the first of the month
+        for (let i = 0; i < startingDay; i++) {
+          const emptyCell = document.createElement('div');
+          emptyCell.className = 'day';
+          grid.appendChild(emptyCell);
+        }
+        // Create cells for each day of the month
+        for (let i = 1; i <= totalDays; i++) {
           const dayCell = document.createElement('div');
           dayCell.className = 'day';
+          dayCell.dataset.date = i;
+          const dateLabel = document.createElement('div');
+          dateLabel.className = 'date-label';
+          dateLabel.textContent = i;
+          dayCell.appendChild(dateLabel);
           grid.appendChild(dayCell);
+        }
+        // Fill remaining cells
+        const remainingCells = 42 - (startingDay + totalDays); // 42 = 6 rows * 7 days
+        for (let i = 0; i < remainingCells; i++) {
+          const emptyCell = document.createElement('div');
+          emptyCell.className = 'day';
+          grid.appendChild(emptyCell);
         }
       }
 
-      function renderCalendar(events) {
-        createCalendarGrid();
-        const grid = document.getElementById('calendar-grid');
+      function renderCalendar(events, date) {
+        createCalendarGrid(date);
         events.forEach(event => {
-          const eventEl = document.createElement('div');
-          eventEl.className = 'event';
-          eventEl.textContent = `${event.title}\n${new Date(event.start).toLocaleTimeString()}`;
-          eventEl.style.backgroundColor = event.color || '#4285f4';
-          eventEl.onclick = () => showEventDetails(event); // Move this inside here
           const eventDate = new Date(event.start);
-          const dayIndex = eventDate.getDay() + Math.floor(eventDate.getDate() / 7) * 7;
-          const dayCell = grid.children[dayIndex + 7];
-          if (dayCell) {
-            dayCell.appendChild(eventEl);
+          if (eventDate.getMonth() === date.getMonth() && eventDate.getFullYear() === date.getFullYear()) {
+            const dayCell = document.querySelector(`.day[data-date="${eventDate.getDate()}"]`);
+            if (dayCell) {
+              const eventEl = document.createElement('div');
+              eventEl.className = 'event';
+              eventEl.textContent = `${event.title}\n${eventDate.toLocaleTimeString()}`;
+              eventEl.style.backgroundColor = event.color || '#4285f4';
+              eventEl.onclick = () => showEventDetails(event);
+              dayCell.appendChild(eventEl);
+            }
           }
         });
       }
@@ -526,10 +556,12 @@
         document.getElementById('loadingOverlay').style.display = 'none';
       }
       document.getElementById('prev-month').onclick = () => {
-        // Implement previous month logic
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        loadCalendarEvents(activeCalendarId, currentDate);
       };
       document.getElementById('next-month').onclick = () => {
-        // Implement next month logic
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        loadCalendarEvents(activeCalendarId, currentDate);
       };
 
       function showEventDetails(event) {
@@ -537,6 +569,7 @@
         popup.className = 'event-popup';
         popup.innerHTML = `
             
+							
 							
 							
 							
