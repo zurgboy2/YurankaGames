@@ -36,15 +36,6 @@
             border-radius: 10px;
         }
     
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px;
-            background-color: #1a1a1a;
-            padding: 15px;
-            border-radius: 10px;
-        }
     
         .day {
             border: 1px solid #333;
@@ -105,7 +96,6 @@
 
         <div class="content-wrapper">
             <main class="main-content">
-                <div id="calendar-tabs" class="calendar-tabs"></div>
                 <div id="calendar-view">
                     <div class="controls">
                         <button id="prev-month">Previous</button>
@@ -113,6 +103,7 @@
                         <button id="next-month">Next</button>
                     </div>
                     <div id="calendar-grid" class="calendar-grid"></div>
+                    <div id="calendar-tabs" class="calendar-tabs"></div>
                 </div>
             </main>
         </div>
@@ -192,36 +183,40 @@
        }
 
        async function loadCalendars() {
-           try {
-               const response = await makeRequest('getCalendars');
-               const calendars = response.calendars;
-               
-               const tabsContainer = document.getElementById('calendar-tabs');
-               tabsContainer.innerHTML = '';
-               
-               calendars.forEach(cal => {
-                   const tab = document.createElement('div');
-                   tab.className = 'tab';
-                   tab.textContent = cal.name;
-                   tab.style.backgroundColor = cal.color;
-                   tab.onclick = () => {
-                       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                       tab.classList.add('active');
-                       loadCalendarEvents(cal.id);
-                   };
-                   tabsContainer.appendChild(tab);
-               });
+            try {
+                const response = await makeRequest('getCalendars');
+                const calendars = response.calendars;
+                const mainCalendar = calendars.find(cal => cal.name.toLowerCase() === "main event schedule".toLowerCase());
+                
+                if (mainCalendar) {
+                    await loadCalendarEvents(mainCalendar.id);
+                }
+                
+                const tabsContainer = document.getElementById('calendar-tabs');
+                tabsContainer.innerHTML = '';
+                
+                calendars.forEach(cal => {
+                    const tab = document.createElement('div');
+                    tab.className = 'tab';
+                    tab.textContent = cal.name;
+                    tab.style.backgroundColor = cal.color;
+                    tab.onclick = () => {
+                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        loadCalendarEvents(cal.id);
+                    };
+                    tabsContainer.appendChild(tab);
+                    
+                    if (cal.id === mainCalendar?.id) {
+                        tab.classList.add('active');
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading calendars:', error);
+            }
+        }
 
-               if (calendars.length > 0) {
-                   tabsContainer.firstChild.classList.add('active');
-                   loadCalendarEvents(calendars[0].id);
-               }
-           } catch (error) {
-               console.error('Error loading calendars:', error);
-           }
-       }
-
-       async function loadCalendarEvents(calendarId) {
+        async function loadCalendarEvents(calendarId) {
            try {
                activeCalendarId = calendarId;
                const response = await makeRequest('getEvents', { calendarId });
