@@ -102,6 +102,29 @@
         min-height: 100px;
         max-height: 100px;
         overflow-y: auto;
+        /* Add custom scrollbar styling */
+        scrollbar-width: thin;
+        scrollbar-color: var(--dark-red) var(--black);
+      }
+
+      /* For Webkit browsers (Chrome, Safari, etc.) */
+      .day::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .day::-webkit-scrollbar-track {
+        background: var(--black);
+        border: 1px solid var(--blood-red);
+      }
+
+      .day::-webkit-scrollbar-thumb {
+        background: var(--dark-red);
+        border: 1px solid var(--blood-red);
+        border-radius: 3px;
+      }
+
+      .day::-webkit-scrollbar-thumb:hover {
+        background: var(--blood-red);
       }
 
       .event {
@@ -425,11 +448,23 @@
               tab.classList.add('active');
             }
           });
+          initializeCarousel();
         } catch (error) {
           console.error('Error loading calendars:', error);
         } finally {
           hideLoading();
         }
+      }
+
+      function initializeCarousel() {
+        const track = document.querySelector('.carousel-track');
+        const container = document.querySelector('.carousel-container');
+        const maxScroll = Math.max(0, track.offsetWidth - container.offsetWidth);
+        // Initialize button visibility
+        const prevButton = document.querySelector('.carousel-prev');
+        const nextButton = document.querySelector('.carousel-next');
+        prevButton.style.visibility = 'hidden';
+        nextButton.style.visibility = track.offsetWidth > container.offsetWidth ? 'visible' : 'hidden';
       }
       async function loadCalendarEvents(calendarId) {
         showLoading();
@@ -504,6 +539,8 @@
             
 							
 							
+							
+							
 							<div class="popup-content">
 								<h3>${event.title}</h3>
 								<p>Start: ${new Date(event.start).toLocaleString()}</p>
@@ -518,18 +555,34 @@
       function scrollCarousel(direction) {
         const track = document.querySelector('.carousel-track');
         const container = document.querySelector('.carousel-container');
-        const scrollAmount = 200; // Fixed scroll amount
+        const tabs = document.querySelector('.calendar-tabs');
+        // Get the total width of all tabs
+        const totalTabsWidth = tabs.offsetWidth;
+        const containerWidth = container.offsetWidth;
+        const scrollAmount = containerWidth * 0.8; // Scroll 80% of container width
         let currentScroll = parseInt(track.getAttribute('data-scroll') || 0);
-        const maxScroll = track.offsetWidth - container.offsetWidth;
+        const maxScroll = Math.max(0, totalTabsWidth - containerWidth);
         if (direction === 'next') {
           currentScroll = Math.min(currentScroll + scrollAmount, maxScroll);
         } else {
           currentScroll = Math.max(currentScroll - scrollAmount, 0);
         }
+        // Snap to end if close to maxScroll
+        if (maxScroll - currentScroll < 50) {
+          currentScroll = maxScroll;
+        }
+        // Snap to start if close to 0
+        if (currentScroll < 50) {
+          currentScroll = 0;
+        }
         track.setAttribute('data-scroll', currentScroll);
         track.style.transform = `translateX(-${currentScroll}px)`;
+        // Update button visibility
+        const prevButton = document.querySelector('.carousel-prev');
+        const nextButton = document.querySelector('.carousel-next');
+        prevButton.style.visibility = currentScroll <= 0 ? 'hidden' : 'visible';
+        nextButton.style.visibility = currentScroll >= maxScroll ? 'hidden' : 'visible';
       }
-      // Initialize calendar
       loadCalendars();
     </script>
   </body>
