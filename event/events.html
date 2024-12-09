@@ -107,6 +107,27 @@
         max-width: 500px;
         color: #fff;
         }
+
+        .content-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        #calendar-view {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .controls {
+            justify-content: center;
+            align-items: center;
+        }
+
+        #current-month {
+            color: white;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -237,6 +258,7 @@
        }
 
        async function loadCalendars() {
+            showLoading();
             try {
                 const response = await makeRequest('getCalendars');
                 const calendars = response.calendars;
@@ -267,17 +289,22 @@
                 });
             } catch (error) {
                 console.error('Error loading calendars:', error);
+            } finally {
+                hideLoading();
             }
         }
 
         async function loadCalendarEvents(calendarId) {
+            showLoading();
            try {
                activeCalendarId = calendarId;
                const response = await makeRequest('getEvents', { calendarId });
                renderCalendar(response.events);
            } catch (error) {
                console.error('Error loading events:', error);
-           }
+            } finally {
+                hideLoading();
+            }
        }
 
        function createCalendarGrid() {
@@ -302,25 +329,34 @@
        }
 
        function renderCalendar(events) {
-           createCalendarGrid();
-           const grid = document.getElementById('calendar-grid');
-           
-           events.forEach(event => {
-               const eventEl = document.createElement('div');
-               eventEl.className = 'event';
-               eventEl.textContent = `${event.title}\n${new Date(event.start).toLocaleTimeString()}`;
-               eventEl.style.backgroundColor = event.color || '#4285f4';
-               
-               // Calculate which day cell to put the event in
-               const eventDate = new Date(event.start);
-               const dayIndex = eventDate.getDay() + Math.floor(eventDate.getDate() / 7) * 7;
-               const dayCell = grid.children[dayIndex + 7]; // +7 to skip header row
-               
-               if (dayCell) {
-                   dayCell.appendChild(eventEl);
-               }
-           });
-       }
+            createCalendarGrid();
+            const grid = document.getElementById('calendar-grid');
+            
+            events.forEach(event => {
+                const eventEl = document.createElement('div');
+                eventEl.className = 'event';
+                eventEl.textContent = `${event.title}\n${new Date(event.start).toLocaleTimeString()}`;
+                eventEl.style.backgroundColor = event.color || '#4285f4';
+                eventEl.onclick = () => showEventDetails(event); // Move this inside here
+                
+                const eventDate = new Date(event.start);
+                const dayIndex = eventDate.getDay() + Math.floor(eventDate.getDate() / 7) * 7;
+                const dayCell = grid.children[dayIndex + 7];
+                
+                if (dayCell) {
+                    dayCell.appendChild(eventEl);
+                }
+            });
+        }
+
+
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
 
        document.getElementById('prev-month').onclick = () => {
            // Implement previous month logic
