@@ -16,6 +16,16 @@
         --light-black: #1a1a1a;
         }
 
+        .content-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+
         #calendar-view {
         max-width: 1200px;
         width: 100%;
@@ -146,6 +156,40 @@
         color: white;
         font-size: 1.2em;
         }
+
+        /* Carousel styling */
+        .calendar-carousel {
+        position: relative;
+        padding: 15px 40px;
+        background-color: var(--black);
+        border: 1px solid var(--blood-red);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        }
+
+        .carousel-container {
+        overflow: hidden;
+        white-space: nowrap;
+        }
+
+        .carousel-track {
+        display: inline-flex;
+        transition: transform 0.3s ease;
+        }
+
+        .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--dark-red);
+        border: 1px solid var(--blood-red);
+        color: white;
+        padding: 8px;
+        cursor: pointer;
+        }
+
+        .carousel-prev { left: 5px; }
+        .carousel-next { right: 5px; }
     </style>
   </head>
   <body>
@@ -209,7 +253,15 @@
               <button id="next-month">Next</button>
             </div>
             <div id="calendar-grid" class="calendar-grid"></div>
-            <div id="calendar-tabs" class="calendar-tabs"></div>
+            <div class="calendar-carousel">
+                <button class="carousel-nav carousel-prev">&lt;</button>
+                <div class="carousel-container">
+                  <div class="carousel-track">
+                    <div id="calendar-tabs" class="calendar-tabs"></div>
+                  </div>
+                </div>
+                <button class="carousel-nav carousel-next">&gt;</button>
+              </div>
           </div>
         </main>
       </div>
