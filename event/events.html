@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendars</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs`a/font-awesome/6.4.0/css/all.min.css">
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
@@ -14,9 +14,9 @@
         --dark-red: #4a0000;
         --black: #0a0a0a;
         --light-black: #1a1a1a;
-        }
+      }
 
-        .content-wrapper {
+      .content-wrapper {
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
@@ -24,41 +24,39 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        }
+      }
 
-        #calendar-view {
+      #calendar-view {
         max-width: 1200px;
         width: 100%;
         margin: 0 auto;
-        }
+      }
 
-        .calendar-tabs {
+      .calendar-tabs {
         display: flex;
         gap: 8px;
         padding: 15px;
         background-color: var(--black);
         border: 1px solid var(--blood-red);
         border-radius: 8px;
-        }
+      }
 
-        .tab {
+      .tab {
         padding: 12px;
         background-color: var(--dark-red) !important;
         border: 1px solid var(--blood-red);
         color: #fff;
         text-shadow: 0 0 3px var(--blood-red);
         transition: all 0.3s ease;
-        }
+      }
 
-
-
-        .tab:hover,
-        .tab.active {
+      .tab:hover,
+      .tab.active {
         background-color: var(--blood-red);
         transform: scale(1.05);
-        }
+      }
 
-        .controls {
+      .controls {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -68,9 +66,9 @@
         padding: 12px;
         border: 1px solid var(--blood-red);
         border-radius: 8px;
-        }
+      }
 
-        .controls button {
+      .controls button {
         background-color: var(--dark-red);
         color: #fff;
         border: 1px solid var(--blood-red);
@@ -78,13 +76,13 @@
         border-radius: 4px;
         cursor: pointer;
         transition: all 0.3s ease;
-        }
+      }
 
-        .controls button:hover {
+      .controls button:hover {
         background-color: var(--blood-red);
-        }
+      }
 
-        .calendar-grid {
+      .calendar-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 8px;
@@ -94,9 +92,9 @@
         background-color: var(--black);
         border: 1px solid var(--blood-red);
         border-radius: 8px;
-        }
+      }
 
-        .day {
+      .day {
         background-color: var(--light-black);
         border: 1px solid var(--dark-red);
         aspect-ratio: 1.2;
@@ -104,9 +102,9 @@
         min-height: 100px;
         max-height: 100px;
         overflow-y: auto;
-        }
+      }
 
-        .event {
+      .event {
         margin-bottom: 4px;
         padding: 4px;
         border-radius: 4px;
@@ -118,27 +116,26 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        }
+      }
 
-        .day-header {
+      .day-header {
         position: sticky;
         top: 0;
         background: var(--black);
         padding: 8px;
         text-align: center;
         z-index: 1;
-        }
+      }
 
-        .time-slot {
+      .time-slot {
         height: 60px;
         padding: 5px;
         border-bottom: 1px solid var(--dark-red);
         color: #fff;
         font-size: 0.8em;
-        }
+      }
 
-
-        .event-popup {
+      .event-popup {
         position: fixed;
         top: 0;
         left: 0;
@@ -149,49 +146,49 @@
         justify-content: center;
         align-items: center;
         z-index: 1000;
-        }
+      }
 
-        .popup-content {
+      .popup-content {
         background: var(--light-black);
         border: 2px solid var(--blood-red);
         padding: 20px;
         border-radius: 8px;
         max-width: 500px;
         color: #fff;
-        }
+      }
 
-        .content-wrapper {
+      .content-wrapper {
         display: flex;
         justify-content: center;
         padding: 20px;
-        }
+      }
 
-        #current-month {
+      #current-month {
         color: white;
         font-size: 1.2em;
-        }
+      }
 
-        /* Carousel styling */
-        .calendar-carousel {
+      /* Carousel styling */
+      .calendar-carousel {
         position: relative;
         padding: 15px 40px;
         background-color: var(--black);
         border: 1px solid var(--blood-red);
         border-radius: 8px;
         margin-bottom: 20px;
-        }
+      }
 
-        .carousel-container {
+      .carousel-container {
         overflow: hidden;
         white-space: nowrap;
-        }
+      }
 
-        .carousel-track {
+      .carousel-track {
         display: inline-flex;
         transition: transform 0.3s ease;
-        }
+      }
 
-        .carousel-nav {
+      .carousel-nav {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -200,15 +197,38 @@
         color: white;
         padding: 8px;
         cursor: pointer;
-        }
+      }
 
-        .carousel-prev { left: 5px; }
-        .carousel-next { right: 5px; }
+      .carousel-prev {
+        left: 5px;
+      }
 
-        .carousel-track {
+      .carousel-next {
+        right: 5px;
+      }
+
+      .carousel-track {
         transition: transform 0.3s ease;
-        }
+      }
 
+      .calendar-grid::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .calendar-grid::-webkit-scrollbar-track {
+        background: var(--black);
+        border: 1px solid var(--blood-red);
+      }
+
+      .calendar-grid::-webkit-scrollbar-thumb {
+        background: var(--dark-red);
+        border: 1px solid var(--blood-red);
+        border-radius: 4px;
+      }
+
+      .calendar-grid::-webkit-scrollbar-thumb:hover {
+        background: var(--blood-red);
+      }
     </style>
   </head>
   <body>
@@ -273,14 +293,14 @@
             </div>
             <div id="calendar-grid" class="calendar-grid"></div>
             <div class="calendar-carousel">
-                <button class="carousel-nav carousel-prev">&lt;</button>
-                <div class="carousel-container">
-                  <div class="carousel-track">
-                    <div id="calendar-tabs" class="calendar-tabs"></div>
-                  </div>
+              <button class="carousel-nav carousel-prev">&lt;</button>
+              <div class="carousel-container">
+                <div class="carousel-track">
+                  <div id="calendar-tabs" class="calendar-tabs"></div>
                 </div>
-                <button class="carousel-nav carousel-next">&gt;</button>
               </div>
+              <button class="carousel-nav carousel-next">&gt;</button>
+            </div>
           </div>
         </main>
       </div>
@@ -330,8 +350,8 @@
     </footer>
     </div>
     <script>
-        document.querySelector('.carousel-prev').onclick = () => scrollCarousel('prev');
-        document.querySelector('.carousel-next').onclick = () => scrollCarousel('next');
+      document.querySelector('.carousel-prev').onclick = () => scrollCarousel('prev');
+      document.querySelector('.carousel-next').onclick = () => scrollCarousel('next');
       const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
       let activeCalendarId = null;
       async function getProxyToken(action) {
@@ -482,6 +502,8 @@
         popup.className = 'event-popup';
         popup.innerHTML = `
             
+							
+							
 							<div class="popup-content">
 								<h3>${event.title}</h3>
 								<p>Start: ${new Date(event.start).toLocaleString()}</p>
@@ -495,13 +517,18 @@
 
       function scrollCarousel(direction) {
         const track = document.querySelector('.carousel-track');
-        const scrollAmount = track.offsetWidth / 2;
-        const currentScroll = track.style.transform.replace(/[^-\d.]/g, '') || 0;
-        
-        track.style.transform = `translateX(${direction === 'next' ? 
-        currentScroll - scrollAmount : 
-        currentScroll + scrollAmount}px)`;
+        const container = document.querySelector('.carousel-container');
+        const scrollAmount = 200; // Fixed scroll amount
+        let currentScroll = parseInt(track.getAttribute('data-scroll') || 0);
+        const maxScroll = track.offsetWidth - container.offsetWidth;
+        if (direction === 'next') {
+          currentScroll = Math.min(currentScroll + scrollAmount, maxScroll);
+        } else {
+          currentScroll = Math.max(currentScroll - scrollAmount, 0);
         }
+        track.setAttribute('data-scroll', currentScroll);
+        track.style.transform = `translateX(-${currentScroll}px)`;
+      }
       // Initialize calendar
       loadCalendars();
     </script>
