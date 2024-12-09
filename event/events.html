@@ -43,12 +43,14 @@
 
         .tab {
         padding: 12px;
-        background-color: var(--dark-red);
+        background-color: var(--dark-red) !important;
         border: 1px solid var(--blood-red);
         color: #fff;
         text-shadow: 0 0 3px var(--blood-red);
         transition: all 0.3s ease;
         }
+
+
 
         .tab:hover,
         .tab.active {
@@ -108,6 +110,9 @@
         margin-bottom: 4px;
         padding: 4px;
         border-radius: 4px;
+        background-color: var(--dark-red) !important;
+        color: #fff;
+        border: 1px solid var(--blood-red);
         font-size: 0.9em;
         cursor: pointer;
         white-space: nowrap;
@@ -123,6 +128,15 @@
         text-align: center;
         z-index: 1;
         }
+
+        .time-slot {
+        height: 60px;
+        padding: 5px;
+        border-bottom: 1px solid var(--dark-red);
+        color: #fff;
+        font-size: 0.8em;
+        }
+
 
         .event-popup {
         position: fixed;
@@ -190,6 +204,11 @@
 
         .carousel-prev { left: 5px; }
         .carousel-next { right: 5px; }
+
+        .carousel-track {
+        transition: transform 0.3s ease;
+        }
+
     </style>
   </head>
   <body>
@@ -311,6 +330,8 @@
     </footer>
     </div>
     <script>
+        document.querySelector('.carousel-prev').onclick = () => scrollCarousel('prev');
+        document.querySelector('.carousel-next').onclick = () => scrollCarousel('next');
       const API_URL = 'https://isa-scavenger-761151e3e681.herokuapp.com';
       let activeCalendarId = null;
       async function getProxyToken(action) {
@@ -471,6 +492,16 @@
         `;
         document.body.appendChild(popup);
       }
+
+      function scrollCarousel(direction) {
+        const track = document.querySelector('.carousel-track');
+        const scrollAmount = track.offsetWidth / 2;
+        const currentScroll = track.style.transform.replace(/[^-\d.]/g, '') || 0;
+        
+        track.style.transform = `translateX(${direction === 'next' ? 
+        currentScroll - scrollAmount : 
+        currentScroll + scrollAmount}px)`;
+        }
       // Initialize calendar
       loadCalendars();
     </script>
