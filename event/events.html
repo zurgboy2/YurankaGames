@@ -568,21 +568,39 @@
         const popup = document.createElement('div');
         popup.className = 'event-popup';
         popup.innerHTML = `
-            
-							
-							
-							
-							
-							
-							<div class="popup-content">
-								<h3>${event.title}</h3>
-								<p>Start: ${new Date(event.start).toLocaleString()}</p>
-								<p>End: ${new Date(event.end).toLocaleString()}</p>
-								<p>${event.description || ''}</p>
-								<button onclick="this.parentElement.parentElement.remove()">Close</button>
-							</div>
+          <div class="popup-content">
+            <h3>${event.title}</h3>
+            <p>Start: ${new Date(event.start).toLocaleString()}</p>
+            <p>End: ${new Date(event.end).toLocaleString()}</p>
+            <p>${event.description || ''}</p>
+            <button class="modal-close-btn">Close</button>
+          </div>
         `;
+          // Add the styles for the close button
+        const style = document.createElement('style');
+        style.textContent = `
+          .modal-close-btn {
+            background-color: var(--dark-red);
+            color: #fff;
+            border: 1px solid var(--blood-red);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+          }
+
+          .modal-close-btn:hover {
+            background-color: var(--blood-red);
+            transform: scale(1.05);
+          }
+        `;
+        
+        document.head.appendChild(style);
         document.body.appendChild(popup);
+        
+        popup.querySelector('.modal-close-btn').onclick = () => popup.remove();
       }
 
       function scrollCarousel(direction) {
