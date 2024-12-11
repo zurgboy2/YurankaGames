@@ -445,19 +445,22 @@ async function updateAvailability() {
                     imgCell.innerText = "No image available";
                     imgCell.style.fontStyle = 'italic';
                 }
-
                 row.insertCell(1).innerText = key;
                 row.insertCell(2).innerText = capacities[key].count;
 
                 var inputCell = row.insertCell(3);
-                var input = document.createElement('input');
-                input.type = 'number';
-                input.name = key;
-                input.value = 0;
-                input.min = 0;
-                input.max = capacities[key].count;
-                input.required = true;
-                inputCell.appendChild(input);
+                var select = document.createElement('select');
+                select.name = key;
+                select.required = true;
+
+                // Add options from 0 to max available
+                for (let i = 0; i <= capacities[key].count; i++) {
+                    var option = document.createElement('option');
+                    option.value = i;
+                    option.text = i;
+                    select.appendChild(option);
+                }
+                inputCell.appendChild(select);
 
                 row.insertCell(4).innerText = capacities[key].description;
             });
