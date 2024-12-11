@@ -524,7 +524,7 @@ async function handleSubmit(event) {
             var message = `Dear ${name},<br>Your reservation for ${date} from ${startTime} to ${endTime} has been successfully submitted! Please click the link below for payment`;
             showPopup(message, response.checkoutUrl);
         } else {
-            showPopup(response.message || "Your reservation has been successfully submitted!");
+            showPopup(response.message || "It seems there was an error. Did you happen to choose any options?");
         }
     } catch (error) {
         console.error('Error submitting reservation:', error);
