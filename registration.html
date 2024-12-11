@@ -480,11 +480,11 @@ async function updateAvailability() {
 }
 
 async function handleSubmit(event) {
-    event.preventDefault(); // Stop the form from submitting normally
+    event.preventDefault();
     showLoading();
 
     var submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true; // Disable the button immediately when clicked
+    submitBtn.disabled = true;
 
     var date = document.getElementById('date').value;
     var startTime = document.getElementById('startTime').value;
@@ -499,7 +499,7 @@ async function handleSubmit(event) {
     for (var i = 1; i < table.rows.length; i++) {
         var row = table.rows[i];
         var type = row.cells[1].textContent;
-        var chosenAmount = row.cells[3].querySelector('input').value;
+        var chosenAmount = row.cells[3].querySelector('select').value;  // Changed from input to select
 
         availabilityData.push({
             type: type,
@@ -518,7 +518,7 @@ async function handleSubmit(event) {
         availability: availabilityData
     };
 
-    console.log(reservationDetails)
+    console.log(reservationDetails);
 
     try {
         const response = await makeRequest('submitReservationDetails', {reservationDetails});
