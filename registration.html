@@ -619,11 +619,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (selectedDate < today) {
             showPopup("Please select a date from today onwards.");
+            document.getElementById('date').value = ''; // Clear the date input
+            lastValidDate = ''; // Reset the last valid date
             return;
         }
 
         if (selectedDate > twoMonthsLater) {
             showPopup("Please select a date within the next two months.");
+            document.getElementById('date').value = ''; // Clear the date input
+            lastValidDate = ''; // Reset the last valid date
             return;
         }
 
