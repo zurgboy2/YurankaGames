@@ -147,6 +147,28 @@
             padding-bottom: 60px; /* Height of footer */
         }
 
+
+        .input-group {
+            position: relative;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            opacity: 0;
+            width: 30px;
+            height: 30px;
+        }
+
+        input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
         
         @media (max-width: 768px) {
             .popup-content {
@@ -225,7 +247,12 @@
                     <div class="form-row">
                         <div class="input-group">
                             <label for="date">Select Date:</label>
-                            <input type="date" id="date" name="date" required placeholder="DD/MM/YYYY">
+                            <input type="date" id="date" name="date" required 
+                                   placeholder="DD/MM/YYYY"
+                                   onfocus="(this.type='date')"
+                                   onblur="if(!this.value)this.type='text'"
+                                   style="cursor: pointer; padding-right: 30px;">
+                            <i class="fas fa-calendar-alt" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--accent-color);"></i>
                         </div>
 
                         <div class="input-group">
