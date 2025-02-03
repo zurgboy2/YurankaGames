@@ -167,6 +167,22 @@
             background-color: #222;
         }
 
+        .event-item {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+        }
+
+        .event-item:hover {
+            background-color: #333;
+        }
+
+        .event-tooltip small {
+            display: block;
+            color: #888;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -526,23 +542,64 @@ function createDay(dayNumber, events) {
 function createEventTooltip(events) {
     return `
         <div class="event-tooltip">
-            ${events.map(event => `
-                <div class="event-item">
-                    <h4>${event.name}</h4>
-                    <p>€${event.price}</p>
-                </div>
-            `).join('')}
+            ${events.map(event => {
+                const eventDate = new Date(event.date);
+                const timeStr = eventDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                return `
+                    <div class="event-item" onclick="selectTournament('${event.id}')">
+                        <h4>${event.name}</h4>
+                        <p>${timeStr}</p>
+                        <p>€${event.price}</p>
+                        <small>Click to select this event</small>
+                    </div>
+                `;
+            }).join('')}
         </div>
     `;
+}
+
+function selectTournament(tournamentId) {
+    // Find the tournament data
+    const messageDiv = document.getElementById('message');
+    
+    makeRequest('getActiveTournaments')
+        .then(tournamentData => {
+            const tournaments = JSON.parse(tournamentData.result);
+            const tournament = tournaments.find(t => t.id === tournamentId);
+            
+            if (tournament) {
+                // Update the message div with tournament info
+                messageDiv.innerHTML = `
+                    <h3>${tournament.name}</h3>
+                    <p>Date: ${new Date(tournament.date).toLocaleString()}</p>
+                    <p>Price: €${tournament.price}</p>
+                    <p>${tournament.readerInfo}</p>
+                `;
+                
+                // Store the selected tournament ID for form submission
+                document.getElementById('registrationForm').dataset.selectedTournament = tournamentId;
+                
+                // Scroll to the form
+                messageDiv.scrollIntoView({ behavior: 'smooth' });
+            }
+        })
+        .catch(error => {
+            console.error("Error loading tournament details:", error);
+            alert("Error loading tournament details. Please try again.");
+        });
 }
 
 async function handleRegistration(e) {
     e.preventDefault();
     
+    const selectedTournamentId = document.getElementById('registrationForm').dataset.selectedTournament;
+    if (!selectedTournamentId) {
+        alert("Please select a tournament from the calendar first.");
+        return;
+    }
+    
     const name = document.getElementById('nameInput').value;
     const email = document.getElementById('emailInput').value;
-    const tournamentSelect = document.getElementById('tournamentSelect');
-    const eventId = tournamentSelect.value;
     const username = sessionStorage.getItem('username') || '';
     const googleToken = sessionStorage.getItem('googleToken') || '';
     
@@ -551,7 +608,7 @@ async function handleRegistration(e) {
     
     try {
         const result = await makeRequest('registerForEvent', {
-            eventId: eventId,
+            eventId: selectedTournamentId,
             name: name,
             email: email,
             username: username,
