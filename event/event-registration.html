@@ -451,6 +451,63 @@ function createEmptyDay() {
     return emptyDay;
 }
 
+function nextMonth() {
+    const calendar = document.getElementById('calendar');
+    const currentMonth = calendar.querySelector('h3').textContent.split(' ');
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+    let monthIndex = monthNames.indexOf(currentMonth[0]);
+    let year = parseInt(currentMonth[1]);
+    
+    if (monthIndex === 11) {
+        monthIndex = 0;
+        year++;
+    } else {
+        monthIndex++;
+    }
+    
+    const newDate = new Date(year, monthIndex, 1);
+    makeRequest('getActiveTournaments')
+        .then(tournamentData => {
+            const tournaments = JSON.parse(tournamentData.result);
+            renderCalendar(calendar, newDate, tournaments);
+        })
+        .catch(error => {
+            console.error("Error loading tournaments:", error);
+            alert("Error loading tournaments for next month. Please try again.");
+        });
+}
+
+function previousMonth() {
+    const calendar = document.getElementById('calendar');
+    const currentMonth = calendar.querySelector('h3').textContent.split(' ');
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    
+    let monthIndex = monthNames.indexOf(currentMonth[0]);
+    let year = parseInt(currentMonth[1]);
+    
+    if (monthIndex === 0) {
+        monthIndex = 11;
+        year--;
+    } else {
+        monthIndex--;
+    }
+    
+    const newDate = new Date(year, monthIndex, 1);
+    makeRequest('getActiveTournaments')
+        .then(tournamentData => {
+            const tournaments = JSON.parse(tournamentData.result);
+            renderCalendar(calendar, newDate, tournaments);
+        })
+        .catch(error => {
+            console.error("Error loading tournaments:", error);
+            alert("Error loading tournaments for previous month. Please try again.");
+        });
+}
+
+
 function createDay(dayNumber, events) {
     const day = document.createElement('div');
     day.className = `calendar-day${events.length ? ' has-event' : ''}`;
