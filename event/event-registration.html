@@ -158,6 +158,15 @@
             display: block;
         }
 
+        .calendar-day.empty {
+            background-color: #222;
+            cursor: default;
+        }
+
+        .calendar-day.empty:hover {
+            background-color: #222;
+        }
+
     </style>
 </head>
 <body>
@@ -433,6 +442,13 @@ function renderCalendar(container, date, tournaments) {
     container.innerHTML = '';
     container.appendChild(header);
     container.appendChild(grid);
+}
+
+function createEmptyDay() {
+    const emptyDay = document.createElement('div');
+    emptyDay.className = 'calendar-day empty';
+    emptyDay.innerHTML = '<span></span>';
+    return emptyDay;
 }
 
 function createDay(dayNumber, events) {
